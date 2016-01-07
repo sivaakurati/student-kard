@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="css">
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/resources/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/resources/dist/css/AdminLTE.min.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	th:href="@{/resources/plugins/iCheck/square/blue.css}" />
+</head>
+
+<body th:fragment="javascript">
+	<script type="text/javascript"
+		th:src="@{/resources/plugins/jQuery/jQuery-2.1.4.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/resources/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/resources/plugins/iCheck/icheck.min.js}"></script>
+</body>
+</html>
