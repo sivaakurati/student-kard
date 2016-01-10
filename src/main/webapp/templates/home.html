@@ -80,7 +80,7 @@
 							class="fa fa-angle-left pull-right"></i>
 					</a>
 						<ul class="treeview-menu">
-							<li><a href="#"><i class="fa fa-circle-o"></i> Personal
+							<li><a href="#profile"><i class="fa fa-circle-o"></i> Personal
 									Info</a></li>
 							<li><a href="#curriculuminfo"><i class="fa fa-circle-o"></i>
 									Change Password</a></li>
@@ -188,6 +188,26 @@
 	</div>
 	<!-- ./wrapper -->
 	<div th:replace="import :: javascript"></div>
-	<script type="text/javascript" th:src="@{/resources/home.js}"></script>
+	<script type="text/javascript"
+		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js}"></script>
+	<script type="text/javascript">
+	
+	var app = angular.module('schoolApp', ['ngRoute']);
+
+	app.config(function($routeProvider) {
+		
+		$routeProvider
+		.when('/profile', {
+	        templateUrl : 'profile.html'
+	    })
+	});
+
+	app.controller('homeController',function($scope) {
+		
+	});
+	
+	</script>
 </body>
 </html>
