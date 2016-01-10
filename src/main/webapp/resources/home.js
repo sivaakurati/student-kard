@@ -3,7 +3,7 @@
     	
     	$scope.logout = function () {
     		localStorage.clearAll();
-            window.location = '/logout';
+            window.location = '/login';
     	};
     	
     });
