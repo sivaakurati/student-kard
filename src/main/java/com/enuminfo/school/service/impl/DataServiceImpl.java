@@ -3,12 +3,14 @@
  */
 package com.enuminfo.school.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.enuminfo.school.model.Batch;
 import com.enuminfo.school.model.Country;
 import com.enuminfo.school.model.Course;
 import com.enuminfo.school.model.Location;
+import com.enuminfo.school.repository.CourseRepository;
 import com.enuminfo.school.service.DataService;
 
 /**
@@ -17,6 +19,8 @@ import com.enuminfo.school.service.DataService;
 @Service
 public class DataServiceImpl implements DataService {
 
+	@Autowired CourseRepository courseRepository;
+	
 	@Override
 	public void addCountry(Country country) {
 		
@@ -99,7 +103,7 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public Iterable<Course> loadCourses() {
-		return null;
+		return courseRepository.findAll();
 	}
 
 	@Override

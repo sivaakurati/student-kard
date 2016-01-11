@@ -6,9 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>StudentKard Home</title>
 <link th:replace="import :: css" />
-<body class="hold-transition skin-blue sidebar-mini" ng-app="schoolApp">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="SchoolApp">
 	<!-- Site wrapper -->
-	<div class="wrapper" ng-controller="homeController">
+	<div class="wrapper" ng-controller="HomeCtrl">
 
 
 		<!-- =============================================== -->
@@ -194,17 +194,17 @@
 		th:src="@{//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js}"></script>
 	<script type="text/javascript">
 	
-	var app = angular.module('schoolApp', ['ngRoute']);
+	var app = angular.module('SchoolApp', ['ngRoute']);
 
 	app.config(function($routeProvider) {
 		
 		$routeProvider
-		.when('/profile', {
-	        templateUrl : 'profile.html'
-	    })
+			.when('/profile', { templateUrl : 'profile.html' })
+			.when('/batch', { templateUrl: 'batch.html' })
+			.when('/course', { templateUrl: 'course.html' })
 	});
 
-	app.controller('homeController',function($scope) {
+	app.controller('HomeCtrl',function($scope) {
 		
 	});
 	

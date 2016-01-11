@@ -28,4 +28,9 @@ public class RedirectController {
 	public String getBatchPage() {
 		return "batch";
 	}
+	
+	@RequestMapping(value = "/course", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getCoursePage() {
+		return "course";
+	}
 }
