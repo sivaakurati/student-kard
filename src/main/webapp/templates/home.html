@@ -1,214 +1,54 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>StudentKard Home</title>
-<link th:replace="import :: css" />
-<body class="hold-transition skin-blue sidebar-mini" ng-app="SchoolApp">
-	<!-- Site wrapper -->
-	<div class="wrapper" ng-controller="HomeCtrl">
-
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>School KARD | Home</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<link rel="stylesheet" href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
+	<link rel="stylesheet" href="../resources/libs/dist/css/skins/_all-skins.min.css"/>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
 		<!-- =============================================== -->
 		<!-- =============================================== -->
-		<!-- /.header -->
-		<!-- /.header -->
-
 		<header class="main-header">
-			<!-- Logo -->
-			<a href="#" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
-				<span class="logo-mini"><b>S</b>K</span> <!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b>School</b>KARD</span>
-			</a>
-			<!-- Header Navbar: style can be found in header.less -->
+			<a href="../../index2.html" class="logo"><span class="logo-mini"><b>S</b>K</span><span class="logo-lg"><b>School</b>KARD</span></a>
 			<nav class="navbar navbar-static-top" role="navigation">
-				<!-- Sidebar toggle button-->
-				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
-					role="button"> <span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-				</a>
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+		           <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
+		           <span class="icon-bar"></span><span class="icon-bar"></span>
+		         </a>
+		         <div class="navbar-custom-menu"></div>
 			</nav>
 		</header>
-
-		<!-- /.header -->
-		<!-- /.header -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
-
-
+		<aside class="main-sidebar" th:include="menu :: menu"></aside>
 		<!-- =============================================== -->
 		<!-- =============================================== -->
-		<!-- /.sidebar -->
-		<!-- /.sidebar -->
-		<!-- Left side column. contains the sidebar -->
-		<aside class="main-sidebar">
-			<!-- sidebar: style can be found in sidebar.less -->
-			<section class="sidebar">
-				<!-- Sidebar user panel -->
-				<div class="user-panel">
-					<div class="pull-left image">
-						<img src="../resources/dist/img/user2-160x160.jpg"
-						class="img-circle" alt="User Image"/>
-					</div>
-					<div class="pull-left info">
-						<p>Alexander Pierce</p>
-						<a href="#" ng-click="logout()">Sign out</a>
-					</div>
-				</div>
-				
-				<!-- search form -->
-				<!-- <form action="#" method="get" class="sidebar-form">
-					<div class="input-group">
-						<input type="text" name="q" class="form-control"
-							placeholder="Search..."/> <span class="input-group-btn">
-							<button type="submit" name="search" id="search-btn"
-								class="btn btn-flat">
-								<i class="fa fa-search"></i>
-							</button>
-						</span>
-					</div>
-				</form> -->
-				
-				<!-- /.search form -->
-				<!-- sidebar menu: : style can be found in sidebar.less -->
-				<ul class="sidebar-menu">
-					<li class="treeview"><a href="#"> <i
-							class="fa fa-dashboard"></i> <span>Profile</span> <i
-							class="fa fa-angle-left pull-right"></i>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="#profile"><i class="fa fa-circle-o"></i> Personal
-									Info</a></li>
-							<li><a href="#curriculuminfo"><i class="fa fa-circle-o"></i>
-									Change Password</a></li>
-						</ul></li>
-						
-					<li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
-							<span>Curriculum</span> <i
-							class="fa fa-angle-left pull-right"></i>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="#gradesl"><i class="fa fa-circle-o"></i>
-									Grades</a></li>
-							<li><a href="#attendence"><i class="fa fa-circle-o"></i>
-									Attendence</a></li>
-						</ul></li>
-					
-					<li class="treeview"><a href="#"> <i
-							class="fa fa-pie-chart"></i> <span>Connect</span> <i
-							class="fa fa-angle-left pull-right"></i>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="#connectteachers"><i class="fa fa-circle-o"></i>
-									With Teacher</a></li>
-							<li><a href="#connectstudents"><i class="fa fa-circle-o"></i>
-									With Student</a></li>
-							<li><a href="#connectparentss"><i class="fa fa-circle-o"></i>
-									With Parent</a></li>
-						</ul></li>
-						
-					<li class="treeview"><a href="#"> <i class="fa fa-laptop"></i>
-							<span>Finance</span> <i class="fa fa-angle-left pull-right"></i>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="#fee"><i class="fa fa-circle-o"></i> Fee</a></li>
-							<li><a href="#transport"><i class="fa fa-circle-o"></i>
-									Transport</a></li>
-						</ul></li>
-						
-					<li><a href="#calendar"> <i class="fa fa-calendar"></i> <span>Calendar</span>
-					</a></li>
-					
-					<li class="treeview"><a href="#"> <i class="fa fa-laptop"></i>
-							<span>Administration</span> <i class="fa fa-angle-left pull-right"></i>
-					</a>
-						<ul class="treeview-menu">
-							<li><a href="#batch"><i class="fa fa-circle-o"></i> Batch</a></li>
-							<li><a href="#course"><i class="fa fa-circle-o"></i>
-									Course</a></li>
-						</ul></li>
-					
-					<!-- <li><a href="#mail"> <i class="fa fa-envelope"></i> <span>Mailbox</span>
-					</a></li> -->
-					
-				</ul>
-			</section>
-			<!-- /.sidebar -->
-			<!-- /.sidebar -->
-			<!-- /.sidebar -->
-
-		</aside>
-		<!-- /.sidebar -->
-		<!-- /.sidebar -->
-		<!-- /.header -->
-		<!-- =============================================== -->
-		<!-- =============================================== -->
-
-
-		<!-- =============================================== -->
-		<!-- =============================================== -->
-		<!-- Main content -->
-		<!-- Main content -->
-		<!-- Content Wrapper. Contains page content -->
-
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<div ng-view=""></div>
-
+			<div></div>
 		</div>
-		<!-- /.content-wrapper -->
-
-		<!-- Main content -->
-		<!-- Main content -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
-
-		<!-- Footer -->
-		<!-- Footer -->
-		<!-- Footer -->
 		<footer class="main-footer">
-			<div class="pull-right hidden-xs">
-				<b>Version</b> 1.0.0
-			</div>
-			<strong>Copyright &copy; 2016-2017 <a
-				href="http://creativedreamzzz.com">Creative Dreamzzz</a>.
-			</strong> All rights reserved.
+			<div class="pull-right hidden-xs"><b>Version</b> 1.0.0</div>
+			<strong>Copyright &copy; 2016-2017 <a href="http://creativedreamzzz.com">Creative Dreamzzz</a>.</strong> All rights reserved.
 		</footer>
-		<!-- Footer -->
-		<!-- Footer -->
-		<!-- Footer -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
-
 	</div>
-	<!-- ./wrapper -->
-	<div th:replace="import :: javascript"></div>
-	<script type="text/javascript"
-		th:src="@{https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js}"></script>
-	<script type="text/javascript"
-		th:src="@{//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js}"></script>
-	<script type="text/javascript">
-	
-	var app = angular.module('SchoolApp', ['ngRoute']);
-
-	app.config(function($routeProvider) {
-		
-		$routeProvider
-			.when('/profile', { templateUrl : 'profile.html' })
-			.when('/batch', { templateUrl: 'batch.html' })
-			.when('/course', { templateUrl: 'course.html' })
-			.when('/calendar', { templateUrl: 'calendar.html' })
-	});
-
-	app.controller('HomeCtrl',function($scope) {
-		
-	});
-	
-	</script>
+	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
+	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
+	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 </body>
 </html>

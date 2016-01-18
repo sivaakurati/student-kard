@@ -1,46 +1,38 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>StudentKard Login</title>
-<link th:replace="import :: css" />
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>School KARD | Log in</title>
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+	<link rel="stylesheet" href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
+	<link rel="stylesheet" href="../resources/libs/plugins/iCheck/square/blue.css"/>
 </head>
 <body class="hold-transition login-page">
 	<div class="login-box">
-		<div class="login-logo">
-			<a href="#"><b>School</b>KARD</a>
-		</div>
-		<!-- /.login-logo -->
-		<div class="login-box-body" data-ng-app="loginpage">
+		<div class="login-logo"><a href="#"><b>School</b>KARD</a></div>
+		<div class="login-box-body">
 			<p class="login-box-msg">Sign in to start your session</p>
-			<form name="form" th:action="@{/authenticate}" method="post">
+			<form th:action="@{/authenticate}" method="post">
 				<div class="form-group has-feedback">
-					<input type="email" class="form-control" placeholder="Username"
-						name="username" /> <span
-						class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					<input type="email" class="form-control" placeholder="Email" name="username"/>
+					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" class="form-control" placeholder="Password"
-						name="password" /> <span
-						class="glyphicon glyphicon-lock form-control-feedback"></span>
+					<input type="password" class="form-control" placeholder="Password" name="password"/>
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="row">
-					<!-- /.col -->
-					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat">Sign
-							In</button>
-					</div>
-					<!-- /.col -->
+					<div class="col-xs-4"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div>
 				</div>
 			</form>
-			<a href="#" ng-show="error"></a><br />
 		</div>
-		<!-- /.login-box-body -->
 	</div>
-	<!-- /.login-box -->
-	<div th:replace="import :: javascript"></div>
+	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../resources/libs/plugins/iCheck/icheck.min.js"></script>
 </body>
 </html>
