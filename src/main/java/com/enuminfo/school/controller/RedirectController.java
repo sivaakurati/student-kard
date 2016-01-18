@@ -33,4 +33,9 @@ public class RedirectController {
 	public String getCoursePage() {
 		return "course";
 	}
+	
+	@RequestMapping(value = "/calendar", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getCalendarPage() {
+		return "calendar";
+	}
 }
