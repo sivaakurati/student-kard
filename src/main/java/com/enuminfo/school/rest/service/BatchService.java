@@ -5,6 +5,7 @@ package com.enuminfo.school.rest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,5 +31,11 @@ public class BatchService {
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveBatch(@RequestBody Batch batch) {
 		repository.save(batch);
+	}
+	
+	@RequestMapping(value = "/{batchId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void deleteCourse(@PathVariable Integer batchId) {
+		Batch batch = repository.findOne(batchId);
+		repository.delete(batch);
 	}
 }

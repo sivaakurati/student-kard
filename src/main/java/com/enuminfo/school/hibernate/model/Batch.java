@@ -57,7 +57,7 @@ public class Batch implements Serializable {
 		this.batchName = batchName;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "tbl_batch_course", joinColumns = {@JoinColumn(name = "batch_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
 	public List<Course> getCourses() {
 		return courses;

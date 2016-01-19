@@ -1,31 +1,31 @@
-var app = angular.module('course', []);
+var app = angular.module('subject', []);
 
 app.controller('ViewCtrl', function($scope, $http) {
-	$scope.$on('loadCourses', function(){
-		$scope.loadCourses();
+	$scope.$on("loadSubjects", function(){
+		$scope.loadSubjects();
 	});
 	
-	$scope.loadCourses = function(){
-		$http.get('/course').success(function(data){
-			$scope.courses = data;
+	$scope.loadSubjects = function(){
+		$http.get('/subject').success(function(subjects){
+			$scope.subjects = subjects;
 		});
 	};
 	
-	$scope.createCourse = function(modalSelector){
+	$scope.createSubject = function(modalSelector){
 		$(modalSelector).modal();
-		$scope.$broadcast('renderCourse', {});
+		$scope.$broadcast('renderSubject', {});
 	};
 	
-	$scope.openCourse = function(course, modalSelector){
+	$scope.openSubject = function(subject, modalSelector){
 		$(modalSelector).modal();
-		$scope.$broadcast('renderCourse', angular.copy(course));
+		$scope.$broadcast('renderSubject', angular.copy(subject));
 	};
 	
-	$scope.deleteCourse = function(course){
-		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + course.courseName + '</span>', function(result) {
+	$scope.deleteSubject = function(subject){
+		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + subject.subjectName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/course/' + course.courseId).success(function() {
-					$scope.$emit('loadCourses');
+				$http.delete('/subject/' + subject.subjectId).success(function() {
+					$scope.$emit('loadSubjects');
 				});
 			} else {
 				return;
@@ -33,48 +33,22 @@ app.controller('ViewCtrl', function($scope, $http) {
 		});
 	};
 	
-	$scope.loadCourses();
+	$scope.loadSubjects();
 });
 
 app.controller('EditCtrl', function($scope, $http) {
-	$scope.$on('renderCourse', function(event, course){
-		$scope.course = course;
-		$http.get('/subject').success(function(data){
-			$scope.subjects = data;			
-			angular.forEach($scope.subjects, function(subject) {
-				angular.forEach(course.subjects, function(courseSubject) {
-					if(courseSubject.subjectName == subject.subjectName) subject.checked = true;
-				});
-			});
-		});
+	$scope.$on('renderSubject', function(event, subject){
+		$scope.render(subject);
 	});
-	
-	$scope.changeCourseSubject = function(subjectName){
-		var courseSubjectFound = false; 
-		var index = 0; var subjectId = 0;
-		if ($scope.course.subjects != null){
-			angular.forEach($scope.course.subjects, function(courseSubject){
-				if(courseSubject.subjectName == subjectName){
-					courseSubjectFound = true;
-					$scope.course.subjects.splice(index, 1);
-				}
-				++index;
-			});
-		}
-		if(courseSubjectFound == false){
-			if ($scope.course.subjects == null) { $scope.course.subjects = []; }
-			$scope.course.subjects.push({subjectId: 0, subjectName : subjectName});
-		}
+
+	$scope.render = function(subject){
+		$scope.subject = subject;
 	};
 	
-	$scope.saveCourse = function(){
-		$http.post('/course', $scope.course).success(function(){
-			$scope.$emit('loadCourses');
-			$('#coursemodal').modal('hide');
+	$scope.saveSubject = function(){
+		$http.post('/subject', $scope.subject).success(function(){
+			$scope.$emit('loadSubjects');
+			$('#subjectmodal').hide();
 		});
 	};
 });
-
-function stringIt(val) {
-    return JSON.stringify(val);
-};

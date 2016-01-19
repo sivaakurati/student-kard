@@ -33,7 +33,7 @@ public class SubjectService {
 		repository.save(subject);
 	}
 	
-	@RequestMapping(value = "/{subjectid}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{subjectId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void deleteSubject(@PathVariable Integer subjectId) {
 		Subject subject = repository.findOne(subjectId);
 		repository.delete(subject);
