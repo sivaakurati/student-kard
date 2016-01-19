@@ -5,6 +5,7 @@ package com.enuminfo.school.rest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,5 +31,11 @@ public class SubjectService {
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveSubject(@RequestBody Subject subject) {
 		repository.save(subject);
+	}
+	
+	@RequestMapping(value = "/{subjectid}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void deleteSubject(@PathVariable Integer subjectId) {
+		Subject subject = repository.findOne(subjectId);
+		repository.delete(subject);
 	}
 }
