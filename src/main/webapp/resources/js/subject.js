@@ -1,31 +1,31 @@
-var app = angular.module('subject', []);
+var app = angular.module('course', []);
 
 app.controller('ViewCtrl', function($scope, $http) {
-	$scope.$on('loadSubjects', function(event){
-		$scope.loadSubjects();
+	$scope.$on('loadCourses', function(){
+		$scope.loadCourses();
 	});
 	
-	$scope.loadSubjects = function(){
-		$http.get('/subject').success(function(data){
-			$scope.subjects = data;
+	$scope.loadCourses = function(){
+		$http.get('/course').success(function(data){
+			$scope.courses = data;
 		});
 	};
 	
-	$scope.createSubject = function(modalSelector){
+	$scope.createCourse = function(modalSelector){
 		$(modalSelector).modal();
-		$scope.$broadcast('renderSubject', {});
+		$scope.$broadcast('renderCourse', {});
 	};
 	
-	$scope.openSubject = function(subject, modalSelector){
+	$scope.openCourse = function(course, modalSelector){
 		$(modalSelector).modal();
-		$scope.$broadcast('renderSubject', angular.copy(subject));
+		$scope.$broadcast('renderCourse', angular.copy(course));
 	};
 	
-	$scope.deleteSubject = function(subject){
-		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + subject.subjectName + '</span>', function(result) {
+	$scope.deleteCourse = function(course){
+		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + course.courseName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/subject/' + subject.subjectId).success(function() {
-					$scope.$emit('loadSubjects');
+				$http.delete('/course/' + course.courseId).success(function() {
+					$scope.$emit('loadCourses');
 				});
 			} else {
 				return;
@@ -33,18 +33,44 @@ app.controller('ViewCtrl', function($scope, $http) {
 		});
 	};
 	
-	$scope.loadSubjects();
+	$scope.loadCourses();
 });
 
 app.controller('EditCtrl', function($scope, $http) {
-	$scope.$on('renderSubject', function(event, subject){
-		$scope.subject = subject;
+	$scope.$on('renderCourse', function(event, course){
+		$scope.course = course;
+		$http.get('/subject').success(function(data){
+			$scope.subjects = data;			
+			angular.forEach($scope.subjects, function(subject) {
+				angular.forEach(course.subjects, function(courseSubject) {
+					if(courseSubject.subjectName == subject.subjectName) subject.checked = true;
+				});
+			});
+		});
 	});
 	
-	$scope.saveSubject = function(){
-		$http.post('/subject', $scope.subject).success(function(){
-			$scope.$emit('loadSubjects');
-			$('#subjectmodal').modal('hide');
+	$scope.changeCourseSubject = function(subjectName){
+		var courseSubjectFound = false; 
+		var index = 0; var subjectId = 0;
+		if ($scope.course.subjects != null){
+			angular.forEach($scope.course.subjects, function(courseSubject){
+				if(courseSubject.subjectName == subjectName){
+					courseSubjectFound = true;
+					$scope.course.subjects.splice(index, 1);
+				}
+				++index;
+			});
+		}
+		if(courseSubjectFound == false){
+			if ($scope.course.subjects == null) { $scope.course.subjects = []; }
+			$scope.course.subjects.push({subjectId: 0, subjectName : subjectName});
+		}
+	};
+	
+	$scope.saveCourse = function(){
+		$http.post('/course', $scope.course).success(function(){
+			$scope.$emit('loadCourses');
+			$('#coursemodal').modal('hide');
 		});
 	};
 });
