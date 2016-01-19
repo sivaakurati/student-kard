@@ -48,4 +48,19 @@ public class RedirectController {
 	public String getCalendarPage() {
 		return "calendar";
 	}
+	
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getTeacherPage() {
+		return "teacher";
+	}
+	
+	@RequestMapping(value = "/student", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getStudentPage() {
+		return "student";
+	}
+	
+	@RequestMapping(value = "/parent", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getParentPage() {
+		return "parent";
+	}
 }

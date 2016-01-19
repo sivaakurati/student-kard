@@ -4,6 +4,7 @@
 package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Kumar
@@ -33,6 +37,7 @@ public class Location implements Serializable {
 	private String stateName;
 	private Country country;
 	private Long pinCode;
+	private List<Teacher> teachers;
 	
 	public Location() {
 		// TODO Auto-generated constructor stub
@@ -93,5 +98,15 @@ public class Location implements Serializable {
 
 	public void setPinCode(Long pinCode) {
 		this.pinCode = pinCode;
+	}
+
+	@OneToMany (mappedBy = "location", fetch = FetchType.LAZY)
+	@JsonIgnore
+	public List<Teacher> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(List<Teacher> teachers) {
+		this.teachers = teachers;
 	}
 }
