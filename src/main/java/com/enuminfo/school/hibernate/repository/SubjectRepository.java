@@ -12,4 +12,5 @@ import com.enuminfo.school.hibernate.model.Subject;
  */
 public interface SubjectRepository extends PagingAndSortingRepository<Subject, Integer> {
 
+	Subject findBySubjectName(String subjectName);
 }
