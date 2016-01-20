@@ -3,6 +3,8 @@
  */
 package com.enuminfo.school.hibernate.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +25,8 @@ public class Student {
 
 	private Integer studentId;
 	private String studentName;
+	private Date dateOfBirth;
+	private Date dateOfJoining;
 	private Batch batch;
 	private Course course;
 	private Parent parent;
@@ -79,5 +83,23 @@ public class Student {
 
 	public void setParent(Parent parent) {
 		this.parent = parent;
+	}
+
+	@Column (name = "date_of_birth")
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	@Column (name = "date_of_joining")
+	public Date getDateOfJoining() {
+		return dateOfJoining;
+	}
+
+	public void setDateOfJoining(Date dateOfJoining) {
+		this.dateOfJoining = dateOfJoining;
 	}
 }

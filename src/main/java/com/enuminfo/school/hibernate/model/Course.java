@@ -83,7 +83,7 @@ public class Course implements Serializable {
 		this.batchs = batchs;
 	}
 
-	@OneToMany (mappedBy = "student", fetch = FetchType.LAZY)
+	@OneToMany (mappedBy = "course", fetch = FetchType.LAZY)
 	@JsonIgnore
 	public List<Student> getStudents() {
 		return students;

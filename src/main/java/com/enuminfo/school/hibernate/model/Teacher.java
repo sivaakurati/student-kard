@@ -36,8 +36,6 @@ public class Teacher implements Serializable {
 	private String qualification;
 	private Date dateOfBirth;
 	private Date dateOfJoining;
-	private Integer experience;
-	private String designation;
 	private Subject subject;
 	
 	public Teacher() {
@@ -117,24 +115,6 @@ public class Teacher implements Serializable {
 
 	public void setDateOfJoining(Date dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
-	}
-
-	@Column (name = "experience")
-	public Integer getExperience() {
-		return experience;
-	}
-
-	public void setExperience(Integer experience) {
-		this.experience = experience;
-	}
-
-	@Column (name = "designation")
-	public String getDesignation() {
-		return designation;
-	}
-
-	public void setDesignation(String designation) {
-		this.designation = designation;
 	}
 
 	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)

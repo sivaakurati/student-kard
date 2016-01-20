@@ -132,7 +132,7 @@ public class Parent implements Serializable {
 		this.occupation = occupation;
 	}
 
-	@OneToMany (mappedBy = "student", fetch = FetchType.LAZY)
+	@OneToMany (mappedBy = "parent", fetch = FetchType.LAZY)
 	@JsonIgnore
 	public List<Student> getStudents() {
 		return students;

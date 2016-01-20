@@ -10,9 +10,7 @@ CREATE TABLE tbl_location(
     location_name varchar(50) NOT NULL,
     pin_code int(11) NOT NULL,
     city_name varchar(50) NOT NULL,
-    state_name varchar(50) NOT NULL,    
-    country_id int(11) NOT NULL REFERENCES tbl_country (country_id)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
+    state_name varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- tbl_role TABLE --
@@ -92,9 +90,7 @@ CREATE TABLE tbl_teacher(
     contact_no int(10) NOT NULL,
     qualification varchar(50) NOT NULL,
     date_of_birth date NOT NULL,
-    date_of_joining date NOT NULL,
-    experience int(11) NOT NULL,
-    designation varchar(50) NOT NULL,
+    date_of_joining date NOT NULL,    
     subject_id int(11) NOT NULL REFERENCES tbl_subject (subject_id)
         ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -133,6 +129,8 @@ DROP TABLE IF EXISTS tbl_student;
 CREATE TABLE tbl_student(
     student_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     student_name varchar(50) NOT NULL,
+    date_of_birth date NOT NULL,
+    date_of_joining date NOT NULL,
     batch_id int(11) NOT NULL REFERENCES tbl_batch (batch_id)
     	ON DELETE NO ACTION ON UPDATE NO ACTION,
     course_id int(11) NOT NULL REFERENCES tbl_course (course_id)
