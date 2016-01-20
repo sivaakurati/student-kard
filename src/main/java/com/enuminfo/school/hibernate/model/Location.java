@@ -38,6 +38,7 @@ public class Location implements Serializable {
 	private Country country;
 	private Long pinCode;
 	private List<Teacher> teachers;
+	private List<Parent> parents;
 	
 	public Location() {
 		// TODO Auto-generated constructor stub
@@ -108,5 +109,15 @@ public class Location implements Serializable {
 
 	public void setTeachers(List<Teacher> teachers) {
 		this.teachers = teachers;
+	}
+
+	@OneToMany (mappedBy = "location", fetch = FetchType.LAZY)
+	@JsonIgnore
+	public List<Parent> getParents() {
+		return parents;
+	}
+
+	public void setParents(List<Parent> parents) {
+		this.parents = parents;
 	}
 }

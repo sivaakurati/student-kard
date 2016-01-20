@@ -39,7 +39,7 @@
 <section class="content-header">
 	<h1>Batch <small>Control panel</small></h1>
 	<ol class="breadcrumb">
-		<li><button type="button" ng-click="createBatch('.edit-batch')" class="btn btn-sm btn-success">
+		<li><button type="button" ng-click="createBatch('.edit-batch')" class="btn btn-sm btn-info">
 			<i class="glyphicon glyphicon-plus"></i> Add batch
 		</button></li>
 	</ol>
@@ -53,14 +53,14 @@
 				<thead style="background-color: #31b0d5;"><tr><!-- <th>&nbsp;</th> --><th>Name</th><th>Courses</th></tr></thead>
 				<tbody><tr ng-repeat="batch in batchs">
 					<!-- <td style="width: 10%;">
-					<button type="button" ng-click="openBatch(batch,'.edit-batch')" class="btn btn-sm btn-info">
+					<button type="button" ng-click="openBatch(batch,'.edit-batch')" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
-					<button type="button" ng-click="deleteBatch(batch)" class="btn btn-sm btn-info">
+					<button type="button" ng-click="deleteBatch(batch)" class="btn btn-sm btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>
 					</button></td> -->
 					<td>{{batch.batchName}}</td>
-					<td><span class="label label-info" ng-repeat="course in batch.courses">&nbsp;{{course.courseName}}&nbsp;</span></td>
+					<td><span style="margin-right: 5px;" class="label label-info" ng-repeat="course in batch.courses">&nbsp;{{course.courseName}}&nbsp;</span></td>
 				</tr></tbody>
 			</table>
 		</div>
@@ -94,9 +94,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">
 							<i class="glyphicon glyphicon-remove"></i> Close</button>
-						<button type="button" class="btn btn-primary" ng-click="saveBatch()">
+						<button type="button" class="btn btn-success" ng-click="saveBatch()">
 							<i class="glyphicon glyphicon-ok"></i> Save</button>
 					</div>
 				</div>

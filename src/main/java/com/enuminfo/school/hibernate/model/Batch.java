@@ -16,7 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Kumar
@@ -32,6 +35,7 @@ public class Batch implements Serializable {
 	private Integer batchId;
 	private String batchName;
 	private List<Course> courses;
+	private List<Student> students;
 	
 	public Batch() {
 		// TODO Auto-generated constructor stub
@@ -65,5 +69,15 @@ public class Batch implements Serializable {
 
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
+	}
+
+	@OneToMany (mappedBy = "student", fetch = FetchType.LAZY)
+	@JsonIgnore
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 }

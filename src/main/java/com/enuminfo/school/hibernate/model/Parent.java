@@ -4,7 +4,7 @@
 package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,53 +15,56 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Kumar
  */
 @Entity
-@Table (name = "tbl_teacher")
-public class Teacher implements Serializable {
+@Table (name = "tbl_parent")
+public class Parent implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer teacherId;
-	private String teacherName;
+	private Integer parentId;
+	private String parentName;
 	private String address;
 	private Location location;
 	private Long contactNo;
 	private String qualification;
-	private Date dateOfBirth;
-	private Date dateOfJoining;
-	private Integer experience;
-	private String designation;
-	private Subject subject;
+	private Parent mainParentId;
+	private String relation;
+	private String occupation;
+	private List<Student> students;
 	
-	public Teacher() {
+	public Parent() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Id
-	@Column (name = "teacher_id")
+	@Column (name = "parent_id")
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	public Integer getTeacherId() {
-		return teacherId;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setTeacherId(Integer teacherId) {
-		this.teacherId = teacherId;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
-	@Column (name = "teacher_name")
-	public String getTeacherName() {
-		return teacherName;
+	@Column (name = "parent_name")
+	public String getParentName() {
+		return parentName;
 	}
 
-	public void setTeacherName(String teacherName) {
-		this.teacherName = teacherName;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 
 	@Column (name = "address")
@@ -101,49 +104,41 @@ public class Teacher implements Serializable {
 		this.qualification = qualification;
 	}
 
-	@Column (name = "date_of_birth")
-	public Date getDateOfBirth() {
-		return dateOfBirth;
+	@OneToOne
+	@JoinColumn (name = "main_parent_id")
+	public Parent getMainParentId() {
+		return mainParentId;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+	public void setMainParentId(Parent mainParentId) {
+		this.mainParentId = mainParentId;
 	}
 
-	@Column (name = "date_of_joining")
-	public Date getDateOfJoining() {
-		return dateOfJoining;
+	@Column (name = "relation")
+	public String getRelation() {
+		return relation;
 	}
 
-	public void setDateOfJoining(Date dateOfJoining) {
-		this.dateOfJoining = dateOfJoining;
+	public void setRelation(String relation) {
+		this.relation = relation;
 	}
 
-	@Column (name = "experience")
-	public Integer getExperience() {
-		return experience;
+	@Column (name = "occupation")
+	public String getOccupation() {
+		return occupation;
 	}
 
-	public void setExperience(Integer experience) {
-		this.experience = experience;
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
 	}
 
-	@Column (name = "designation")
-	public String getDesignation() {
-		return designation;
+	@OneToMany (mappedBy = "student", fetch = FetchType.LAZY)
+	@JsonIgnore
+	public List<Student> getStudents() {
+		return students;
 	}
 
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
-
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn (name = "subject_id")
-	public Subject getSubject() {
-		return subject;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 }

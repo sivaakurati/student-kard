@@ -39,7 +39,7 @@
 <section class="content-header">
 	<h1>Subject <small>Control panel</small></h1>
 	<ol class="breadcrumb">
-		<li><button type="button" ng-click="createSubject('.edit-subject')" class="btn btn-sm btn-success">
+		<li><button type="button" ng-click="createSubject('.edit-subject')" class="btn btn-sm btn-info">
 			<i class="glyphicon glyphicon-plus"></i> Add subject
 		</button></li>
 	</ol>
@@ -53,10 +53,10 @@
 				<thead style="background-color: #31b0d5;"><tr><!-- <th>&nbsp;</th> --><th>Name</th></tr></thead>
 				<tbody><tr ng-repeat="subject in subjects">
 					<!-- <td style="width: 9%;">
-					<button type="button" ng-click="openSubject(subject,'.edit-subject')" class="btn btn-sm btn-info">
+					<button type="button" ng-click="openSubject(subject,'.edit-subject')" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
-					<button type="button" ng-click="deleteSubject(subject)" class="btn btn-sm btn-info">
+					<button type="button" ng-click="deleteSubject(subject)" class="btn btn-sm btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>
 					</button></td> -->
 					<td>{{subject.subjectName}}</td>
@@ -86,9 +86,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">
 							<i class="glyphicon glyphicon-remove"></i> Close</button>
-						<button type="button" class="btn btn-info" ng-click="saveSubject()">
+						<button type="button" class="btn btn-success" ng-click="saveSubject()">
 							<i class="glyphicon glyphicon-ok"></i> Save</button>
 					</div>
 				</div>

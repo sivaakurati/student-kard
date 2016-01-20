@@ -111,7 +111,8 @@ CREATE TABLE tbl_parent(
     qualification varchar(50) NOT NULL,
     main_parent_id int(11) NULL REFERENCES tbl_parent (parent_id)
         ON DELETE NO ACTION ON UPDATE NO ACTION,
-    relation varchar(50) NOT NULL
+    relation varchar(50) NOT NULL,
+    occupation varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- tbl_teacher_payroll TABLE
@@ -132,6 +133,8 @@ DROP TABLE IF EXISTS tbl_student;
 CREATE TABLE tbl_student(
     student_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     student_name varchar(50) NOT NULL,
+    batch_id int(11) NOT NULL REFERENCES tbl_batch (batch_id)
+    	ON DELETE NO ACTION ON UPDATE NO ACTION,
     course_id int(11) NOT NULL REFERENCES tbl_course (course_id)
         ON DELETE NO ACTION ON UPDATE NO ACTION,
     parent_id int(11) NOT NULL REFERENCES tbl_parent (parent_id)

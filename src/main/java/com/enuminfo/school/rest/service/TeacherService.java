@@ -38,4 +38,11 @@ public class TeacherService {
 		Teacher teacher = repository.findOne(teacherId);
 		repository.delete(teacher);
 	}
+	
+	@RequestMapping(value = "/{teacherId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Teacher getTeacher(@PathVariable Integer teacherId) {
+		Teacher teacher = new Teacher();
+		if (teacherId != 0) teacher = repository.findOne(teacherId);
+		return teacher;
+	}
 }

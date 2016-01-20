@@ -6,8 +6,8 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadSubjects = function(){
-		$http.get('/subject').success(function(subjects){
-			$scope.subjects = subjects;
+		$http.get('/subject').success(function(data){
+			$scope.subjects = data;
 		});
 	};
 	
