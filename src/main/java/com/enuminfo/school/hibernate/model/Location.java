@@ -6,15 +6,12 @@ package com.enuminfo.school.hibernate.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,7 +32,6 @@ public class Location implements Serializable {
 	private String locationName;
 	private String cityName;
 	private String stateName;
-	private Country country;
 	private Long pinCode;
 	private List<Teacher> teachers;
 	private List<Parent> parents;
@@ -80,16 +76,6 @@ public class Location implements Serializable {
 
 	public void setStateName(String stateName) {
 		this.stateName = stateName;
-	}
-
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn (name = "country_id")
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
 	}
 
 	@Column (name = "pin_code")
