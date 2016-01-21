@@ -92,7 +92,8 @@ CREATE TABLE tbl_teacher(
     date_of_birth date NOT NULL,
     date_of_joining date NOT NULL,    
     subject_id int(11) NOT NULL REFERENCES tbl_subject (subject_id)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
+    email_addr varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- tbl_parent TABLE
@@ -108,7 +109,8 @@ CREATE TABLE tbl_parent(
     main_parent_id int(11) NULL REFERENCES tbl_parent (parent_id)
         ON DELETE NO ACTION ON UPDATE NO ACTION,
     relation varchar(50) NOT NULL,
-    occupation varchar(50) NOT NULL
+    occupation varchar(50) NOT NULL,
+    email_addr varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- tbl_teacher_payroll TABLE
