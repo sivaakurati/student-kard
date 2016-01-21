@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.enuminfo.school.domin.service.UserService;
+import com.enuminfo.school.domain.service.UserService;
 import com.enuminfo.school.hibernate.model.Role;
 import com.enuminfo.school.hibernate.model.User;
 

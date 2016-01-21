@@ -6,7 +6,7 @@ package com.enuminfo.school.domain.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.enuminfo.school.domin.service.UserService;
+import com.enuminfo.school.domain.service.UserService;
 import com.enuminfo.school.hibernate.model.User;
 import com.enuminfo.school.hibernate.repository.UserRepository;
 

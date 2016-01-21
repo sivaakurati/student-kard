@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.enuminfo.school.domin.service;
+package com.enuminfo.school.domain.service;
 
 import com.enuminfo.school.hibernate.model.User;
 
