@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.enuminfo.school.configuration;
 
 import java.util.Arrays;
@@ -17,56 +20,45 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
+/**
+ * @author Kumar
+ */
 @Configuration
 @PropertySource("classpath:thymeleaf.properties")
 public class ThymeleafConfig {
-	@Resource
-	private Environment env;
+	
+	@Resource private Environment environment;
 
 	public @Bean TemplateResolver defaultTemplateResolver() {
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-
 		templateResolver.setPrefix("/templates/");
 		templateResolver.setSuffix(env.getRequiredProperty("thymeleaf.suffix"));
-		templateResolver.setTemplateMode(env
-				.getRequiredProperty("thymeleaf.templateMode"));
+		templateResolver.setTemplateMode(environment.getRequiredProperty("thymeleaf.templateMode"));
 		templateResolver.setCacheable(false);
 		templateResolver.setCharacterEncoding("UTF-8");
-
 		return templateResolver;
 	}
 
 	public @Bean TemplateResolver classLoaderTemplateResolver() {
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-
 		templateResolver.setPrefix("templates/");
 		templateResolver.setSuffix(env.getRequiredProperty("thymeleaf.suffix"));
-		templateResolver.setTemplateMode(env
-				.getRequiredProperty("thymeleaf.templateMode"));
+		templateResolver.setTemplateMode(environment.getRequiredProperty("thymeleaf.templateMode"));
 		templateResolver.setCacheable(false);
 		templateResolver.setCharacterEncoding("UTF-8");
-
 		return templateResolver;
 	}
 
 	public @Bean SpringTemplateEngine templateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-
-		templateEngine.setTemplateResolvers(new HashSet<ITemplateResolver>(
-				Arrays.asList(new ITemplateResolver[] {
-						defaultTemplateResolver()
-						,classLoaderTemplateResolver()
-						})));
-
+		templateEngine.setTemplateResolvers(new HashSet<ITemplateResolver>(Arrays.asList(new ITemplateResolver[] {defaultTemplateResolver(), classLoaderTemplateResolver()})));
 		return templateEngine;
 	}
 
 	public @Bean ViewResolver thymeleafViewResolver() {
 		ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
-
 		thymeleafViewResolver.setTemplateEngine(templateEngine());
 		thymeleafViewResolver.setCharacterEncoding("UTF-8");
-
 		return thymeleafViewResolver;
 	}
 }
