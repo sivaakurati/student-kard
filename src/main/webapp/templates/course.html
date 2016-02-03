@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="../resources/libs/plugins/datatables/dataTables.bootstrap.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/skins/_all-skins.min.css"/>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css"/>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" ng-controller="ViewCtrl">
 	<div class="wrapper">
@@ -40,7 +42,7 @@
 	<h1>Course <small>Control panel</small></h1>
 	<ol class="breadcrumb">
 		<li><button type="button" ng-click="createCourse('.edit-course')" class="btn btn-sm btn-info">
-			<i class="glyphicon glyphicon-plus"></i> Add course
+			<i class="glyphicon glyphicon-plus"></i> Add Course
 		</button></li>
 	</ol>
 </section>
@@ -50,15 +52,15 @@
 	<div class="box">
 		<div class="box-body">			
 			<table id="datatable" class="table table-bordered table-striped table-hover table-condensed">
-				<thead style="background-color: #31b0d5;"><tr><!-- <th>&nbsp;</th> --><th>Name</th><th>Subjects</th></tr></thead>
+				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th><th>Subjects</th></tr></thead>
 				<tbody><tr ng-repeat="course in courses">
-					<!-- <td style="width: 10%;">
+					<td style="width: 6%;">
 					<button type="button" ng-click="openCourse(course,'.edit-course')" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
 					<button type="button" ng-click="deleteCourse(course)" class="btn btn-sm btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>
-					</button></td> -->
+					</button></td>
 					<td>{{course.courseName}}</td>
 					<td><span style="margin-right: 5px;" class="label label-info" ng-repeat="subject in course.subjects">&nbsp;{{subject.subjectName}}&nbsp;</span></td>
 				</tr></tbody>
@@ -87,10 +89,13 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">Subjects</label>
-							<div class="checkbox" ng-repeat="subject in subjects">
+							<select id="subjectSelect" multiple="multiple" class="form-control" ng-model="course.subjects">
+								<option ng-repeat="subject in subjects" value="{{subject}}">{{subject.subjectName}}</option>
+							</select>
+							<!-- <div class="checkbox" ng-repeat="subject in subjects">
 								<label><input type="checkbox" ng-checked="subject.checked" 
 									ng-click="changeCourseSubject(subject)"/> {{subject.subjectName}}</label>
-							</div>
+							</div> -->
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -117,17 +122,16 @@
 	<script type="text/javascript" src="../resources/libs/angularjs-1.3.8/angular.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-	<script src="../resources/libs/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="../resources/libs/plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
 	<script type="text/javascript">
-	$(function () {
-        $('#datatable').DataTable();
-    });
+		$(document).ready(function(){
+			$("#subjectSelect").select2({ closeOnSelect:false });
+		});
 	</script>
 	<script type="text/javascript" src="../resources/js/course.js"></script>
 </body>

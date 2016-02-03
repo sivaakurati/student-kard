@@ -47,8 +47,12 @@ app.controller('EditCtrl', function($scope, $http) {
 	
 	$scope.saveSubject = function(){
 		$http.post('/subject', $scope.subject).success(function(){
-			$scope.$emit('loadSubjects');
 			$('#subjectmodal').hide();
+			$scope.$emit('loadSubjects');
 		});
 	};
 });
+
+function stringIt(val) {
+    return JSON.stringify(val);
+};

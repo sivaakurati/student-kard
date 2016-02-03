@@ -62,7 +62,7 @@ public class Course implements Serializable {
 		this.courseName = courseName;
 	}
 
-	@ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable (name = "tbl_course_subject", joinColumns = {@JoinColumn(name = "course_id")}, inverseJoinColumns = {@JoinColumn(name = "subject_id")})
 	public List<Subject> getSubjects() {
 		return subjects;
