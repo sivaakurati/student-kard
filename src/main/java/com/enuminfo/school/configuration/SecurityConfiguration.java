@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 /**
  * @author Kumar
  */
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebMvcSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
