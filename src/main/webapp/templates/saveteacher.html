@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/skins/_all-skins.min.css"/>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css"/>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" ng-controller="EditCtrl">
 	<div class="wrapper">
@@ -60,8 +62,8 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">State</label>
-				<div class="col-sm-6"><select class="form-control" ng-options="s for s in states">
-					<option value="">--- Select State ---</option>
+				<div class="col-sm-6"><select class="form-control">
+					<option ng-repeat="state in states" value="{{state}}">{{state}}</option>
 				</select></div>
 			</div>
 			<div class="form-group">
@@ -129,6 +131,7 @@
 	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
 	<script type="text/javascript" src="../resources/js/teacher.js"></script>
 </body>
 </html>
