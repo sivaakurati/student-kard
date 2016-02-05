@@ -40,7 +40,7 @@
 	<h1>Student <small>Control panel</small></h1>
 	<ol class="breadcrumb">
 		<li><button type="button" ng-click="createStudent()" class="btn btn-sm btn-info">
-			<i class="glyphicon glyphicon-plus"></i> Add student
+			<i class="glyphicon glyphicon-plus"></i> Add Student
 		</button></li>
 	</ol>
 </section>
@@ -50,15 +50,15 @@
 	<div class="box">
 		<div class="box-body">			
 			<table id="datatable" class="table table-bordered table-striped table-hover table-condensed">
-				<thead style="background-color: #31b0d5;"><tr><!-- <th>&nbsp;</th> --><th>Name</th></tr></thead>
+				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th></tr></thead>
 				<tbody><tr ng-repeat="student in students">
-					<!-- <td style="width: 9%;">
+					<td style="width: 6%;">
 					<button type="button" ng-click="openStudent(student)" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
 					<button type="button" ng-click="deleteStudent(student)" class="btn btn-sm btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>
-					</button></td> -->
+					</button></td>
 					<td>{{student.studentName}}</td>
 				</tr></tbody>
 			</table>
@@ -86,18 +86,11 @@
 	<script type="text/javascript" src="../resources/libs/angularjs-1.3.8/angular.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
-	<script type="text/javascript">
-	$(function () {
-        $('#datatable').DataTable();
-    });
-	</script>
 	<script type="text/javascript" src="../resources/js/student.js"></script>
 </body>
 </html>

@@ -52,6 +52,26 @@ app.controller('EditCtrl', function($scope, $http) {
 		});
 	};
 	
+	$scope.$on('loadBatchs', function(){
+		$scope.loadBatchs();
+	});
+	
+	$scope.loadBatchs = function(){
+		$http.get('/batch').success(function(data){
+			$scope.batchs = data;
+		});
+	};
+	
+	$scope.$on('loadCourses', function(){
+		$scope.loadCourses();
+	});
+	
+	$scope.loadCourses = function(){
+		$http.get('/course').success(function(data){
+			$scope.courses = data;
+		});
+	};
+	
 	$scope.saveStudent = function(){
 		$http.post('/student', $scope.student).success(function(){
 			$scope.$emit('loadStudents');
@@ -60,6 +80,8 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.loadStudent();
+	$scope.loadBatchs();
+	$scope.loadCourses();
 });
 
 function stringIt(val) {
