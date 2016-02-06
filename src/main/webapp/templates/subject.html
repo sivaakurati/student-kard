@@ -52,7 +52,7 @@
 			<table id="datatable" class="table table-bordered table-striped table-hover table-condensed">
 				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th></tr></thead>
 				<tbody><tr ng-repeat="subject in subjects">
-					<td style="width: 6%;">
+					<td style="width: 90px;">
 					<button type="button" ng-click="openSubject(subject,'.edit-subject')" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
@@ -76,13 +76,14 @@
 		<div class="edit-subject modal fade" id="subjectmodal" tabindex="-1" role ="dialog" aria-labelledby="myModalLabel" 
 				aria-hidden="true" ng-controller="EditCtrl">
 			<div class="modal-dialog container">
+				<form class="form-horizontal">
 				<div class="modal-content">
 					<div class="modal-header"><h4 class="modal-title">Add/Edit Subject</h4></div>
 					<div class="modal-body">
 						<input type="hidden" class="form-control" ng-model="subject.subjectId" />
 						<div class="form-group">
-							<label class="control-label">Name</label>
-							<input type="text" class="form-control" ng-model="subject.subjectName" />
+							<label class="col-sm-2 control-label">Name</label>
+							<div class="col-sm-10"><input type="text" class="form-control" ng-model="subject.subjectName" /></div>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -92,6 +93,7 @@
 							<i class="glyphicon glyphicon-ok"></i> Save</button>
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>
 		

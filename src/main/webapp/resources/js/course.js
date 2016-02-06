@@ -41,22 +41,12 @@ app.controller('EditCtrl', function($scope, $http) {
 		$scope.course = course;
 		$http.get('/subject').success(function(data){
 			$scope.subjects = data;			
-			/*angular.forEach($scope.subjects, function(subject) {
+			angular.forEach($scope.subjects, function(subject) {
 				angular.forEach(course.subjects, function(courseSubject) {
 					if(courseSubject.subjectName == subject.subjectName) subject.checked = true;
 				});
-			});*/
+			});
 		});
-		/*$scope.subjectValues = [];
-		angular.forEach($scope.course.subjects, function(subject) {
-			$scope.subjectValues.push({
-                label: subject.subjectName,
-                value: subject.subjectId,
-            });
-		});
-		var currentDetailIndex = $scope.subjectValues.map(function (e) { return e.value; });
-		console.log(currentDetailIndex);
-        $scope.subjects = $scope.course.subjects[currentDetailIndex];*/
 	});
 	
 	$scope.changeCourseSubject = function(subject){
@@ -78,11 +68,11 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveCourse = function(){
-		console.log(stringIt($scope.course));
-		//$http.post('/course', $scope.course).success(function(){
-		//	$scope.$emit('loadCourses');
-		//	$('#coursemodal').modal('hide');
-		//});
+		//console.log(stringIt($scope.course));
+		$http.post('/course', $scope.course).success(function(){
+			$scope.$emit('loadCourses');
+			$('#coursemodal').modal('hide');
+		});
 	};
 });
 

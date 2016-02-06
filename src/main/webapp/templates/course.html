@@ -11,8 +11,6 @@
 	<link rel="stylesheet" href="../resources/libs/plugins/datatables/dataTables.bootstrap.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/skins/_all-skins.min.css"/>
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css"/>
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" ng-controller="ViewCtrl">
 	<div class="wrapper">
@@ -54,7 +52,7 @@
 			<table id="datatable" class="table table-bordered table-striped table-hover table-condensed">
 				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th><th>Subjects</th></tr></thead>
 				<tbody><tr ng-repeat="course in courses">
-					<td style="width: 6%;">
+					<td style="width: 90px">
 					<button type="button" ng-click="openCourse(course,'.edit-course')" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
@@ -79,23 +77,23 @@
 		<div class="edit-course modal fade" id="coursemodal" tabindex="-1" role ="dialog" aria-labelledby="myModalLabel" 
 				aria-hidden="true" ng-controller="EditCtrl">
 			<div class="modal-dialog container modal-lg">
+				<form class="form-horizontal">
 				<div class="modal-content">
-					<div class="modal-header"><h4 class="modal-title">{{course.courseName}} Course</h4></div>
+					<div class="modal-header"><h4 class="modal-title">Add/Edit Course</h4></div>
 					<div class="modal-body">
 						<input type="hidden" class="form-control" ng-model="course.courseId" />
 						<div class="form-group">
-							<label class="control-label">Name</label>
-							<input type="text" class="form-control" ng-model="course.courseName" />
+							<label class="col-sm-2 control-label">Name</label>
+							<div class="col-sm-10"><input type="text" class="form-control" ng-model="course.courseName" /></div>
 						</div>
 						<div class="form-group">
-							<label class="control-label">Subjects</label>
-							<select id="subjectSelect" multiple="multiple" class="form-control" ng-model="course.subjects">
-								<option ng-repeat="subject in subjects" value="{{subject}}">{{subject.subjectName}}</option>
-							</select>
-							<!-- <div class="checkbox" ng-repeat="subject in subjects">
+							<label class="col-sm-2 control-label">Subjects</label>
+							<div class="col-sm-10">
+							<div class="checkbox" ng-repeat="subject in subjects">
 								<label><input type="checkbox" ng-checked="subject.checked" 
 									ng-click="changeCourseSubject(subject)"/> {{subject.subjectName}}</label>
-							</div> -->
+							</div>
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -105,6 +103,7 @@
 							<i class="glyphicon glyphicon-ok"></i> Save</button>
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>
 		
@@ -127,12 +126,6 @@
 	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
-	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#subjectSelect").select2({ closeOnSelect:false });
-		});
-	</script>
 	<script type="text/javascript" src="../resources/js/course.js"></script>
 </body>
 </html>

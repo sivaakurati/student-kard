@@ -40,7 +40,7 @@
 	<h1>Batch <small>Control panel</small></h1>
 	<ol class="breadcrumb">
 		<li><button type="button" ng-click="createBatch('.edit-batch')" class="btn btn-sm btn-info">
-			<i class="glyphicon glyphicon-plus"></i> Add batch
+			<i class="glyphicon glyphicon-plus"></i> Add Batch
 		</button></li>
 	</ol>
 </section>
@@ -50,15 +50,15 @@
 	<div class="box">
 		<div class="box-body">			
 			<table id="datatable" class="table table-bordered table-hover table-striped">
-				<thead style="background-color: #31b0d5;"><tr><!-- <th>&nbsp;</th> --><th>Name</th><th>Courses</th></tr></thead>
+				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th><th>Courses</th></tr></thead>
 				<tbody><tr ng-repeat="batch in batchs">
-					<!-- <td style="width: 10%;">
+					<td style="width: 90px;">
 					<button type="button" ng-click="openBatch(batch,'.edit-batch')" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
 					<button type="button" ng-click="deleteBatch(batch)" class="btn btn-sm btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>
-					</button></td> -->
+					</button></td>
 					<td>{{batch.batchName}}</td>
 					<td><span style="margin-right: 5px;" class="label label-info" ng-repeat="course in batch.courses">&nbsp;{{course.courseName}}&nbsp;</span></td>
 				</tr></tbody>
@@ -77,19 +77,22 @@
 		<div class="edit-batch modal fade" id="batchmodal" tabindex="-1" role ="dialog" aria-labelledby="myModalLabel" 
 				aria-hidden="true" ng-controller="EditCtrl">
 			<div class="modal-dialog container modal-lg">
+				<form class="form-horizontal">
 				<div class="modal-content">
 					<div class="modal-header"><h4 class="modal-title">{{batch.batchName}} Batch</h4></div>
 					<div class="modal-body">
 						<input type="hidden" class="form-control" ng-model="batch.batchId" />
 						<div class="form-group">
-							<label class="control-label">Name</label>
-							<input type="text" class="form-control" ng-model="batch.batchName" />
+							<label class="col-sm-2 control-label">Name</label>
+							<div class="col-sm-10"><input type="text" class="form-control" ng-model="batch.batchName" /></div>
 						</div>
 						<div class="form-group">
-							<label class="control-label">Courses</label>
+							<label class="col-sm-2 control-label">Courses</label>
+							<div class="col-sm-10">
 							<div class="checkbox" ng-repeat="course in courses">
 								<label><input type="checkbox" ng-checked="course.checked" 
 									ng-click="changeBatchCourse(course)"/> {{course.courseName}}</label>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -100,6 +103,7 @@
 							<i class="glyphicon glyphicon-ok"></i> Save</button>
 					</div>
 				</div>
+				</form>
 			</div>
 		</div>		
 		
@@ -117,17 +121,11 @@
 	<script type="text/javascript" src="../resources/libs/angularjs-1.3.8/angular.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-	<script src="../resources/libs/plugins/datatables/jquery.dataTables.min.js"></script>
-	<script src="../resources/libs/plugins/datatables/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
-	<script type="text/javascript">
-	$(function () {
-        $('#datatable').DataTable();
-    });
-	</script>
+	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
 	<script type="text/javascript" src="../resources/js/batch.js"></script>
 </body>
 </html>
