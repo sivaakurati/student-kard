@@ -25,6 +25,7 @@ public class Student {
 
 	private Integer studentId;
 	private String studentName;
+	private String photo;
 	private Date dateOfBirth;
 	private Date dateOfJoining;
 	private Batch batch;
@@ -53,6 +54,15 @@ public class Student {
 
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
+	}
+
+	@Column (name = "photo")
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)

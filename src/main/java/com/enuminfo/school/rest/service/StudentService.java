@@ -3,6 +3,8 @@
  */
 package com.enuminfo.school.rest.service;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +32,16 @@ public class StudentService {
 	
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveStudent(@RequestBody Student student) {
-		repository.save(student);
+		System.out.println(student.getStudentId());
+		System.out.println(student.getStudentName());
+		System.out.println(new File(student.getPhoto()).getName());
+		System.out.println(student.getDateOfBirth().toString());
+		System.out.println(student.getDateOfJoining().toString());
+		System.out.println(student.getBatch().getBatchId());
+		System.out.println(student.getBatch().getBatchName());
+		System.out.println(student.getCourse().getCourseId());
+		System.out.println(student.getCourse().getCourseName());
+		//repository.save(student);
 	}
 	
 	@RequestMapping(value = "/{studentId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

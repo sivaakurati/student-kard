@@ -34,6 +34,7 @@ public class Parent implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer parentId;
 	private String parentName;
+	private String photo;
 	private String address;
 	private Location location;
 	private Long contactNo;
@@ -65,6 +66,15 @@ public class Parent implements Serializable {
 
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
+	}
+
+	@Column (name = "photo")
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	@Column (name = "address")

@@ -36,7 +36,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 });
 
 app.controller('EditCtrl', function($scope, $http) {
-	var param = teacherId.split('/')[3]
+	var param = teacherId.split('/')[4]
 	
 	$scope.$on("loadStates", function(){
 		$scope.loadStates();
@@ -57,16 +57,21 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.loadTeacher = function(){
-		$http.get('/' + param).success(function(data){
+		$http.get('/teacher/' + param).success(function(data){
 			$scope.teacher = data;
 		});
 	};
 	
 	$scope.saveTeacher = function(){
-		$http.post('/teacher', $scope.teacher).success(function(){
-			$scope.$emit('loadTeachers');
-			$('#teachermodal').hide();
-		});
+		console.log(stringIt($scope.teacher));
+		//$http.post('/teacher', $scope.teacher).success(function(){
+		//	$scope.$emit('loadTeachers');
+		//	$('#teachermodal').hide();
+		//});
+	};
+	
+	$scope.getCities = function(val) {
+		alert(val);
 	};
 	
 	$scope.loadStates();

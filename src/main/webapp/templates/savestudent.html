@@ -57,15 +57,15 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Photo</label>
-				<div class="col-sm-6"><input type="file" class="form-control" /></div>
+				<div class="col-sm-6"><input type="file" class="form-control" id="studentPhoto"/></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Date Of Birth</label>
-				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfBirth" ng-model="student.dateOfBirth" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfBirth" /></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Date Of Joining</label>
-				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfJoining" ng-model="student.dateOfJoining" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfJoining" /></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Batch</label>
@@ -118,9 +118,11 @@
 	<script type="text/javascript">
 		$(function() {
 			$('#dateOfBirth').datepicker({
+				changeMonth: true, changeYear: true, yearRange: "-50:+0"
+			});
+			$('#dateOfJoining').datepicker({
 				changeMonth: true, changeYear: true
 			});
-			$('#dateOfJoining').datepicker();
 		});
 	</script>
 	<script type="text/javascript" src="../resources/js/student.js"></script>

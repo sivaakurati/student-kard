@@ -21,10 +21,9 @@
 			<li class="treeview">
 				<a href="#"><i class="fa fa-files-o"></i><i class="fa fa-angle-left pull-right"></i><span>Curriculum</span></a>
 				<ul class="treeview-menu">
-					<li><a href="#transport"><i class="fa fa-circle-o"></i>Transport</a></li>
-					<li><a href="#grades"><i class="fa fa-circle-o"></i>Grades</a></li>
-					<li><a href="#attendence"><i class="fa fa-circle-o"></i>Attendence</a></li>
-					<li><a href="#timetable"><i class="fa fa-circle-o"></i>Time Table</a></li>
+					<li><a href="#grades"><i class="fa fa-circle-o"></i>Assignment Tracker</a></li>
+					<li><a href="#attendence"><i class="fa fa-circle-o"></i>Attendance Tracker</a></li>
+					<li><a th:href="@{timetracker}"><i class="fa fa-circle-o"></i>Time Table Tracker</a></li>
 				</ul>
 			</li>
 			<li class="treeview">
@@ -35,13 +34,13 @@
 					<li><a th:href="@{parent}"><i class="fa fa-circle-o"></i>With Parent</a></li>
 				</ul>
 			</li>
-			<li class="treeview">
+			<!-- <li class="treeview">
 				<a href="#"><i class="fa fa-laptop"></i><span>Finance</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					<li><a href="#fee"><i class="fa fa-circle-o"></i>With Teacher</a></li>
 					<li><a href="#fee"><i class="fa fa-circle-o"></i>With Student</a></li>
 				</ul>
-			</li>
+			</li> -->
 			<li class="treeview"><a href="#"> <i class="fa fa-laptop"></i><span>Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					<li><a th:href="@{batch}"><i class="fa fa-circle-o"></i> Batch</a></li>

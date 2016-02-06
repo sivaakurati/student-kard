@@ -30,6 +30,7 @@ public class Teacher implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer teacherId;
 	private String teacherName;
+	private String photo;
 	private String address;
 	private Location location;
 	private Long contactNo;
@@ -60,6 +61,15 @@ public class Teacher implements Serializable {
 
 	public void setTeacherName(String teacherName) {
 		this.teacherName = teacherName;
+	}
+
+	@Column (name = "photo")
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	@Column (name = "address")

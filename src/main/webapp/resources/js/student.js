@@ -36,7 +36,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 });
 
 app.controller('EditCtrl', function($scope, $http) {
-	var param = studentId.split('/')[3]
+	var param = studentId.split('/')[4]
 	
 	$scope.$on("loadStudent", function(){
 		$scope.loadStudent();
@@ -47,7 +47,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.loadStudent = function(){
-		$http.get('/' + param).success(function(data){
+		$http.get('/student/' + param).success(function(data){
 			$scope.student = data;
 		});
 	};
@@ -73,7 +73,18 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveStudent = function(){
-		$http.post('/student', $scope.student).success(function(){
+		//console.log($('#studentPhoto').val() + ' - ' + $('#dateOfBirth').val() + ' - ' + $('#dateOfJoining').val())
+		$scope.studentVal = [];
+		$scope.studentVal.push({
+			studentId: $scope.student.studentId,
+			studentName: $scope.student.studentName,
+			studentPhoto: $('#studentPhoto').val(),
+			dateOfBirth: $('#dateOfBirth').val(),
+			dateOfJoining: $('#dateOfJoining').val(),
+			batch: $scope.student.batch,
+			course: $scope.student.course
+		});
+		$http.post('/student', $scope.studentVal).success(function(){
 			$scope.$emit('loadStudents');
 			$('#studentmodal').hide();
 		});

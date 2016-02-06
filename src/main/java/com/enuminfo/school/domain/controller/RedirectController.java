@@ -45,9 +45,9 @@ public class RedirectController {
 		return "subject";
 	}
 	
-	@RequestMapping(value = "/calendar", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getCalendarPage() {
-		return "calendar";
+	@RequestMapping(value = "/timetracker", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getTimeTrackerPage() {
+		return "timetracker";
 	}
 	
 	@RequestMapping(value = "/teacher", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
@@ -78,5 +78,5 @@ public class RedirectController {
 	@RequestMapping(value = "/parent/{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getSaveOrUpdateParentPage(@PathVariable Integer parentId) {
 		return "saveparent";
-	}
+	}	
 }
