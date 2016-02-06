@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
 	<link rel="stylesheet" href="../resources/libs/dist/css/skins/_all-skins.min.css"/>
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css"/>
@@ -66,24 +67,28 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">State</label>
-				<div class="col-sm-6"><select class="form-control" ng-change="getCities(this.value);">
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.location.stateName" ng-change="loadCitiesByState()">
 					<option value="">----- Select State -----</option>
 					<option ng-repeat="state in states" value="{{state}}">{{state}}</option>
 				</select></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">City</label>
-				<div class="col-sm-6"><select class="form-control">
-					
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.location.cityName" ng-change="loadLocationsByCity()">
+					<option value="">----- Select City -----</option>
+					<option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
 				</select></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Location</label>
-				<div class="col-sm-6"><select class="form-control" ng-model="teacher.location"></select></div>
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.location.locationId" ng-change="loadLocationById()">
+					<option value="">----- Select Location -----</option>
+					<option ng-repeat="location in locations" value="{{location.locationId}}">{{location.locationName}}</option>
+				</select></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Pin Code</label>
-				<div class="col-sm-6"><input type="text" class="form-control" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" value="{{location.pinCode}}"/></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Contact Number</label>
@@ -95,15 +100,17 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Date Of Birth</label>
-				<div class="col-sm-6"><input type="text" class="form-control" ng-model="teacher.dateOfBirth" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfBirth" /></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Date Of Joining</label>
-				<div class="col-sm-6"><input type="text" class="form-control" ng-model="teacher.dateOfJoining" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfJoining" /></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Subject</label>
-				<div class="col-sm-6"><select class="form-control" ng-model="teacher.subject"></select></div>
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.subject">
+					<option ng-repeat="subject in subjects" value="{{subject}}">{{subject.subjectName}}</option>
+				</select></div>
 			</div>
 		</div>
 		<div class="box-footer">
@@ -132,6 +139,7 @@
 	</div>
 	<script type="text/javascript" src="../resources/libs/angularjs-1.3.8/angular.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
@@ -139,6 +147,16 @@
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('#dateOfBirth').datepicker({
+				changeMonth: true, changeYear: true, yearRange: "-50:+0"
+			});
+			$('#dateOfJoining').datepicker({
+				changeMonth: true, changeYear: true
+			});
+		});
+	</script>
 	<script type="text/javascript" src="../resources/js/teacher.js"></script>
 </body>
 </html>

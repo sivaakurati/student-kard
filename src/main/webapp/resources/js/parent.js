@@ -43,7 +43,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadStates = function(){
-		$http.get('/state').success(function(data){
+		$http.get('/states').success(function(data){
 			$scope.states = data;
 		});
 	};
@@ -66,6 +66,30 @@ app.controller('EditCtrl', function($scope, $http) {
 		$http.post('/parent', $scope.parent).success(function(){
 			$scope.$emit('loadParents');
 			$('#parentmodal').hide();
+		});
+	};
+	
+	$scope.loadCitiesByState = function() {
+		var val = stringIt($scope.teacher.location.stateName).replace('"', '');
+		var stateName = val.substring(0, val.length-1);
+		$http.get('/cities/' + stateName).success(function(data){
+			$scope.cities = data;
+		});
+	};
+	
+	$scope.loadLocationsByCity = function() {
+		var val = stringIt($scope.teacher.location.cityName).replace('"', '');
+		var cityName = val.substring(0, val.length-1);
+		$http.get('/locations/' + cityName).success(function(data){
+			$scope.locations = data;
+		});
+	};
+	
+	$scope.loadLocationById = function() {
+		var val = stringIt($scope.teacher.location.locationId).replace('"', '');
+		var locationId = val.substring(0, val.length-1);
+		$http.get('/location/' + locationId).success(function(data){
+			$scope.location = data;
 		});
 	};
 	

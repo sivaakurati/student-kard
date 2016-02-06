@@ -57,27 +57,37 @@
 				<div class="col-sm-6"><input type="text" class="form-control" ng-model="parent.parentName" /></div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-4 control-label">Photo</label>
+				<div class="col-sm-6"><input type="file" class="form-control" ng-model="parent.photo" /></div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-4 control-label">Address</label>
 				<div class="col-sm-6"><textarea class="form-control" ng-model="parent.address"></textarea></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">State</label>
-				<div class="col-sm-6"><select class="form-control">
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.location.stateName" ng-change="loadCitiesByState()">
 					<option value="">----- Select State -----</option>
 					<option ng-repeat="state in states" value="{{state}}">{{state}}</option>
 				</select></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">City</label>
-				<div class="col-sm-6"><select class="form-control"></select></div>
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.location.cityName" ng-change="loadLocationsByCity()">
+					<option value="">----- Select City -----</option>
+					<option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
+				</select></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Location</label>
-				<div class="col-sm-6"><select class="form-control" ng-model="parent.location"></select></div>
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.location.locationId" ng-change="loadLocationById()">
+					<option value="">----- Select Location -----</option>
+					<option ng-repeat="location in locations" value="{{location.locationId}}">{{location.locationName}}</option>
+				</select></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Pin Code</label>
-				<div class="col-sm-6"><input type="text" class="form-control" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" value="{{location.pinCode}}"/></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Contact Number</label>
@@ -94,7 +104,7 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Related To</label>
 				<div class="col-sm-6"><select class="form-control" ng-model="parent.mainParentId">
-					<option value="">----- Select Relation Head -----</option>
+					<option value="">----- Select Related Parent -----</option>
 				</select></div>
 			</div>
 		</div>
