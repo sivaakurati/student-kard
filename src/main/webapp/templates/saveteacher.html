@@ -54,12 +54,25 @@
 		<div class="box-body">		
 			<input type="hidden" class="form-control" ng-model="teacher.teacherId" />
 			<div class="form-group">
-				<label class="col-sm-4 control-label">Name</label>
-				<div class="col-sm-6"><input type="text" class="form-control" ng-model="teacher.teacherName" /></div>
+				<label class="col-sm-4 control-label">First Name</label>
+				<div class="col-sm-6"><input type="text" class="form-control" ng-model="teacher.firstName" /></div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-4 control-label">Middle Name</label>
+				<div class="col-sm-6"><input type="text" class="form-control" ng-model="teacher.middleName" /></div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Last Name</label>
+				<div class="col-sm-6"><input type="text" class="form-control" ng-model="teacher.lastName" /></div>
+			</div>
+			<!-- <div class="form-group">
 				<label class="col-sm-4 control-label">Photo</label>
-				<div class="col-sm-6"><input type="file" class="form-control" ng-model="teacher.photo" /></div>
+				<div class="col-sm-6"><input type="file" class="form-control" id="teacherPhoto" ng-model="teacher.photo" accept="image/*" /></div>
+			</div> -->
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Gender</label>
+				<div class="col-sm-6"><input type="radio" name="gender" ng-model="teacher.gender" value="male" />&nbsp;Male
+				<input type="radio" name="gender" ng-model="teacher.gender" value="female" />&nbsp;Female</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Address</label>
@@ -100,17 +113,21 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Date Of Birth</label>
-				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfBirth" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" placeholder="yyyy-MM-dd" ng-model="teacher.dateOfBirth"/></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Date Of Joining</label>
-				<div class="col-sm-6"><input type="text" class="form-control" id="dateOfJoining" /></div>
+				<div class="col-sm-6"><input type="text" class="form-control" placeholder="yyyy-MM-dd" ng-model="teacher.dateOfJoining"/></div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-4 control-label">Subject</label>
-				<div class="col-sm-6"><select class="form-control" ng-model="teacher.subject">
-					<option ng-repeat="subject in subjects" value="{{subject}}">{{subject.subjectName}}</option>
+				<div class="col-sm-6"><select class="form-control" ng-model="teacher.subject.subjectId">
+					<option ng-repeat="subject in subjects" value="{{subject.subjectId}}">{{subject.subjectName}}</option>
 				</select></div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Admin Right</label>
+				<div class="col-sm-6 checkbox"><label><input type="checkbox" ng-model="teacher.adminRight"/></label></div>
 			</div>
 		</div>
 		<div class="box-footer">

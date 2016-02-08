@@ -73,11 +73,28 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveTeacher = function(){
+		/*$scope.teacherVal = [];
+		$scope.teacherVal.push({
+			teacherId: $scope.teacher.teacherId,
+			firstName: $scope.teacher.firstName,
+			middleName: $scope.teacher.middleName,
+			lastName: $scope.teacher.lastName,
+			//photo: $('#teacherPhoto').val(),
+			gender: $scope.teacher.gender,
+			address: $scope.teacher.address,
+			location: $scope.teacher.location,
+			qualification: $scope.teacher.qualification,
+			contactNo: $scope.teacher.contactNo,
+			dateOfBirth: $('#dateOfBirth').val(),
+			dateOfJoining: $('#dateOfJoining').val(),
+			subject: $scope.teacher.subject,
+			adminRight: $scope.teacher.adminRight
+		});*/
 		console.log(stringIt($scope.teacher));
-		//$http.post('/teacher', $scope.teacher).success(function(){
-		//	$scope.$emit('loadTeachers');
-		//	$('#teachermodal').hide();
-		//});
+		$http.post('/teacher', $scope.teacher).success(function(){
+			$('#teachermodal').hide();
+			window.location.href = '../../teacher';
+		});
 	};
 	
 	$scope.loadCitiesByState = function() {

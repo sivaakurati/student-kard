@@ -4,7 +4,6 @@
 package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author Kumar
@@ -29,15 +29,21 @@ public class Teacher implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer teacherId;
+	private String firstName;
+	private String middleName;
+	private String lastName;
 	private String teacherName;
 	private String photo;
+	private String emailAddress;
 	private String address;
+	private String gender;
 	private Location location;
 	private Long contactNo;
 	private String qualification;
-	private Date dateOfBirth;
-	private Date dateOfJoining;
+	private String dateOfBirth;
+	private String dateOfJoining;
 	private Subject subject;
+	private Boolean adminRight;
 	
 	public Teacher() {
 		// TODO Auto-generated constructor stub
@@ -52,6 +58,33 @@ public class Teacher implements Serializable {
 
 	public void setTeacherId(Integer teacherId) {
 		this.teacherId = teacherId;
+	}
+
+	@Transient
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	@Transient
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	@Transient
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	@Column (name = "teacher_name")
@@ -72,6 +105,15 @@ public class Teacher implements Serializable {
 		this.photo = photo;
 	}
 
+	@Column (name = "email_address")
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
 	@Column (name = "address")
 	public String getAddress() {
 		return address;
@@ -79,6 +121,15 @@ public class Teacher implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	@Column (name = "gender")
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -110,20 +161,20 @@ public class Teacher implements Serializable {
 	}
 
 	@Column (name = "date_of_birth")
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
 	@Column (name = "date_of_joining")
-	public Date getDateOfJoining() {
+	public String getDateOfJoining() {
 		return dateOfJoining;
 	}
 
-	public void setDateOfJoining(Date dateOfJoining) {
+	public void setDateOfJoining(String dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
 	}
 
@@ -135,5 +186,14 @@ public class Teacher implements Serializable {
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+	@Transient
+	public Boolean getAdminRight() {
+		return adminRight;
+	}
+
+	public void setAdminRight(Boolean adminRight) {
+		this.adminRight = adminRight;
 	}
 }

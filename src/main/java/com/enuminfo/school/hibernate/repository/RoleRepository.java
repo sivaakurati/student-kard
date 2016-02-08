@@ -12,4 +12,5 @@ import com.enuminfo.school.hibernate.model.Role;
  */
 public interface RoleRepository extends PagingAndSortingRepository<Role, Integer> {
 
+	Role findByRoleName(String roleName);
 }
