@@ -59,6 +59,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadTeacher = function(){
 		$http.get('/teacher/' + param).success(function(data){
 			$scope.teacher = data;
+			console.log(stringIt($scope.teacher));
 		});
 	};
 	

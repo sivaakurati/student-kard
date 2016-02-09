@@ -29,9 +29,6 @@ public class Teacher implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer teacherId;
-	private String firstName;
-	private String middleName;
-	private String lastName;
 	private String teacherName;
 	private String photo;
 	private String emailAddress;
@@ -39,7 +36,6 @@ public class Teacher implements Serializable {
 	private String gender;
 	private Location location;
 	private Long contactNo;
-	private String qualification;
 	private String dateOfBirth;
 	private String dateOfJoining;
 	private Subject subject;
@@ -58,33 +54,6 @@ public class Teacher implements Serializable {
 
 	public void setTeacherId(Integer teacherId) {
 		this.teacherId = teacherId;
-	}
-
-	@Transient
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	@Transient
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	@Transient
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	@Column (name = "teacher_name")
@@ -123,7 +92,7 @@ public class Teacher implements Serializable {
 		this.address = address;
 	}
 
-	@Column (name = "gender")
+	@Transient
 	public String getGender() {
 		return gender;
 	}
@@ -149,15 +118,6 @@ public class Teacher implements Serializable {
 
 	public void setContactNo(Long contactNo) {
 		this.contactNo = contactNo;
-	}
-
-	@Column (name = "qualification")
-	public String getQualification() {
-		return qualification;
-	}
-
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
 	}
 
 	@Column (name = "date_of_birth")

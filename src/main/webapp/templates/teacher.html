@@ -51,7 +51,7 @@
 	<div class="box">
 		<div class="box-body">			
 			<table id="datatable" class="table table-bordered table-striped table-hover table-condensed">
-				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th></tr></thead>
+				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th><th>Email ID</th><th>Contact No</th><th>Date Of Joining</th><th>Subject</th></tr></thead>
 				<tbody><tr ng-repeat="teacher in teachers">
 					<td style="width: 6%;">
 					<button type="button" ng-click="openTeacher(teacher)" class="btn btn-sm btn-success">
@@ -61,6 +61,10 @@
 						<i class="glyphicon glyphicon-trash"></i>
 					</button></td>
 					<td>{{teacher.teacherName}}</td>
+					<td>{{teacher.emailAddress}}</td>
+					<td>{{teacher.contactNo}}</td>					
+					<td>{{teacher.dateOfJoining}}</td>
+					<td>{{teacher.subject.subjectName}}</td>
 				</tr></tbody>
 			</table>
 		</div>

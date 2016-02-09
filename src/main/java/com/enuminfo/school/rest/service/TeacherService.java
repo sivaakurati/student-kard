@@ -48,15 +48,11 @@ public class TeacherService {
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveTeacher(@RequestBody Teacher teacher) {
 		if (teacher.getTeacherId() == null) {
-			String[] strDOJArray = teacher.getDateOfJoining().split("-");
-			String dateOfJoiningVal = strDOJArray[2] + "" + strDOJArray[1] + "" + strDOJArray[0];
-			teacher.setEmailAddress((teacher.getFirstName().substring(0, 1) + "" + teacher.getLastName() + "" + dateOfJoiningVal + "@kard.com").toLowerCase());
 			if (teacher.getGender().equals("male")) teacher.setPhoto("avatar5.png");
-			else teacher.setPhoto("avatar2.png");
-			
+			else teacher.setPhoto("avatar2.png");			
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
-			if (teacher.getAdminRight() == true) roles.add(roleRepository.findByRoleName("ROLE_ADMIN"));
+			if (teacher.getAdminRight() != null && teacher.getAdminRight() == true) roles.add(roleRepository.findByRoleName("ROLE_ADMIN"));
 			User user = new User();
 			user.setUsername(teacher.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());
@@ -64,7 +60,6 @@ public class TeacherService {
 			user.setRoles(roles);
 			userRepository.save(user);
 		}
-		teacher.setTeacherName(teacher.getFirstName() + " " + (teacher.getMiddleName().trim().equals("") ? "" : (teacher.getMiddleName() + " ")) + teacher.getLastName());
 		teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
 		teacher.setSubject(subjectRepository.findOne(teacher.getSubject().getSubjectId()));
 		repository.save(teacher);
