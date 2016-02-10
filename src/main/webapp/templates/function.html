@@ -1,0 +1,62 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link th:replace="util/import :: css" />
+	<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/function.css}" />
+	<title>Defender 2.0 - Add/Edit Function </title> 
+	<style>thead {background-color: #99CCFF;}</style>
+</head>
+<body ng-app="Function" ng-controller="FunctionController">
+    <div th:replace="util/import :: javascript"></div>	
+	<div th:replace="util/menu :: menu"></div>
+	<section class="container">
+	<ol class="breadcrumb" ng-clock="">
+		<li><a th:href="@{/function}">Functions</a></li>
+		<li class="active">{{Function.name}}</li>
+	</ol>
+	<h3>Add/Edit Function</h3>
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="function-name">Name</label>
+			<div class="col-sm-5"><input type="text" class="form-control" id="function-name" ng-model="Function.name" required="required" ng-readonly="isFunNameEditable" autofocus="autofocus"/></div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="function-application">Application</label>
+			<div class="col-sm-5"><span><select class="form-control" id="function-application" ng-model="Function.application.id" ng-options="application.id as application.name for application in Applications"></select></span></div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="function-library">Library</label>
+			<div class="col-sm-5"><input type="text" class="form-control" id="function-library" ng-model="Function.library"/></div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="function-desc">Description</label>
+			<div class="col-sm-5"><input type="text" class="form-control" id="function-desc" ng-model="Function.description"/></div>
+		</div>
+	</div>
+	<div>
+		<h3>Parameters&nbsp;<button class= "btn btn-primary btn-xs" ng-click="createParamRow()">Add Parameter</button></h3>
+		<div class="form-group">
+			<table class="table table-bordered table-striped table-hover table-condensed">
+				<thead><tr><th style="width: 50px">Order</th><th>Name</th><th style="width: 65px">&nbsp;</th><th style="width: 50px">&nbsp;</th></tr></thead>
+				<tbody class="table-hover"><tr ng-repeat="parameter in Function.parameters">
+					<td>{{parameter.order}}</td>
+					<td><input type="text" class="form-control" id="param-name" ng-model="parameter.name"/></td>
+					<td><button class="btn btn-default btn-xs glyphicon glyphicon-arrow-down" ng-hide="$last" ng-click="moveParamDown(parameter, $event)"></button>
+					<button class="btn btn-default btn-xs glyphicon glyphicon-arrow-up" ng-hide="$first" ng-click="moveParamUp(parameter, $event)"></button></td>
+					<td><button type="button" class="btn btn-default btn-xs glyphicon glyphicon-remove" ng-click="removeParamRow(parameter, $event)"></button></td>
+				</tr></tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row pull-right">
+		<button type="button" ng-if="Function.id != 0" class="btn btn-primary btn-md" ng-click="delete()">Delete</button>
+		<button type="button" class="btn btn-primary btn-md" ng-click="save()">Save</button>
+	</div>
+	</section>
+	<div th:replace="util/footer :: footer"></div>
+	<script type="text/javascript" th:src="@{/js/function/function.js}"></script>	
+	<script type="text/javascript" th:src="@{/libs/bootstrap-3.2.0/js/bootbox.js}"></script>
+</body>
+</html>
