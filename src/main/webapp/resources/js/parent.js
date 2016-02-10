@@ -48,25 +48,36 @@ app.controller('EditCtrl', function($scope, $http) {
 		});
 	};
 	
-	$scope.$on("loadParent", function(){
-		$scope.loadParent();
-	});
-	
 	$scope.getBack = function(){
 		window.location.href = '/parent';
 	};
 	
-	$scope.loadParent = function(){
-		$http.get('/' + param).success(function(data){
-			$scope.parent = data;
+	$scope.$on('loadBatchs', function(){
+		$scope.loadBatchs();
+	});
+	
+	$scope.loadBatchs = function(){
+		$http.get('/batch').success(function(data){
+			$scope.batchs = data;
+		});
+	};
+	
+	$scope.$on('loadCourses', function(){
+		$scope.loadCourses();
+	});
+	
+	$scope.loadCourses = function(){
+		$http.get('/course').success(function(data){
+			$scope.courses = data;
 		});
 	};
 	
 	$scope.saveParent = function(){
-		$http.post('/parent', $scope.parent).success(function(){
-			$scope.$emit('loadParents');
-			$('#parentmodal').hide();
-		});
+		console.log(stringIt($scope.parent));
+		//$http.post('/parent', $scope.parent).success(function(){
+		//	$scope.$emit('loadParents');
+		//	$('#parentmodal').hide();
+		//});
 	};
 	
 	$scope.loadCitiesByState = function() {
@@ -94,7 +105,8 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.loadStates();
-	$scope.loadParent();
+	$scope.loadBatchs();
+	$scope.loadCourses();
 });
 
 function stringIt(val) {

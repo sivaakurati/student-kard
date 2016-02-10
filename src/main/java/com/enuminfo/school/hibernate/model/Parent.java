@@ -18,8 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Transient;
 
 /**
  * @author Kumar
@@ -38,10 +37,8 @@ public class Parent implements Serializable {
 	private String address;
 	private Location location;
 	private Long contactNo;
-	private String qualification;
 	private Parent mainParentId;
-	private String relation;
-	private String occupation;
+	private List<Parent> dependents;
 	private List<Student> students;
 	
 	public Parent() {
@@ -105,15 +102,6 @@ public class Parent implements Serializable {
 		this.contactNo = contactNo;
 	}
 
-	@Column (name = "qualification")
-	public String getQualification() {
-		return qualification;
-	}
-
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
-	}
-
 	@OneToOne
 	@JoinColumn (name = "main_parent_id")
 	public Parent getMainParentId() {
@@ -124,31 +112,21 @@ public class Parent implements Serializable {
 		this.mainParentId = mainParentId;
 	}
 
-	@Column (name = "relation")
-	public String getRelation() {
-		return relation;
-	}
-
-	public void setRelation(String relation) {
-		this.relation = relation;
-	}
-
-	@Column (name = "occupation")
-	public String getOccupation() {
-		return occupation;
-	}
-
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
-	}
-
 	@OneToMany (mappedBy = "parent", fetch = FetchType.LAZY)
-	@JsonIgnore
 	public List<Student> getStudents() {
 		return students;
 	}
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+
+	@Transient
+	public List<Parent> getDependents() {
+		return dependents;
+	}
+
+	public void setDependents(List<Parent> dependents) {
+		this.dependents = dependents;
 	}
 }

@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Kumar
  */
@@ -87,6 +89,7 @@ public class Student {
 
 	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn (name = "parent_id")
+	@JsonIgnore
 	public Parent getParent() {
 		return parent;
 	}
