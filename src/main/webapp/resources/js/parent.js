@@ -36,7 +36,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 });
 
 app.controller('EditCtrl', function($scope, $http) {
-	var param = parentId.split('/')[3]
+	var param = parentId.split('/')[4]
 	
 	$scope.$on("loadStates", function(){
 		$scope.loadStates();
@@ -48,8 +48,19 @@ app.controller('EditCtrl', function($scope, $http) {
 		});
 	};
 	
+	$scope.$on("loadParent", function(){
+		$scope.loadParent();
+	});
+	
 	$scope.getBack = function(){
 		window.location.href = '/parent';
+	};
+	
+	$scope.loadParent = function(){
+		$http.get('/parent/' + param).success(function(data){
+			$scope.parent = data;
+			console.log(stringIt($scope.parent));
+		});
 	};
 	
 	$scope.$on('loadBatchs', function(){
@@ -107,6 +118,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadStates();
 	$scope.loadBatchs();
 	$scope.loadCourses();
+	$scope.loadParent();
 });
 
 function stringIt(val) {

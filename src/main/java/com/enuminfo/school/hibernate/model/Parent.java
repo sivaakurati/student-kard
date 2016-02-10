@@ -20,6 +20,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Kumar
  */
@@ -104,6 +106,7 @@ public class Parent implements Serializable {
 
 	@OneToOne
 	@JoinColumn (name = "main_parent_id")
+	@JsonIgnore
 	public Parent getMainParentId() {
 		return mainParentId;
 	}
