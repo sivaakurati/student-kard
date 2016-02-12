@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author Kumar
@@ -35,9 +36,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated().and().formLogin()
 		.loginProcessingUrl("/authenticate")
 		.usernameParameter("username").passwordParameter("password")
-		.loginPage("/login").permitAll()
-		.and().logout()
-		.logoutUrl("/logout").permitAll()
+		.loginPage("/login").permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.invalidateHttpSession(true)
+		.logoutSuccessUrl("/login")
+		.permitAll()
 		.and().csrf().disable().httpBasic();
 	}
 }
