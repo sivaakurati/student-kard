@@ -4,6 +4,7 @@
 package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Kumar
@@ -40,6 +44,7 @@ public class Teacher implements Serializable {
 	private String dateOfJoining;
 	private Subject subject;
 	private Boolean adminRight;
+	private List<TimeTracker> timeTrackers;
 	
 	public Teacher() {
 		// TODO Auto-generated constructor stub
@@ -155,5 +160,15 @@ public class Teacher implements Serializable {
 
 	public void setAdminRight(Boolean adminRight) {
 		this.adminRight = adminRight;
+	}
+
+	@OneToMany (mappedBy = "teacher", fetch = FetchType.LAZY)
+	@JsonIgnore
+	public List<TimeTracker> getTimeTrackers() {
+		return timeTrackers;
+	}
+
+	public void setTimeTrackers(List<TimeTracker> timeTrackers) {
+		this.timeTrackers = timeTrackers;
 	}
 }

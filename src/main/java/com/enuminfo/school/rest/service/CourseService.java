@@ -38,4 +38,11 @@ public class CourseService {
 		Course course = repository.findOne(courseId);
 		repository.delete(course);
 	}
+	
+	@RequestMapping(value = "/{courseId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Course getCourse(@PathVariable Integer courseId) {
+		Course course = new Course();
+		if (courseId != 0) course = repository.findOne(courseId);
+		return course;
+	}
 }

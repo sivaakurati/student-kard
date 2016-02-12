@@ -35,6 +35,7 @@ public class Subject implements Serializable {
 	private String subjectName;
 	private List<Course> courses;
 	private List<Teacher> teachers;
+	private List<TimeTracker> timeTrackers;
 	
 	public Subject() {
 		// TODO Auto-generated constructor stub
@@ -79,5 +80,15 @@ public class Subject implements Serializable {
 
 	public void setTeachers(List<Teacher> teachers) {
 		this.teachers = teachers;
+	}
+
+	@OneToMany (mappedBy = "subject", fetch = FetchType.LAZY)
+	@JsonIgnore
+	public List<TimeTracker> getTimeTrackers() {
+		return timeTrackers;
+	}
+
+	public void setTimeTrackers(List<TimeTracker> timeTrackers) {
+		this.timeTrackers = timeTrackers;
 	}
 }
