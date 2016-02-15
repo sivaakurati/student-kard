@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<title>School KARD | Teacher</title>
+	<title>Student KARD | Employee</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
 	<link rel="stylesheet" href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
@@ -18,7 +18,7 @@
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<header class="main-header">
-			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span class="logo-lg"><b>School</b>KARD</span></a>
+			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span class="logo-lg"><b>Student</b>KARD</span></a>
 			<nav class="navbar navbar-static-top" role="navigation">
 				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
 		           <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
@@ -38,10 +38,10 @@
 <!-- =============================================== -->
 <!-- =============================================== -->
 <section class="content-header">
-	<h1>Teacher <small>Control panel</small></h1>
+	<h1>Employee <small>Control panel</small></h1>
 	<ol class="breadcrumb">
 		<li><button type="button" ng-click="createTeacher()" class="btn btn-sm btn-info">
-			<i class="glyphicon glyphicon-plus"></i> Add Teacher
+			<i class="glyphicon glyphicon-plus"></i> Add Employee
 		</button></li>
 	</ol>
 </section>
@@ -51,9 +51,11 @@
 	<div class="box">
 		<div class="box-body">			
 			<table id="datatable" class="table table-bordered table-striped table-hover table-condensed">
-				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th><th>Email ID</th><th>Contact No</th><th>Date Of Joining</th><th>Subject</th></tr></thead>
+				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th><th>Email ID</th>
+				<th>Contact No</th><th>Date Of Joining</th><th>Designation</th>
+				<th>Subject</th><th>Courses</th></tr></thead>
 				<tbody><tr ng-repeat="teacher in teachers">
-					<td style="width: 6%;">
+					<td>
 					<button type="button" ng-click="openTeacher(teacher)" class="btn btn-sm btn-success">
 						<i class="glyphicon glyphicon-edit"></i>
 					</button>
@@ -64,7 +66,9 @@
 					<td>{{teacher.emailAddress}}</td>
 					<td>{{teacher.contactNo}}</td>					
 					<td>{{teacher.dateOfJoining}}</td>
-					<td>{{teacher.subject.subjectName}}</td>
+					<td>{{teacher.designation}}</td>
+					<td><span style="margin-right: 5px;" class="label label-info" ng-repeat="subject in teacher.subjects">&nbsp;{{subject.subjectName}}&nbsp;</span></td>
+					<td><span style="margin-right: 5px;" class="label label-info" ng-repeat="course in teacher.courses">&nbsp;{{course.courseName}}&nbsp;</span></td>
 				</tr></tbody>
 			</table>
 		</div>

@@ -68,7 +68,6 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveCourse = function(){
-		//console.log(stringIt($scope.course));
 		$http.post('/course', $scope.course).success(function(){
 			$scope.$emit('loadCourses');
 			$('#coursemodal').modal('hide');

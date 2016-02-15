@@ -89,7 +89,17 @@ app.controller('EditCtrl', function($scope, $http) {
 			$('#studentmodal').hide();
 		});
 	};
+	$scope.$on('loadLoggerUserDetail', function(){
+		$scope.loadLoggerUserDetail();
+	});
 	
+	$scope.loadLoggerUserDetail = function(){
+		$http.get('/user').success(function(data){
+			$scope.loggerUser = data;
+		});
+	};
+	
+	$scope.loadLoggerUserDetail();
 	$scope.loadStudent();
 	$scope.loadBatchs();
 	$scope.loadCourses();

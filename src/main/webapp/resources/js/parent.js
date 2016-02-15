@@ -114,7 +114,17 @@ app.controller('EditCtrl', function($scope, $http) {
 			$scope.location = data;
 		});
 	};
+	$scope.$on('loadLoggerUserDetail', function(){
+		$scope.loadLoggerUserDetail();
+	});
 	
+	$scope.loadLoggerUserDetail = function(){
+		$http.get('/user').success(function(data){
+			$scope.loggerUser = data;
+		});
+	};
+	
+	$scope.loadLoggerUserDetail();
 	$scope.loadStates();
 	$scope.loadBatchs();
 	$scope.loadCourses();

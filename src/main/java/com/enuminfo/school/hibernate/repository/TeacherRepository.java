@@ -12,4 +12,5 @@ import com.enuminfo.school.hibernate.model.Teacher;
  */
 public interface TeacherRepository extends PagingAndSortingRepository<Teacher, Integer> {
 
+	Teacher findByEmailAddress(String emailAddress);
 }

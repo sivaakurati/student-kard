@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<title>School KARD | Teacher</title>
+	<title>Student KARD | Employee</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
 	<link rel="stylesheet" href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
@@ -19,7 +19,7 @@
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<header class="main-header">
-			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span class="logo-lg"><b>School</b>KARD</span></a>
+			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span class="logo-lg"><b>Student</b>KARD</span></a>
 			<nav class="navbar navbar-static-top" role="navigation">
 				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
 		           <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
@@ -39,7 +39,7 @@
 <!-- =============================================== -->
 <!-- =============================================== -->
 <section class="content-header">
-	<h1>Teacher <small>Control panel</small></h1>
+	<h1>Employee <small>Control panel</small></h1>
 	<ol class="breadcrumb">
 		<li><button type="button" ng-click="getBack()" class="btn btn-sm btn-info">
 			<i class="glyphicon glyphicon-backward"></i> Go back
@@ -112,14 +112,26 @@
 				<div class="col-sm-6"><input type="text" class="form-control" placeholder="yyyy-MM-dd" ng-model="teacher.dateOfJoining"/></div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label">Subject</label>
-				<div class="col-sm-6"><select class="form-control" ng-model="teacher.subject.subjectId">
-					<option ng-repeat="subject in subjects" value="{{subject.subjectId}}">{{subject.subjectName}}</option>
-				</select></div>
+				<label class="col-sm-4 control-label">Designation</label>
+				<div class="col-sm-6"><input type="text" class="form-control" ng-model="teacher.designation" /></div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label">Admin Right</label>
-				<div class="col-sm-6 checkbox"><label><input type="checkbox" ng-model="teacher.adminRight"/></label></div>
+				<label class="col-sm-4 control-label">Subject</label>
+				<div class="col-sm-6"><div class="checkbox" ng-repeat="subject in subjects">
+					<label><input type="checkbox" ng-checked="subject.checked" ng-click="changeTeacherSubject(subject)"/> {{subject.subjectName}}</label>
+				</div></div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Course</label>
+				<div class="col-sm-6"><div class="checkbox" ng-repeat="course in courses">
+					<label><input type="checkbox" ng-checked="course.checked" ng-click="changeTeacherCourse(course)"/> {{course.courseName}}</label>
+				</div></div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Department</label>
+				<div class="col-sm-6"><div class="checkbox" ng-repeat="department in departments">
+					<label><input type="checkbox" ng-checked="department.checked" ng-click="changeTeacherDepartment(department)"/> {{department.departmentName}}</label>
+				</div></div>
 			</div>
 		</div>
 		<div class="box-footer">

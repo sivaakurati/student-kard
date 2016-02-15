@@ -72,7 +72,8 @@ public class Subject implements Serializable {
 		this.courses = courses;
 	}
 
-	@OneToMany (mappedBy = "subject", fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "tbl_teacher_subject", joinColumns = {@JoinColumn(name = "subject_id")}, inverseJoinColumns = {@JoinColumn(name = "teacher_id")})
 	@JsonIgnore
 	public List<Teacher> getTeachers() {
 		return teachers;

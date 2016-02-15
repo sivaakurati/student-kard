@@ -38,6 +38,7 @@ public class Course implements Serializable {
 	private List<Batch> batchs;
 	private List<Student> students;
 	private List<TimeTracker> timeTrackers;
+	private List<Teacher> teachers;
 	
 	public Course() {
 		// TODO Auto-generated constructor stub
@@ -102,5 +103,16 @@ public class Course implements Serializable {
 
 	public void setTimeTrackers(List<TimeTracker> timeTrackers) {
 		this.timeTrackers = timeTrackers;
+	}
+
+	@ManyToMany (fetch = FetchType.EAGER)
+	@JoinTable (name = "tbl_teacher_course", joinColumns = {@JoinColumn(name = "course_id")}, inverseJoinColumns = {@JoinColumn(name = "teacher_id")})
+	@JsonIgnore
+	public List<Teacher> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(List<Teacher> teachers) {
+		this.teachers = teachers;
 	}
 }

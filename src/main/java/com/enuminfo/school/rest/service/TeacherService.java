@@ -4,6 +4,7 @@
 package com.enuminfo.school.rest.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.enuminfo.school.hibernate.model.Department;
 import com.enuminfo.school.hibernate.model.Role;
 import com.enuminfo.school.hibernate.model.Teacher;
 import com.enuminfo.school.hibernate.model.User;
@@ -52,7 +54,12 @@ public class TeacherService {
 			else teacher.setPhoto("avatar2.png");			
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
-			if (teacher.getAdminRight() != null && teacher.getAdminRight() == true) roles.add(roleRepository.findByRoleName("ROLE_ADMIN"));
+			for (Iterator<Department> iterator = teacher.getDepartments().iterator(); iterator.hasNext();) {
+				Department department = (Department) iterator.next();
+				Role role = new Role();
+				role.setRoleName("ROLE_" + department.getDepartmentName().toUpperCase());
+				roles.add(roleRepository.save(role));
+			}
 			User user = new User();
 			user.setUsername(teacher.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());
@@ -61,7 +68,6 @@ public class TeacherService {
 			userRepository.save(user);
 		}
 		teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
-		teacher.setSubject(subjectRepository.findOne(teacher.getSubject().getSubjectId()));
 		repository.save(teacher);
 	}
 	

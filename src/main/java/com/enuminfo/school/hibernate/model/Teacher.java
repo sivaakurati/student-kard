@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,9 +44,11 @@ public class Teacher implements Serializable {
 	private Long contactNo;
 	private String dateOfBirth;
 	private String dateOfJoining;
-	private Subject subject;
-	private Boolean adminRight;
+	private String designation;
+	private List<Subject> subjects;
 	private List<TimeTracker> timeTrackers;
+	private List<Course> courses;
+	private List<Department> departments;
 	
 	public Teacher() {
 		// TODO Auto-generated constructor stub
@@ -143,23 +147,23 @@ public class Teacher implements Serializable {
 		this.dateOfJoining = dateOfJoining;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn (name = "subject_id")
-	public Subject getSubject() {
-		return subject;
+	@Column (name = "designation")
+	public String getDesignation() {
+		return designation;
 	}
 
-	public void setSubject(Subject subject) {
-		this.subject = subject;
+	public void setDesignation(String designation) {
+		this.designation = designation;
 	}
 
-	@Transient
-	public Boolean getAdminRight() {
-		return adminRight;
+	@ManyToMany (fetch = FetchType.EAGER)
+	@JoinTable (name = "tbl_teacher_subject", joinColumns = {@JoinColumn(name = "teacher_id")}, inverseJoinColumns = {@JoinColumn(name = "subject_id")})
+	public List<Subject> getSubjects() {
+		return subjects;
 	}
 
-	public void setAdminRight(Boolean adminRight) {
-		this.adminRight = adminRight;
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
 	}
 
 	@OneToMany (mappedBy = "teacher", fetch = FetchType.LAZY)
@@ -170,5 +174,24 @@ public class Teacher implements Serializable {
 
 	public void setTimeTrackers(List<TimeTracker> timeTrackers) {
 		this.timeTrackers = timeTrackers;
+	}
+
+	@ManyToMany (fetch = FetchType.EAGER)
+	@JoinTable (name = "tbl_teacher_course", joinColumns = {@JoinColumn(name = "teacher_id")}, inverseJoinColumns = {@JoinColumn(name = "course_id")})
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
+	@Transient
+	public List<Department> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<Department> departments) {
+		this.departments = departments;
 	}
 }

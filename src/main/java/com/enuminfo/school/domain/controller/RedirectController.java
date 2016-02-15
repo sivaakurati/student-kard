@@ -22,7 +22,7 @@ public class RedirectController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getHomePage() {
-		return "home";
+		return "profile";
 	}
 	
 	@RequestMapping(value = "/profile", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
@@ -43,6 +43,11 @@ public class RedirectController {
 	@RequestMapping(value = "/subject", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getSubjectPage() {
 		return "subject";
+	}
+	
+	@RequestMapping(value = "/department", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getDepartmentPage() {
+		return "department";
 	}
 	
 	@RequestMapping(value = "/timetracker", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
