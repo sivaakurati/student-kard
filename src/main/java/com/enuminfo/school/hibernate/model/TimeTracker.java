@@ -31,6 +31,10 @@ public class TimeTracker implements Serializable {
 	private Course course;
 	private Teacher teacher;
 	private Subject subject;
+	private String startDateTime;
+	private String endDateTime;
+	private String repeatableForDayOfWeek;
+	private Boolean allDay;
 	
 	public TimeTracker() {
 		// TODO Auto-generated constructor stub
@@ -75,5 +79,41 @@ public class TimeTracker implements Serializable {
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+	@Column (name = "start_date_time")
+	public String getStartDateTime() {
+		return startDateTime;
+	}
+
+	public void setStartDateTime(String startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	@Column (name = "end_date_time")
+	public String getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(String endDateTime) {
+		this.endDateTime = endDateTime;
+	}
+
+	@Column (name = "repeatable_for_day_of_week")
+	public String getRepeatableForDayOfWeek() {
+		return repeatableForDayOfWeek;
+	}
+
+	public void setRepeatableForDayOfWeek(String repeatableForDayOfWeek) {
+		this.repeatableForDayOfWeek = repeatableForDayOfWeek;
+	}
+
+	@Column (name = "all_day")
+	public Boolean getAllDay() {
+		return allDay;
+	}
+
+	public void setAllDay(Boolean allDay) {
+		this.allDay = allDay;
 	}
 }

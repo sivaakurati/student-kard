@@ -29,26 +29,19 @@ app.controller('ViewCtrl', function($scope, $http) {
 	};
 	
 	var currColor = "#3c8dbc"; //Red by default
-	var courseName = "", teacherName = "", subjectName = "";
-	var eventVal = "";
 	
 	$scope.saveTimeTracker = function(){
 		$http.get('/course/' + $scope.timeTracker.course.courseId).success(function(data){
 			$scope.course = data;
-			courseName = $scope.course.courseName;
+			$http.get('/teacher/' + $scope.timeTracker.teacher.teacherId).success(function(data){
+				$scope.teacher = data;
+				var event = $("<div />");
+				event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
+				event.html($scope.course.courseName + "<=>" + $scope.teacher.teacherName + "<=>" + $scope.teacher.subject.subjectName);
+				$('#external-events').prepend(event);
+				ini_events(event);
+			});
 		});		
-		$http.get('/teacher/' + $scope.timeTracker.teacher.teacherId).success(function(data){
-			$scope.teacher = data;
-			teacherName = $scope.teacher.teacherName;
-			subjectName = $scope.teacher.subject.subjectName;
-		});
-		eventVal = "For, " + courseName + " :: " + teacherName + " teaches the subject " + subjectName;		
-		console.log(eventVal);
-		var event = $("<div />");
-        event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
-        event.html(eventVal);
-        $('#external-events').prepend(event);
-        ini_events(event);
 	};
 	
 	$scope.loadCourses();
@@ -87,7 +80,11 @@ $(function(){
             week: 'week',
             day: 'day'
 		},
-		events: [],
+		slotEventOverlap: false,
+        eventLimit: true,
+		events: $http.get('/timetracker'),
+		selectable: true,
+        selectHelper: true,
 		editable: true,
         droppable: true,
         drop: function (date, allDay) {
