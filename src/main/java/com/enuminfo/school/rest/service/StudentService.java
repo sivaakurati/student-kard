@@ -30,7 +30,7 @@ public class StudentService {
 		return repository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST)
 	public void saveStudent(@RequestBody Student student) {
 		System.out.println(student.getStudentId());
 		System.out.println(student.getStudentName());
@@ -44,7 +44,7 @@ public class StudentService {
 		//repository.save(student);
 	}
 	
-	@RequestMapping(value = "/{studentId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{studentId}", method = RequestMethod.DELETE)
 	public void deleteStudent(@PathVariable Integer studentId) {
 		Student student = repository.findOne(studentId);
 		repository.delete(student);

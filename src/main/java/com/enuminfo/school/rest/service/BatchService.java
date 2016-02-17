@@ -28,12 +28,12 @@ public class BatchService {
 		return repository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST)
 	public void saveBatch(@RequestBody Batch batch) {
 		repository.save(batch);
 	}
 	
-	@RequestMapping(value = "/{batchId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{batchId}", method = RequestMethod.DELETE)
 	public void deleteCourse(@PathVariable Integer batchId) {
 		Batch batch = repository.findOne(batchId);
 		repository.delete(batch);

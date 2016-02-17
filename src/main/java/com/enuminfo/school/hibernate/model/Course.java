@@ -6,7 +6,6 @@ package com.enuminfo.school.hibernate.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -74,7 +73,7 @@ public class Course implements Serializable {
 		this.subjects = subjects;
 	}
 
-	@ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany (fetch = FetchType.LAZY)
 	@JoinTable (name = "tbl_batch_course", joinColumns = {@JoinColumn(name = "course_id")}, inverseJoinColumns = {@JoinColumn(name = "batch_id")})
 	@JsonIgnore
 	public List<Batch> getBatchs() {

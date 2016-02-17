@@ -28,12 +28,12 @@ public class DepartmentService {
 		return repository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST)
 	public void saveDepartment(@RequestBody Department department) {
 		repository.save(department);
 	}
 	
-	@RequestMapping(value = "/{departmentId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{departmentId}", method = RequestMethod.DELETE)
 	public void deleteDepartment(@PathVariable Integer departmentId) {
 		Department department = repository.findOne(departmentId);
 		repository.delete(department);

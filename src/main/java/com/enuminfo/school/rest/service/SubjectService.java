@@ -28,12 +28,12 @@ public class SubjectService {
 		return repository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST)
 	public void saveSubject(@RequestBody Subject subject) {
 		repository.save(subject);
 	}
 	
-	@RequestMapping(value = "/{subjectId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{subjectId}", method = RequestMethod.DELETE)
 	public void deleteSubject(@PathVariable Integer subjectId) {
 		Subject subject = repository.findOne(subjectId);
 		repository.delete(subject);

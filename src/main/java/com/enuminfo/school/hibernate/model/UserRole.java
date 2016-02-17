@@ -5,7 +5,6 @@ package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +48,7 @@ public class UserRole implements Serializable {
 		this.userRoleId = userRoleId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "user_id")
 	@JsonIgnore
 	public User getUser() {
@@ -60,7 +59,7 @@ public class UserRole implements Serializable {
 		this.user = user;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name = "role_id")
 	@JsonIgnore
 	public Role getRole() {

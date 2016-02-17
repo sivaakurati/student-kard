@@ -6,7 +6,6 @@ package com.enuminfo.school.hibernate.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -85,7 +84,7 @@ public class Parent implements Serializable {
 		this.address = address;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "location_id")
 	public Location getLocation() {
 		return location;
@@ -115,7 +114,7 @@ public class Parent implements Serializable {
 		this.mainParentId = mainParentId;
 	}
 
-	@OneToMany (mappedBy = "parent", fetch = FetchType.LAZY)
+	@OneToMany (mappedBy = "parent", fetch = FetchType.EAGER)
 	public List<Student> getStudents() {
 		return students;
 	}

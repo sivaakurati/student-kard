@@ -46,33 +46,56 @@
 <section class="content">
 	<div class="row">
 	<div class="col-md-4">
-		<div class="box box-solid">
+		<!-- <div class="box box-solid">
 			<div class="box-header with-border"><h4 class="box-title">Draggable Events</h4></div>
 			<div class="box-body">
 				<div id="external-events"></div>
 			</div>
-		</div>
+		</div> -->
 		<div class="box box-solid">
 			<div class="box-header with-border"><h3 class="box-title">Add Event</h3></div>
 			<form class="form-horizontal">
 			<div class="box-body">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Course</label>
-					<div class="col-sm-9"><select class="form-control" ng-model="timeTracker.course.courseId">
+					<div class="col-sm-9"><select class="form-control" ng-model="timeTracker.course.courseId" id="courseId">
 						<option value="">----- Select Course -----</option>
 						<option ng-repeat="course in courses" value="{{course.courseId}}">{{course.courseName}}</option>
 					</select></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Teacher</label>
-					<div class="col-sm-9"><select class="form-control" id="teacherId" ng-model="timeTracker.teacher.teacherId" ng-change="loadSubjectById()">
+					<div class="col-sm-9"><select class="form-control" id="teacherId" ng-model="timeTracker.teacher.teacherId" ng-change="loadSubjectsById()">
 						<option value="">----- Select Teacher -----</option>
 						<option ng-repeat="teacher in teachers" value="{{teacher.teacherId}}">{{teacher.teacherName}}</option>
 					</select></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Subject</label>
-					<div class="col-sm-9"><input type="text" class="form-control" ng-model="teacher.subject.subjectName" value="{{teacher.subject.subjectName}}"/></div>
+					<div class="col-sm-9"><select class="form-control" id="subjectId" ng-model="timeTracker.subject.subjectId">
+						<option value="">----- Select Subject -----</option>
+						<option ng-repeat="subject in subjects" value="{{subject.subjectId}}">{{subject.subjectName}}</option>
+					</select></div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">All Day</label>
+					<div class="col-sm-9 checkbox"><label><input type="checkbox" ng-model="timeTracker.fullDay" id="allDay" onclick="allDayClicked();"/></label></div>
+				</div>
+				<div class="form-group" id="startDate">
+					<label class="col-sm-3 control-label">Start Date</label>
+					<div class="col-sm-9"><input type="text" class="form-control" placeholder="yyyy-MM-dd" ng-model="timeTracker.startDate"/></div>
+				</div>
+				<div class="form-group" id="startTime">
+					<label class="col-sm-3 control-label">Start Time</label>
+					<div class="col-sm-9"><input type="text" class="form-control" placeholder="HH:MM" ng-model="timeTracker.startTime"/>&nbsp;(24 Hrs Format)</div>
+				</div>
+				<div class="form-group" id="endDate">
+					<label class="col-sm-3 control-label">End Date</label>
+					<div class="col-sm-9"><input type="text" class="form-control" placeholder="yyyy-MM-dd" ng-model="timeTracker.endDate"/></div>
+				</div>
+				<div class="form-group" id="endTime">
+					<label class="col-sm-3 control-label">End Time</label>
+					<div class="col-sm-9"><input type="text" class="form-control" placeholder="HH:MM" ng-model="timeTracker.endTime"/>&nbsp;(24 Hrs Format)</div>
 				</div>
 				<div class="box-footer">
 					<button type="button" class="btn btn-success pull-right" ng-click="saveTimeTracker();">

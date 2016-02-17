@@ -28,12 +28,12 @@ public class CourseService {
 		return repository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST)
 	public void saveCourse(@RequestBody Course course) {
 		repository.save(course);
 	}
 	
-	@RequestMapping(value = "/{courseId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{courseId}", method = RequestMethod.DELETE)
 	public void deleteCourse(@PathVariable Integer courseId) {
 		Course course = repository.findOne(courseId);
 		repository.delete(course);

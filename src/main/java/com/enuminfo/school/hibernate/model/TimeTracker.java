@@ -5,7 +5,6 @@ package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,10 +30,11 @@ public class TimeTracker implements Serializable {
 	private Course course;
 	private Teacher teacher;
 	private Subject subject;
-	private String startDateTime;
-	private String endDateTime;
-	private String repeatableForDayOfWeek;
-	private Boolean allDay;
+	private String startDate;
+	private String startTime;
+	private String endDate;
+	private String endTime;
+	private Boolean fullDay;
 	
 	public TimeTracker() {
 		// TODO Auto-generated constructor stub
@@ -51,7 +51,7 @@ public class TimeTracker implements Serializable {
 		this.timeTrackerId = timeTrackerId;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "course_id")
 	public Course getCourse() {
 		return course;
@@ -61,7 +61,7 @@ public class TimeTracker implements Serializable {
 		this.course = course;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "teacher_id")
 	public Teacher getTeacher() {
 		return teacher;
@@ -71,7 +71,7 @@ public class TimeTracker implements Serializable {
 		this.teacher = teacher;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "subject_id")
 	public Subject getSubject() {
 		return subject;
@@ -81,39 +81,48 @@ public class TimeTracker implements Serializable {
 		this.subject = subject;
 	}
 
-	@Column (name = "start_date_time")
-	public String getStartDateTime() {
-		return startDateTime;
+	@Column (name = "start_date")
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setStartDateTime(String startDateTime) {
-		this.startDateTime = startDateTime;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
 
-	@Column (name = "end_date_time")
-	public String getEndDateTime() {
-		return endDateTime;
+	@Column (name = "start_time")
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setEndDateTime(String endDateTime) {
-		this.endDateTime = endDateTime;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
-	@Column (name = "repeatable_for_day_of_week")
-	public String getRepeatableForDayOfWeek() {
-		return repeatableForDayOfWeek;
+	@Column (name = "end_date")
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setRepeatableForDayOfWeek(String repeatableForDayOfWeek) {
-		this.repeatableForDayOfWeek = repeatableForDayOfWeek;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
-	@Column (name = "all_day")
-	public Boolean getAllDay() {
-		return allDay;
+	@Column (name = "end_time")
+	public String getEndTime() {
+		return endTime;
 	}
 
-	public void setAllDay(Boolean allDay) {
-		this.allDay = allDay;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	@Column (name = "full-day")
+	public Boolean getFullDay() {
+		return fullDay;
+	}
+
+	public void setFullDay(Boolean fullDay) {
+		this.fullDay = fullDay;
 	}
 }

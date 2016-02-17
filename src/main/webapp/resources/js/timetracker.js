@@ -1,6 +1,17 @@
 var app = angular.module('timetracker', []);
 
 app.controller('ViewCtrl', function($scope, $http) {
+	$scope.$on('loadTimeTrackers', function(){
+		$scope.loadTimeTrackers();
+	});
+	
+	$scope.loadTimeTrackers = function(){
+		$http.get('/timetracker').success(function(data){
+			$scope.timetrackers = data;
+			console.log(stringIt($scope.timetrackers));
+		});
+	};
+	
 	$scope.$on('loadCourses', function(){
 		$scope.loadCourses();
 	});
@@ -21,31 +32,63 @@ app.controller('ViewCtrl', function($scope, $http) {
 		});
 	};
 	
-	$scope.loadSubjectById = function() {
+	$scope.loadSubjectsById = function() {
 		var teacherId = $('#teacherId').val();
-		$http.get('/teacher/' + teacherId).success(function(data){
-			$scope.teacher = data;
+		$scope.subjects = [];
+		angular.forEach($scope.teachers, function(teacher) {
+			if (teacher.teacherId == teacherId) {
+				angular.forEach(teacher.subjects, function(teacherSubject) {
+					$scope.subjects.push(teacherSubject);
+				});
+			}
 		});
 	};
 	
-	var currColor = "#3c8dbc"; //Red by default
+	$scope.$on('loadCalendar', function() {
+		$scope.loadCalendar();
+	});
+	
+	$scope.loadCalendar = function() {
+		//ini_events($('#external-events div.external-event'));
+		
+		var date = new Date();
+	    var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
+	    
+	    $('#calendar').fullCalendar({
+	    	header: {
+				left: 'prev,next today',
+	            center: 'title',
+	            right: 'month,agendaWeek,agendaDay'
+			},
+			buttonText: {
+	            today: 'today',
+	            month: 'month',
+	            week: 'week',
+	            day: 'day'
+			},
+			slotEventOverlap: false,
+	        eventLimit: true,
+			events: $scope.timetrackers,
+			selectable: true,
+	        selectHelper: true,
+			editable: true,
+	        droppable: true
+	    });
+	};
 	
 	$scope.saveTimeTracker = function(){
-		$http.get('/course/' + $scope.timeTracker.course.courseId).success(function(data){
-			$scope.course = data;
-			$http.get('/teacher/' + $scope.timeTracker.teacher.teacherId).success(function(data){
-				$scope.teacher = data;
-				var event = $("<div />");
-				event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
-				event.html($scope.course.courseName + "<=>" + $scope.teacher.teacherName + "<=>" + $scope.teacher.subject.subjectName);
-				$('#external-events').prepend(event);
-				ini_events(event);
-			});
-		});		
+		$http.post('/timetracker', $scope.timeTracker).success(function(){
+			$scope.$emit('loadCourses');
+			$scope.$emit('loadTeachers');
+			$scope.$emit('loadCalendar');
+			$scope.$emit('loadTimeTrackers');
+		});
 	};
 	
 	$scope.loadCourses();
 	$scope.loadTeachers();
+	$scope.loadCalendar();
+	$scope.loadTimeTrackers();
 });
 
 function ini_events(ele){
@@ -62,7 +105,22 @@ function ini_events(ele){
 	}
 };
 
-$(function(){
+function allDayClicked() {
+	var allDayCheckBoxVal = $("#allDay").is(':checked')?1:0;
+	if (allDayCheckBoxVal == 1) {
+		$('#startDate').hide();
+		$('#endDate').hide();
+		$('#startTime').hide();
+		$('#endTime').hide();
+	} else {
+		$('#startDate').show();
+		$('#endDate').show();
+		$('#startTime').show();
+		$('#endTime').show();
+	}
+};
+
+/*$(function(){
 	ini_events($('#external-events div.external-event'));
 	
 	var date = new Date();
@@ -97,7 +155,7 @@ $(function(){
             $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
         }
 	});
-});
+});*/
 
 function stringIt(val) {
     return JSON.stringify(val);

@@ -9,7 +9,6 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.loadTeachers = function(){
 		$http.get('/teacher').success(function(data){
 			$scope.teachers = data;
-			console.log(stringIt($scope.teachers));
 		});
 	};
 	

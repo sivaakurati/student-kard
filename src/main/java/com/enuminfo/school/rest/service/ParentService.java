@@ -28,12 +28,12 @@ public class ParentService {
 		return repository.findAll();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST)
 	public void saveParent(@RequestBody Parent parent) {
 		repository.save(parent);
 	}
 	
-	@RequestMapping(value = "/{parentId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{parentId}", method = RequestMethod.DELETE)
 	public void deleteParent(@PathVariable Integer parentId) {
 		Parent parent = repository.findOne(parentId);
 		repository.delete(parent);

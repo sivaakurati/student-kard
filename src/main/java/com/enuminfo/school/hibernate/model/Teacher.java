@@ -6,7 +6,6 @@ package com.enuminfo.school.hibernate.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -110,7 +109,7 @@ public class Teacher implements Serializable {
 		this.gender = gender;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "location_id")
 	public Location getLocation() {
 		return location;

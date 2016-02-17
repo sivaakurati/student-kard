@@ -6,7 +6,6 @@ package com.enuminfo.school.hibernate.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,7 +58,7 @@ public class Role implements Serializable {
 		this.roleName = roleName;
 	}
 
-	@ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany (fetch = FetchType.LAZY)
 	@JoinTable(name = "tbl_user_role", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
 	@JsonIgnore
 	public List<User> getUsers() {

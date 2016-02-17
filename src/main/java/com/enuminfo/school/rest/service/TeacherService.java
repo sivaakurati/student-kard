@@ -4,8 +4,10 @@
 package com.enuminfo.school.rest.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.enuminfo.school.hibernate.model.Department;
 import com.enuminfo.school.hibernate.model.Role;
+import com.enuminfo.school.hibernate.model.Subject;
 import com.enuminfo.school.hibernate.model.Teacher;
 import com.enuminfo.school.hibernate.model.User;
 import com.enuminfo.school.hibernate.repository.LocationRepository;
@@ -71,7 +74,7 @@ public class TeacherService {
 		repository.save(teacher);
 	}
 	
-	@RequestMapping(value = "/{teacherId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{teacherId}", method = RequestMethod.DELETE)
 	public void deleteTeacher(@PathVariable Integer teacherId) {
 		Teacher teacher = repository.findOne(teacherId);
 		repository.delete(teacher);
@@ -82,5 +85,15 @@ public class TeacherService {
 		Teacher teacher = new Teacher();
 		if (teacherId != 0) teacher = repository.findOne(teacherId);
 		return teacher;
+	}
+	
+	@RequestMapping(value = "/{teacherId}/subjects", method = RequestMethod.GET)
+	public List<Subject> getTeacherSubjectsById(@PathVariable Integer teacherId) {
+		Set<Subject> subjects = new HashSet<Subject>();
+		Teacher teacher = repository.findOne(teacherId);
+		for (Subject subject: teacher.getSubjects()) {
+			subjects.add(subject);
+		}
+		return new ArrayList<Subject>(subjects);
 	}
 }

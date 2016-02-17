@@ -5,7 +5,6 @@ package com.enuminfo.school.hibernate.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,7 +66,7 @@ public class Student {
 		this.photo = photo;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "batch_id")
 	public Batch getBatch() {
 		return batch;
@@ -77,7 +76,7 @@ public class Student {
 		this.batch = batch;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "course_id")
 	public Course getCourse() {
 		return course;
@@ -87,7 +86,7 @@ public class Student {
 		this.course = course;
 	}
 
-	@ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "parent_id")
 	@JsonIgnore
 	public Parent getParent() {
