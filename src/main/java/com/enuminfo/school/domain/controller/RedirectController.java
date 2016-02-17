@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author Kumar
@@ -84,5 +83,10 @@ public class RedirectController {
 	@RequestMapping(value = "/parent/{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getSaveOrUpdateParentPage(@PathVariable Integer parentId) {
 		return "saveparent";
-	}	
+	}
+	
+	@RequestMapping(value = "/changepassword", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getChangePasswordPage() {
+		return "changepassword";
+	}
 }
