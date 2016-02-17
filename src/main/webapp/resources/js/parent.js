@@ -84,32 +84,28 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveParent = function(){
-		console.log(stringIt($scope.parent));
-		//$http.post('/parent', $scope.parent).success(function(){
-		//	$scope.$emit('loadParents');
-		//	$('#parentmodal').hide();
-		//});
+		$http.post('/parent', $scope.parent).success(function(){
+			$scope.$emit('loadParents');
+			$('#parentmodal').hide();
+		});
 	};
 	
 	$scope.loadCitiesByState = function() {
-		var val = stringIt($scope.teacher.location.stateName).replace('"', '');
-		var stateName = val.substring(0, val.length-1);
+		var stateName = $('#stateName').val();
 		$http.get('/cities/' + stateName).success(function(data){
 			$scope.cities = data;
 		});
 	};
 	
 	$scope.loadLocationsByCity = function() {
-		var val = stringIt($scope.teacher.location.cityName).replace('"', '');
-		var cityName = val.substring(0, val.length-1);
+		var cityName = $('#cityName').val();
 		$http.get('/locations/' + cityName).success(function(data){
 			$scope.locations = data;
 		});
 	};
 	
 	$scope.loadLocationById = function() {
-		var val = stringIt($scope.teacher.location.locationId).replace('"', '');
-		var locationId = val.substring(0, val.length-1);
+		var locationId = $('#locationId').val();
 		$http.get('/location/' + locationId).success(function(data){
 			$scope.location = data;
 		});

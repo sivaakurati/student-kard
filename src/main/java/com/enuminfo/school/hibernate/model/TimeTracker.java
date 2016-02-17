@@ -117,7 +117,7 @@ public class TimeTracker implements Serializable {
 		this.endTime = endTime;
 	}
 
-	@Column (name = "full-day")
+	@Column (name = "full_day")
 	public Boolean getFullDay() {
 		return fullDay;
 	}

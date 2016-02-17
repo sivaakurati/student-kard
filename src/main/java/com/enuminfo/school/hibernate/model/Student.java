@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,6 +28,7 @@ public class Student {
 	private Integer studentId;
 	private String studentName;
 	private String photo;
+	private String gender;
 	private Date dateOfBirth;
 	private Date dateOfJoining;
 	private Batch batch;
@@ -64,6 +66,15 @@ public class Student {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	
+	@Transient
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	@ManyToOne (fetch = FetchType.EAGER)

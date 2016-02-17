@@ -15,11 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Kumar
@@ -35,7 +32,9 @@ public class Parent implements Serializable {
 	private Integer parentId;
 	private String parentName;
 	private String photo;
+	private String emailAddress;
 	private String address;
+	private String gender;
 	private Location location;
 	private Long contactNo;
 	private Parent mainParentId;
@@ -74,6 +73,24 @@ public class Parent implements Serializable {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
+	@Column (name = "email_address")
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+	
+	@Transient
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
 	@Column (name = "address")
 	public String getAddress() {
@@ -103,9 +120,7 @@ public class Parent implements Serializable {
 		this.contactNo = contactNo;
 	}
 
-	@OneToOne
-	@JoinColumn (name = "main_parent_id")
-	@JsonIgnore
+	@Column (name = "main_parent_id")
 	public Parent getMainParentId() {
 		return mainParentId;
 	}
