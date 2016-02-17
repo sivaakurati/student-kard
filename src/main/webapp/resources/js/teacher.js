@@ -12,10 +12,6 @@ app.controller('ViewCtrl', function($scope, $http) {
 		});
 	};
 	
-	$scope.createTeacher = function(){
-		window.location.href = '/teacher/0';
-	};
-	
 	$scope.openTeacher = function(teacher){
 		window.location.href = '/teacher/' + teacher.teacherId;
 	};
