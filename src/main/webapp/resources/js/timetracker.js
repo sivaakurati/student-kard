@@ -1,14 +1,10 @@
 var app = angular.module('timetracker', []);
 
 app.controller('ViewCtrl', function($scope, $http) {
-	$scope.$on('loadTimeTrackers', function(){
-		$scope.loadTimeTrackers();
-	});
-	
-	$scope.loadTimeTrackers = function(){
-		$http.get('/timetracker').success(function(data){
-			$scope.timetrackers = data;
-			console.log(stringIt($scope.timetrackers));
+	$scope.loadTimeTrackerEvents = function(){
+		$http.get('/timetracker/events').success(function(data){
+			$scope.timetrackerEvents = data;
+			console.log(stringIt($scope.timetrackerEvents));
 		});
 	};
 	
@@ -49,11 +45,8 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadCalendar = function() {
-		//ini_events($('#external-events div.external-event'));
-		
 		var date = new Date();
 	    var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
-	    
 	    $('#calendar').fullCalendar({
 	    	header: {
 				left: 'prev,next today',
@@ -66,13 +59,8 @@ app.controller('ViewCtrl', function($scope, $http) {
 	            week: 'week',
 	            day: 'day'
 			},
-			slotEventOverlap: false,
-	        eventLimit: true,
-			events: $scope.timetrackers,
-			selectable: true,
-	        selectHelper: true,
-			editable: true,
-	        droppable: true
+			//events: [{"eventId":1,"title":"Course101 - Sekhar - English","start":"2016-02-18T10:00:00.000+05:30","end":"2016-02-18T11:00:00.000+05:30","allDay":false}]
+			events: $scope.loadTimeTrackerEvents()
 	    });
 	};
 	
@@ -81,14 +69,13 @@ app.controller('ViewCtrl', function($scope, $http) {
 			$scope.$emit('loadCourses');
 			$scope.$emit('loadTeachers');
 			$scope.$emit('loadCalendar');
-			$scope.$emit('loadTimeTrackers');
+			$scope.$emit('loadTimeTrackerEvents');
 		});
 	};
 	
 	$scope.loadCourses();
 	$scope.loadTeachers();
 	$scope.loadCalendar();
-	$scope.loadTimeTrackers();
 });
 
 function ini_events(ele){
@@ -119,43 +106,6 @@ function allDayClicked() {
 		$('#endTime').show();
 	}
 };
-
-/*$(function(){
-	ini_events($('#external-events div.external-event'));
-	
-	var date = new Date();
-    var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
-	
-	$('#calendar').fullCalendar({
-		header: {
-			left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-		},
-		buttonText: {
-            today: 'today',
-            month: 'month',
-            week: 'week',
-            day: 'day'
-		},
-		slotEventOverlap: false,
-        eventLimit: true,
-		events: $http.get('/timetracker'),
-		selectable: true,
-        selectHelper: true,
-		editable: true,
-        droppable: true,
-        drop: function (date, allDay) {
-        	var originalEventObject = $('div.external-event').data('eventObject');
-        	var copiedEventObject = $.extend({}, originalEventObject);
-        	copiedEventObject.start = date;
-            copiedEventObject.allDay = allDay;
-            copiedEventObject.backgroundColor = $('div.external-event').css("background-color");
-            copiedEventObject.borderColor = $('div.external-event').css("border-color");
-            $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-        }
-	});
-});*/
 
 function stringIt(val) {
     return JSON.stringify(val);

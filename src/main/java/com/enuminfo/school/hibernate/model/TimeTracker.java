@@ -4,6 +4,7 @@
 package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author Kumar
@@ -30,11 +32,11 @@ public class TimeTracker implements Serializable {
 	private Course course;
 	private Teacher teacher;
 	private Subject subject;
-	private String startDate;
-	private String startTime;
-	private String endDate;
-	private String endTime;
-	private Boolean fullDay;
+	private Date startDate;
+	private Date endDate;
+	private Boolean fullDay;	
+	private String tempStart;
+	private String tempEnd;
 	
 	public TimeTracker() {
 		// TODO Auto-generated constructor stub
@@ -82,39 +84,21 @@ public class TimeTracker implements Serializable {
 	}
 
 	@Column (name = "start_date")
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	@Column (name = "start_time")
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
 	@Column (name = "end_date")
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	@Column (name = "end_time")
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
 	}
 
 	@Column (name = "full_day")
@@ -124,5 +108,23 @@ public class TimeTracker implements Serializable {
 
 	public void setFullDay(Boolean fullDay) {
 		this.fullDay = fullDay;
+	}
+
+	@Transient
+	public String getTempStart() {
+		return tempStart;
+	}
+
+	public void setTempStart(String tempStart) {
+		this.tempStart = tempStart;
+	}
+
+	@Transient
+	public String getTempEnd() {
+		return tempEnd;
+	}
+
+	public void setTempEnd(String tempEnd) {
+		this.tempEnd = tempEnd;
 	}
 }
