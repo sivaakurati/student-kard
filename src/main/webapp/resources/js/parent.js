@@ -1,5 +1,9 @@
-var app = angular.module('parent', []);
+var app = angular.module('parentnstudent', []);
 var parentId = window.location.href;
+
+/**
+ * parent.html and student.html
+ */
 
 app.controller('ViewCtrl', function($scope, $http) {
 	$scope.$on("loadParents", function(){
@@ -13,11 +17,11 @@ app.controller('ViewCtrl', function($scope, $http) {
 	};
 	
 	$scope.createParent = function(){
-		window.location.href = '/parent/0';
+		window.location.href = '/parent0';
 	};
 	
 	$scope.openParent = function(parent){
-		window.location.href = '/parent/' + parent.parentId;
+		window.location.href = '/parent' + parent.parentId;
 	};
 	
 	$scope.deleteParent = function(subject){
@@ -35,8 +39,12 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.loadParents();
 });
 
+/**
+ * saveparent.html and savestudent.html
+ */
+
 app.controller('EditCtrl', function($scope, $http) {
-	var param = parentId.split('/')[4]
+	var param = parentId.split('/')[3].replace('teacher','')
 	
 	$scope.$on("loadStates", function(){
 		$scope.loadStates();

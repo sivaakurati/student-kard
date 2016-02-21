@@ -23,7 +23,7 @@ public class TimeTrackerEvent implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer eventId;
+	private Integer id;
 	private String title;
 	private String start;
 	private String end;
@@ -36,12 +36,12 @@ public class TimeTrackerEvent implements Serializable {
 	@Id
 	@Column (name = "time_tracker_id")
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	public Integer getEventId() {
-		return eventId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Column (name = "event_title")

@@ -1137,36 +1137,59 @@ a.cke_button_disabled, a.cke_button_disabled:hover, a.cke_button_disabled:focus,
 }
 
 .cke_rtl
+
  
+
 .cke_toolgroup
 ,
 .cke_rtl
+
  
+
 .cke_toolbar_separator
 ,
 .cke_rtl
+
  
+
 .cke_combo_button
 ,
 .cke_rtl
+
  
+
 .cke_combo_button
+
  
+
 *
 ,
 .cke_rtl
+
  
+
 .cke_button
 ,
 .cke_rtl
+
  
+
 .cke_button_icon
 ,
 {
 display
+
+
 :inline-block
-;vertical-align
+
+
+;
+vertical-align
+
+
 :top
+
+
 }
 .cke_rtl .cke_button_icon {
 	float: none

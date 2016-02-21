@@ -83,6 +83,21 @@ public class DateTimeUtil {
         return date;
 	}
 	
+	public static Date convertGMT2ISTDate(String datetime) {
+		Date date = null;
+		DateTimeFormatter parser = ISODateTimeFormat.dateTime();
+        DateTime dTime = parser.parseDateTime(datetime);
+        DateTimeFormatter formatter = DateTimeFormat.mediumDateTime();
+        String strDate = formatter.print(dTime);
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy");
+        try {
+			date = dateFormat.parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        return date;
+	}
+	
 	public static String convertGMT2ISTDateTimestamp(String datetime) {
 		DateTimeFormatter parser = ISODateTimeFormat.dateTime();
         DateTime dTime = parser.parseDateTime(datetime);

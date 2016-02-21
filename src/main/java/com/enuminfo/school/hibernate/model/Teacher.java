@@ -4,6 +4,7 @@
 package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -41,13 +42,15 @@ public class Teacher implements Serializable {
 	private String gender;
 	private Location location;
 	private Long contactNo;
-	private String dateOfBirth;
-	private String dateOfJoining;
+	private Date dateOfBirth;
+	private Date dateOfJoining;
 	private String designation;
 	private List<Subject> subjects;
 	private List<TimeTracker> timeTrackers;
 	private List<Course> courses;
 	private List<Department> departments;
+	private String dob;
+	private String doj;
 	
 	public Teacher() {
 		// TODO Auto-generated constructor stub
@@ -129,20 +132,20 @@ public class Teacher implements Serializable {
 	}
 
 	@Column (name = "date_of_birth")
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
 	@Column (name = "date_of_joining")
-	public String getDateOfJoining() {
+	public Date getDateOfJoining() {
 		return dateOfJoining;
 	}
 
-	public void setDateOfJoining(String dateOfJoining) {
+	public void setDateOfJoining(Date dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
 	}
 
@@ -192,5 +195,23 @@ public class Teacher implements Serializable {
 
 	public void setDepartments(List<Department> departments) {
 		this.departments = departments;
+	}
+
+	@Transient
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	@Transient
+	public String getDoj() {
+		return doj;
+	}
+
+	public void setDoj(String doj) {
+		this.doj = doj;
 	}
 }

@@ -23,12 +23,17 @@ import com.enuminfo.school.hibernate.model.Role;
 import com.enuminfo.school.hibernate.model.Subject;
 import com.enuminfo.school.hibernate.model.Teacher;
 import com.enuminfo.school.hibernate.model.User;
+import com.enuminfo.school.hibernate.repository.CourseRepository;
 import com.enuminfo.school.hibernate.repository.LocationRepository;
 import com.enuminfo.school.hibernate.repository.RoleRepository;
 import com.enuminfo.school.hibernate.repository.SubjectRepository;
+import com.enuminfo.school.hibernate.repository.TeacherCourseRepository;
 import com.enuminfo.school.hibernate.repository.TeacherRepository;
+import com.enuminfo.school.hibernate.repository.TeacherSubjectRepository;
 import com.enuminfo.school.hibernate.repository.UserRepository;
+import com.enuminfo.school.util.DateTimeUtil;
 import com.enuminfo.school.util.StringUtil;
+import com.google.common.collect.Lists;
 
 /**
  * @author Kumar
@@ -42,6 +47,9 @@ public class TeacherService {
 	@Autowired UserRepository userRepository;
 	@Autowired LocationRepository locationRepository;
 	@Autowired SubjectRepository subjectRepository;
+	@Autowired TeacherSubjectRepository teacherSubjectRepository;
+	@Autowired TeacherCourseRepository teacherCourseRepository;
+	@Autowired CourseRepository courseRepository;
 	
 	@Autowired JavaMailSender mailSender;
 	
@@ -53,8 +61,10 @@ public class TeacherService {
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveTeacher(@RequestBody Teacher teacher) {
 		if (teacher.getTeacherId() == null) {
-			if (teacher.getGender().equals("male")) teacher.setPhoto("avatar5.png");
-			else teacher.setPhoto("avatar2.png");			
+			teacher.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(teacher.getDob()));
+			teacher.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(teacher.getDoj()));
+			if (teacher.getGender() != null && teacher.getGender().equals("male")) teacher.setPhoto("avatar5.png");
+			else if (teacher.getGender() != null && teacher.getGender().equals("female")) teacher.setPhoto("avatar2.png");			
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
 			for (Iterator<Department> iterator = teacher.getDepartments().iterator(); iterator.hasNext();) {
@@ -84,6 +94,8 @@ public class TeacherService {
 	public Teacher getTeacher(@PathVariable Integer teacherId) {
 		Teacher teacher = new Teacher();
 		if (teacherId != 0) teacher = repository.findOne(teacherId);
+		teacher.setSubjects(Lists.newArrayList(subjectRepository.findAll(teacherSubjectRepository.findByTeacherId(teacherId))));
+		teacher.setCourses(Lists.newArrayList(courseRepository.findAll(teacherCourseRepository.findByTeacherId(teacherId))));
 		return teacher;
 	}
 	

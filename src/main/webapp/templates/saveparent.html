@@ -1,30 +1,43 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" ng-app="parent">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" ng-app="parentnstudent">
 <head>
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<title>Student KARD | Parent</title>
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-	<link rel="stylesheet" href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
-	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
-	<link rel="stylesheet" href="../resources/libs/dist/css/skins/_all-skins.min.css"/>
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css"/>
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css"/>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Student KARD | Parent</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<link rel="stylesheet"
+	href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet"
+	href="../resources/libs/dist/css/AdminLTE.min.css" />
+<link rel="stylesheet"
+	href="../resources/libs/dist/css/skins/_all-skins.min.css" />
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.css" />
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2-bootstrap.css" />
 </head>
-<body class="hold-transition skin-blue sidebar-mini" ng-controller="EditCtrl">
+<body class="hold-transition skin-blue sidebar-mini"
+	ng-controller="EditCtrl">
 	<div class="wrapper">
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<header class="main-header">
-			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span class="logo-lg"><b>Student</b>KARD</span></a>
+			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span
+				class="logo-lg"><b>Student</b>KARD</span></a>
 			<nav class="navbar navbar-static-top" role="navigation">
-				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-		           <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
-		           <span class="icon-bar"></span><span class="icon-bar"></span>
-		         </a>
-		         <div class="navbar-custom-menu"></div>
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
+					role="button"> <span class="sr-only">Toggle navigation</span><span
+					class="icon-bar"></span> <span class="icon-bar"></span><span
+					class="icon-bar"></span>
+				</a>
+				<div class="navbar-custom-menu"></div>
 			</nav>
 		</header>
 		<!-- =============================================== -->
@@ -33,216 +46,344 @@
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<div class="content-wrapper">
-		
-<!-- =============================================== -->
-<!-- =============================================== -->
-<!-- =============================================== -->
-<section class="content-header">
-	<h1>Parent <small>Control panel</small></h1>
-	<ol class="breadcrumb">
-		<li><button type="button" ng-click="getBack()" class="btn btn-sm btn-info">
-			<i class="glyphicon glyphicon-backward"></i> Go back
-		</button></li>
-	</ol>
-</section>
-<section class="content">
-	<div class="row">
-	<div class="col-xs-12">
-	<div class="box box-info">
-		<form class="form-horizontal">	
-		<div class="box-body">	
-			<input type="hidden" class="form-control" ng-model="parent.parentId" />
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Name</label>
-				<div class="col-sm-6"><input type="text" class="form-control" ng-model="parent.parentName" /></div>
-			</div>
-			<!-- <div class="form-group">
-				<label class="col-sm-4 control-label">Photo</label>
-				<div class="col-sm-6"><input type="file" class="form-control" ng-model="parent.photo" /></div>
+
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+			<section class="content-header">
+				<h1>
+					Parent <small>Control panel</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><button type="button" ng-click="getBack()"
+							class="btn btn-sm btn-info">
+							<i class="glyphicon glyphicon-backward"></i> Go back
+						</button></li>
+				</ol>
+			</section>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box box-info">
+							<form class="form-horizontal">
+								<div class="box-body">
+									<input type="hidden" class="form-control"
+										ng-model="parent.parentId" />
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Name</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control"
+												ng-model="parent.parentName" />
+										</div>
+									</div>
+									<!-- <div class="form-group">
+				<label class="col-sm-2 control-label">Photo</label>
+				<div class="col-sm-8"><input type="file" class="form-control" ng-model="parent.photo" /></div>
 			</div> -->
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Email ID</label>
-				<div class="col-sm-6"><input type="text" class="form-control" ng-model="parent.emailAddress" /></div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Gender</label>
-				<div class="col-sm-6"><input type="radio" name="gender" ng-model="parent.gender" value="male" />&nbsp;Male
-				<input type="radio" name="gender" ng-model="parent.gender" value="female" />&nbsp;Female</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Address</label>
-				<div class="col-sm-6"><textarea class="form-control" ng-model="parent.address"></textarea></div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">State</label>
-				<div class="col-sm-6"><select class="form-control" id="stateName" ng-model="parent.location.stateName" ng-change="loadCitiesByState()">
-					<option value="">----- Select State -----</option>
-					<option ng-repeat="state in states" value="{{state}}">{{state}}</option>
-				</select></div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">City</label>
-				<div class="col-sm-6"><select class="form-control" id="cityName" ng-model="parent.location.cityName" ng-change="loadLocationsByCity()">
-					<option value="">----- Select City -----</option>
-					<option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
-				</select></div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Location</label>
-				<div class="col-sm-6"><select class="form-control" id="locationId" ng-model="parent.location.locationId" ng-change="loadLocationById()">
-					<option value="">----- Select Location -----</option>
-					<option ng-repeat="location in locations" value="{{location.locationId}}">{{location.locationName}}</option>
-				</select></div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Pin Code</label>
-				<div class="col-sm-6"><input type="text" class="form-control" value="{{location.pinCode}}" ng-model="parent.location.pinCode"/></div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Contact Number</label>
-				<div class="col-sm-6"><input type="text" class="form-control" ng-model="parent.contactNo" /></div>
-			</div>
-			<div class="form-group">
-			<label class="col-sm-4 control-label">Dependent(s)</label>
-			<div class="col-sm-6"><table class="table table-bordered table-striped table-hover table-condensed">
-				<thead style="background-color: #31b0d5;"><tr><th style="width: 25%">Name</th><th style="width: 25%">Gender</th>
-				<th style="width: 25%">Contact No</th><th style="width: 25%">Email ID</th></tr></thead>
-				<tbody class="table-hover">
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[0].parent.parentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.dependents[0].parent.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.dependents[0].parent.gender" value="female" />&nbsp;Female</td>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[0].parent.contactNo" /></td>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[0].parent.emailAddress" /></td>
-				</tr>
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[1].parent.parentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.dependents[1].parent.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.dependents[1].parent.gender" value="female" />&nbsp;Female</td>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[1].parent.contactNo" /></td>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[1].parent.emailAddress" /></td>
-				</tr>
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[2].parent.parentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.dependents[2].parent.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.dependents[2].parent.gender" value="female" />&nbsp;Female</td>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[2].parent.contactNo" /></td>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[2].parent.emailAddress" /></td>
-				</tr>
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[3].parent.parentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.dependents[3].parent.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.dependents[3].parent.gender" value="female" />&nbsp;Female</td>
-					<td><input type="text" class="form-control" ng-model="parent.dependents[3].parent.contactNo" /></td>
-					<td><input type="text" class="form-control" ng-model="parent.edependents[3].parent.mailAddress" /></td>
-				</tr>
-				</tbody>
-			</table></div>
-			</div>
-			<div class="form-group">
-			<label class="col-sm-4 control-label">Children(s)</label>
-			<div class="col-sm-6"><table class="table table-bordered table-striped table-hover table-condensed">
-				<thead style="background-color: #31b0d5;"><tr><th style="width: 20%">Name</th><th style="width: 20%">Gender</th>
-				<th style="width: 20%">Date Of Birth</th><th style="width: 20%">Date Of Joining</th>
-				<th style="width: 20%">Batch</th><th style="width: 20%">Course</th></tr></thead>
-				<tbody class="table-hover">
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.students[0].student.studentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.students[0].student.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.students[0].student.gender" value="female" />&nbsp;Female</td>
-					<td><input type="date" class="form-control" ng-model="parent.students[0].student.dateOfBirth" /></td>
-					<td><input type="date" class="form-control" mg-model="parent.students[0].student.dateOfJoining" /></td>
-					<td><select class="form-control" ng-model="parent.students[0].student.batch">
-						<option value="">----- Select Batch -----</option>
-						<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
-					</select></td>
-					<td><select class="form-control" ng-model="parent.students[0].student.course">
-						<option value="">----- Select Course -----</option>
-						<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.students[1].student.studentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.students[1].student.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.students[1].student.gender" value="female" />&nbsp;Female</td>
-					<td><input type="date" class="form-control" ng-model="parent.students[1].student.dateOfBirth" /></td>
-					<td><input type="date" class="form-control" ng-model="parent.students[1].student.dateOfJoining" /></td>
-					<td><select class="form-control" ng-model="students[1].student.batch">
-						<option value="">----- Select Batch -----</option>
-						<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
-					</select></td>
-					<td><select class="form-control" ng-model="parent.students[1].student.course">
-						<option value="">----- Select Course -----</option>
-						<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.students[2].student.studentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.students[2].student.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.students[2].student.gender" value="female" />&nbsp;Female</td>
-					<td><input type="date" class="form-control" ng-model="parent.students[2].student.dateOfBirth" /></td>
-					<td><input type="date" class="form-control" ng-model="parent.students[2].student.dateOfJoining" /></td>
-					<td><select class="form-control" ng-model="parent.students[2].student.batch">
-						<option value="">----- Select Batch -----</option>
-						<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
-					</select></td>
-					<td><select class="form-control" ng-model="parent.students[2].student.course">
-						<option value="">----- Select Course -----</option>
-						<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td><input type="text" class="form-control" ng-model="parent.students[3].student.studentName" /></td>
-					<td><input type="radio" name="gender" ng-model="parent.students[3].student.gender" value="male" />&nbsp;Male
-					<input type="radio" name="gender" ng-model="parent.students[3].student.gender" value="female" />&nbsp;Female</td>
-					<td><input type="date" class="form-control" ng-model="parent.students[3].student.dateOfBirth" /></td>
-					<td><input type="date" class="form-control" ng-model="parent.students[3].student.dateOfJoining" /></td>
-					<td><select class="form-control" ng-model="parent.students[3].student.batch">
-						<option value="">----- Select Batch -----</option>
-						<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
-					</select></td>
-					<td><select class="form-control" ng-model="parent.students[3].student.course">
-						<option value="">----- Select Course -----</option>
-						<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
-					</select></td>
-				</tr>
-				</tbody>
-			</table></div>
-			</div>
-		</div>
-		<div class="box-footer">
-			<button type="button" class="btn btn-success pull-right" ng-click="saveParent()">
-				<i class="glyphicon glyphicon-ok"></i> Save</button>
-		</div>
-		</form>
-	</div>
-	</div>
-	</div>
-</section>
-<!-- =============================================== -->
-<!-- =============================================== -->
-<!-- =============================================== -->
-				
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Email ID</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control"
+												ng-model="parent.emailAddress" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Gender</label>
+										<div class="col-sm-8">
+											<input type="radio" name="gender" ng-model="parent.gender"
+												value="male" />&nbsp;Male <input type="radio" name="gender"
+												ng-model="parent.gender" value="female" />&nbsp;Female
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Address</label>
+										<div class="col-sm-8">
+											<textarea class="form-control" ng-model="parent.address"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">State</label>
+										<div class="col-sm-8">
+											<select class="form-control" id="stateName"
+												ng-model="parent.location.stateName"
+												ng-change="loadCitiesByState()">
+												<option value="">----- Select State -----</option>
+												<option ng-repeat="state in states" value="{{state}}">{{state}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">City</label>
+										<div class="col-sm-8">
+											<select class="form-control" id="cityName"
+												ng-model="parent.location.cityName"
+												ng-change="loadLocationsByCity()">
+												<option value="">----- Select City -----</option>
+												<option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Location</label>
+										<div class="col-sm-8">
+											<select class="form-control" id="locationId"
+												ng-model="parent.location.locationId"
+												ng-change="loadLocationById()">
+												<option value="">----- Select Location -----</option>
+												<option ng-repeat="location in locations"
+													value="{{location.locationId}}">{{location.locationName}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Pin Code</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control"
+												value="{{location.pinCode}}"
+												ng-model="parent.location.pinCode" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Contact Number</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control"
+												ng-model="parent.contactNo" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Dependent(s)</label>
+										<div class="col-sm-8">
+											<table
+												class="table table-bordered table-striped table-hover table-condensed">
+												<thead style="background-color: #31b0d5;">
+													<tr>
+														<th style="width: 25%">Name</th>
+														<th style="width: 25%">Gender</th>
+														<th style="width: 25%">Contact No</th>
+														<th style="width: 25%">Email ID</th>
+													</tr>
+												</thead>
+												<tbody class="table-hover">
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[0].parent.parentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.dependents[0].parent.gender"
+															value="male" />&nbsp;Male <input type="radio"
+															name="gender"
+															ng-model="parent.dependents[0].parent.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[0].parent.contactNo" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[0].parent.emailAddress" /></td>
+													</tr>
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[1].parent.parentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.dependents[1].parent.gender"
+															value="male" />&nbsp;Male <input type="radio"
+															name="gender"
+															ng-model="parent.dependents[1].parent.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[1].parent.contactNo" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[1].parent.emailAddress" /></td>
+													</tr>
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[2].parent.parentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.dependents[2].parent.gender"
+															value="male" />&nbsp;Male <input type="radio"
+															name="gender"
+															ng-model="parent.dependents[2].parent.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[2].parent.contactNo" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[2].parent.emailAddress" /></td>
+													</tr>
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[3].parent.parentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.dependents[3].parent.gender"
+															value="male" />&nbsp;Male <input type="radio"
+															name="gender"
+															ng-model="parent.dependents[3].parent.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.dependents[3].parent.contactNo" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.edependents[3].parent.mailAddress" /></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Children(s)</label>
+										<div class="col-sm-8">
+											<table
+												class="table table-bordered table-striped table-hover table-condensed">
+												<thead style="background-color: #31b0d5;">
+													<tr>
+														<th style="width: 15%">Name</th>
+														<th style="width: 15%">Gender</th>
+														<th style="width: 15%">Date Of Birth</th>
+														<th style="width: 15%">Date Of Joining</th>
+														<th style="width: 15%">Batch</th>
+														<th style="width: 15%">Course</th>
+													</tr>
+												</thead>
+												<tbody class="table-hover">
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.students[0].student.studentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.students[0].student.gender" value="male" />&nbsp;Male
+															<input type="radio" name="gender"
+															ng-model="parent.students[0].student.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="date" class="form-control"
+															ng-model="parent.students[0].student.dateOfBirth" /></td>
+														<td><input type="date" class="form-control"
+															mg-model="parent.students[0].student.dateOfJoining" /></td>
+														<td><select class="form-control"
+															ng-model="parent.students[0].student.batch">
+																<option value="">----- Select Batch -----</option>
+																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
+														</select></td>
+														<td><select class="form-control"
+															ng-model="parent.students[0].student.course">
+																<option value="">----- Select Course -----</option>
+																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
+														</select></td>
+													</tr>
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.students[1].student.studentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.students[1].student.gender" value="male" />&nbsp;Male
+															<input type="radio" name="gender"
+															ng-model="parent.students[1].student.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="date" class="form-control"
+															ng-model="parent.students[1].student.dateOfBirth" /></td>
+														<td><input type="date" class="form-control"
+															ng-model="parent.students[1].student.dateOfJoining" /></td>
+														<td><select class="form-control"
+															ng-model="students[1].student.batch">
+																<option value="">----- Select Batch -----</option>
+																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
+														</select></td>
+														<td><select class="form-control"
+															ng-model="parent.students[1].student.course">
+																<option value="">----- Select Course -----</option>
+																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
+														</select></td>
+													</tr>
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.students[2].student.studentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.students[2].student.gender" value="male" />&nbsp;Male
+															<input type="radio" name="gender"
+															ng-model="parent.students[2].student.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="date" class="form-control"
+															ng-model="parent.students[2].student.dateOfBirth" /></td>
+														<td><input type="date" class="form-control"
+															ng-model="parent.students[2].student.dateOfJoining" /></td>
+														<td><select class="form-control"
+															ng-model="parent.students[2].student.batch">
+																<option value="">----- Select Batch -----</option>
+																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
+														</select></td>
+														<td><select class="form-control"
+															ng-model="parent.students[2].student.course">
+																<option value="">----- Select Course -----</option>
+																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
+														</select></td>
+													</tr>
+													<tr>
+														<td><input type="text" class="form-control"
+															ng-model="parent.students[3].student.studentName" /></td>
+														<td><input type="radio" name="gender"
+															ng-model="parent.students[3].student.gender" value="male" />&nbsp;Male
+															<input type="radio" name="gender"
+															ng-model="parent.students[3].student.gender"
+															value="female" />&nbsp;Female</td>
+														<td><input type="date" class="form-control"
+															ng-model="parent.students[3].student.dateOfBirth" /></td>
+														<td><input type="date" class="form-control"
+															ng-model="parent.students[3].student.dateOfJoining" /></td>
+														<td><select class="form-control"
+															ng-model="parent.students[3].student.batch">
+																<option value="">----- Select Batch -----</option>
+																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
+														</select></td>
+														<td><select class="form-control"
+															ng-model="parent.students[3].student.course">
+																<option value="">----- Select Course -----</option>
+																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
+														</select></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+								<div class="box-footer">
+									<button type="button" class="btn btn-success pull-right"
+										ng-click="saveParent()">
+										<i class="glyphicon glyphicon-ok"></i> Save
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+
 		</div>
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<footer class="main-footer">
-			<div class="pull-right hidden-xs"><b>Version</b> 1.0.0</div>
-			<strong>Copyright &copy; 2016-2017 <a href="http://creativedreamzzz.com">Creative Dreamzzz</a>.</strong> All rights reserved.
+			<div class="pull-right hidden-xs">
+				<b>Version</b> 1.0.0
+			</div>
+			<strong>Copyright &copy; 2016-2017 <a
+				href="http://creativedreamzzz.com">Creative Dreamzzz</a>.
+			</strong> All rights reserved.
 		</footer>
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 	</div>
-	<script type="text/javascript" src="../resources/libs/angularjs-1.3.8/angular.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/angularjs-1.3.8/angular.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/dist/js/app.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
-	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
-	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
+	<script type="text/javascript"
+		src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
 	<script type="text/javascript" src="../resources/js/parent.js"></script>
 </body>
 </html>

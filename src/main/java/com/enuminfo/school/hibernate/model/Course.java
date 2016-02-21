@@ -104,7 +104,7 @@ public class Course implements Serializable {
 		this.timeTrackers = timeTrackers;
 	}
 
-	@ManyToMany (fetch = FetchType.EAGER)
+	@ManyToMany (fetch = FetchType.LAZY)
 	@JoinTable (name = "tbl_teacher_course", joinColumns = {@JoinColumn(name = "course_id")}, inverseJoinColumns = {@JoinColumn(name = "teacher_id")})
 	@JsonIgnore
 	public List<Teacher> getTeachers() {

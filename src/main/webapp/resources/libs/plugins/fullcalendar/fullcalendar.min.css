@@ -16,7 +16,8 @@ body .fc {
 	font-size: 1em
 }
 
-.fc-unthemed .fc-popover,.fc-unthemed .fc-row,.fc-unthemed hr,.fc-unthemed tbody,.fc-unthemed td,.fc-unthemed th,.fc-unthemed thead
+.fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed hr,
+	.fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead
 	{
 	border-color: #ddd
 }
@@ -25,7 +26,7 @@ body .fc {
 	background-color: #fff
 }
 
-.fc-unthemed .fc-popover .fc-header,.fc-unthemed hr {
+.fc-unthemed .fc-popover .fc-header, .fc-unthemed hr {
 	background: #eee
 }
 
@@ -124,7 +125,7 @@ body .fc {
 	background-color: #f5f5f5;
 	background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff),
-		to(#e6e6e6) );
+		to(#e6e6e6));
 	background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
 	background-image: -o-linear-gradient(top, #fff, #e6e6e6);
 	background-image: linear-gradient(to bottom, #fff, #e6e6e6);
@@ -137,7 +138,7 @@ body .fc {
 		rgba(0, 0, 0, .05)
 }
 
-.fc-state-active,.fc-state-disabled,.fc-state-down,.fc-state-hover {
+.fc-state-active, .fc-state-disabled, .fc-state-down, .fc-state-hover {
 	color: #333;
 	background-color: #e6e6e6
 }
@@ -152,7 +153,7 @@ body .fc {
 	transition: background-position .1s linear
 }
 
-.fc-state-active,.fc-state-down {
+.fc-state-active, .fc-state-down {
 	background-color: #ccc;
 	background-image: none;
 	box-shadow: inset 0 2px 4px rgba(0, 0, 0, .15), 0 1px 2px
@@ -197,12 +198,12 @@ body .fc {
 	cursor: pointer
 }
 
-.fc-ltr .fc-popover .fc-header .fc-title,.fc-rtl .fc-popover .fc-header .fc-close
+.fc-ltr .fc-popover .fc-header .fc-title, .fc-rtl .fc-popover .fc-header .fc-close
 	{
 	float: left
 }
 
-.fc-ltr .fc-popover .fc-header .fc-close,.fc-rtl .fc-popover .fc-header .fc-title
+.fc-ltr .fc-popover .fc-header .fc-close, .fc-rtl .fc-popover .fc-header .fc-title
 	{
 	float: right
 }
@@ -233,7 +234,8 @@ body .fc {
 	clear: both
 }
 
-.fc-bg,.fc-bgevent-skeleton,.fc-helper-skeleton,.fc-highlight-skeleton {
+.fc-bg, .fc-bgevent-skeleton, .fc-helper-skeleton,
+	.fc-highlight-skeleton {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -260,7 +262,7 @@ body .fc {
 	text-align: center
 }
 
-.fc td,.fc th {
+.fc td, .fc th {
 	border-style: solid;
 	border-width: 1px;
 	padding: 0;
@@ -294,16 +296,16 @@ body .fc {
 	z-index: 1
 }
 
-.fc-row .fc-bgevent-skeleton,.fc-row .fc-highlight-skeleton {
+.fc-row .fc-bgevent-skeleton, .fc-row .fc-highlight-skeleton {
 	bottom: 0
 }
 
-.fc-row .fc-bgevent-skeleton table,.fc-row .fc-highlight-skeleton table
+.fc-row .fc-bgevent-skeleton table, .fc-row .fc-highlight-skeleton table
 	{
 	height: 100%
 }
 
-.fc-row .fc-bgevent-skeleton td,.fc-row .fc-highlight-skeleton td {
+.fc-row .fc-bgevent-skeleton td, .fc-row .fc-highlight-skeleton td {
 	border-color: transparent
 }
 
@@ -325,13 +327,13 @@ body .fc {
 	z-index: 5
 }
 
-.fc-row .fc-content-skeleton td,.fc-row .fc-helper-skeleton td {
+.fc-row .fc-content-skeleton td, .fc-row .fc-helper-skeleton td {
 	background: 0 0;
 	border-color: transparent;
 	border-bottom: 0
 }
 
-.fc-row .fc-content-skeleton tbody td,.fc-row .fc-helper-skeleton tbody td
+.fc-row .fc-content-skeleton tbody td, .fc-row .fc-helper-skeleton tbody td
 	{
 	border-top: 0
 }
@@ -358,16 +360,16 @@ body .fc {
 	font-weight: 400
 }
 
-.fc-event,.fc-event:hover,.ui-widget .fc-event {
+.fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #fff;
 	text-decoration: none
 }
 
-.fc-event.fc-draggable,.fc-event[href] {
+.fc-event.fc-draggable, .fc-event[href] {
 	cursor: pointer
 }
 
-.fc-not-allowed,.fc-not-allowed .fc-event {
+.fc-not-allowed, .fc-not-allowed .fc-event {
 	cursor: not-allowed
 }
 
@@ -376,7 +378,7 @@ body .fc {
 	padding: 0 1px
 }
 
-.fc-ltr .fc-day-grid-event.fc-not-start,.fc-rtl .fc-day-grid-event.fc-not-end
+.fc-ltr .fc-day-grid-event.fc-not-start, .fc-rtl .fc-day-grid-event.fc-not-end
 	{
 	margin-left: 0;
 	border-left-width: 0;
@@ -385,7 +387,7 @@ body .fc {
 	border-bottom-left-radius: 0
 }
 
-.fc-ltr .fc-day-grid-event.fc-not-end,.fc-rtl .fc-day-grid-event.fc-not-start
+.fc-ltr .fc-day-grid-event.fc-not-end, .fc-rtl .fc-day-grid-event.fc-not-start
 	{
 	margin-right: 0;
 	border-right-width: 0;
@@ -482,7 +484,7 @@ a.fc-more:hover {
 	position: relative
 }
 
-.fc-toolbar .fc-state-hover,.fc-toolbar .ui-state-hover {
+.fc-toolbar .fc-state-hover, .fc-toolbar .ui-state-hover {
 	z-index: 2
 }
 
@@ -490,7 +492,7 @@ a.fc-more:hover {
 	z-index: 3
 }
 
-.fc-toolbar .fc-state-active,.fc-toolbar .ui-state-active {
+.fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active {
 	z-index: 4
 }
 
@@ -498,19 +500,19 @@ a.fc-more:hover {
 	z-index: 5
 }
 
-.fc-view-container *,.fc-view-container :after,.fc-view-container :before
+.fc-view-container *, .fc-view-container :after, .fc-view-container :before
 	{
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box
 }
 
-.fc-view,.fc-view>table {
+.fc-view, .fc-view>table {
 	position: relative;
 	z-index: 1
 }
 
-.fc-basicDay-view .fc-content-skeleton,.fc-basicWeek-view .fc-content-skeleton
+.fc-basicDay-view .fc-content-skeleton, .fc-basicWeek-view .fc-content-skeleton
 	{
 	padding-top: 1px;
 	padding-bottom: 1em
@@ -531,11 +533,11 @@ a.fc-more:hover {
 	right: 0
 }
 
-.fc-basic-view .fc-day-number,.fc-basic-view .fc-week-number {
+.fc-basic-view .fc-day-number, .fc-basic-view .fc-week-number {
 	padding: 0 2px
 }
 
-.fc-basic-view td.fc-day-number,.fc-basic-view td.fc-week-number span {
+.fc-basic-view td.fc-day-number, .fc-basic-view td.fc-week-number span {
 	padding-top: 2px;
 	padding-bottom: 2px
 }
@@ -594,7 +596,7 @@ a.fc-more:hover {
 	font-weight: 400
 }
 
-.fc-time-grid,.fc-time-grid-container {
+.fc-time-grid, .fc-time-grid-container {
 	position: relative;
 	z-index: 1
 }
@@ -611,12 +613,12 @@ a.fc-more:hover {
 	z-index: 1
 }
 
-.fc-time-grid .fc-slats,.fc-time-grid>hr {
+.fc-time-grid .fc-slats, .fc-time-grid>hr {
 	position: relative;
 	z-index: 2
 }
 
-.fc-time-grid .fc-bgevent-skeleton,.fc-time-grid .fc-content-skeleton {
+.fc-time-grid .fc-bgevent-skeleton, .fc-time-grid .fc-content-skeleton {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -662,7 +664,7 @@ a.fc-more:hover {
 	right: 0
 }
 
-.fc-time-grid .fc-bgevent-container,.fc-time-grid .fc-event-container {
+.fc-time-grid .fc-bgevent-container, .fc-time-grid .fc-event-container {
 	position: relative
 }
 
@@ -674,7 +676,7 @@ a.fc-more:hover {
 	margin: 0 2px 0 2.5%
 }
 
-.fc-time-grid .fc-bgevent,.fc-time-grid .fc-event {
+.fc-time-grid .fc-bgevent, .fc-time-grid .fc-event {
 	position: absolute;
 	z-index: 1
 }
@@ -707,7 +709,7 @@ a.fc-more:hover {
 	z-index: 2
 }
 
-.fc-time-grid-event .fc-time,.fc-time-grid-event .fc-title {
+.fc-time-grid-event .fc-time, .fc-time-grid-event .fc-title {
 	padding: 0 1px
 }
 
@@ -727,7 +729,7 @@ a.fc-more:hover {
 	white-space: nowrap
 }
 
-.fc-time-grid-event.fc-short .fc-time,.fc-time-grid-event.fc-short .fc-title
+.fc-time-grid-event.fc-short .fc-time, .fc-time-grid-event.fc-short .fc-title
 	{
 	display: inline-block;
 	vertical-align: top

@@ -1,6 +1,10 @@
 var app = angular.module('teacher', []);
 var teacherId = window.location.href;
 
+/**
+ * teacher.html
+ */
+
 app.controller('ViewCtrl', function($scope, $http) {
 	$scope.$on("loadTeachers", function(){
 		$scope.loadTeachers();
@@ -12,8 +16,12 @@ app.controller('ViewCtrl', function($scope, $http) {
 		});
 	};
 	
+	$scope.createTeacher = function(teacher){
+		window.location.href = '/teacher0';
+	};
+	
 	$scope.openTeacher = function(teacher){
-		window.location.href = '/teacher/' + teacher.teacherId;
+		window.location.href = '/teacher' + teacher.teacherId;
 	};
 	
 	$scope.deleteTeacher = function(subject){
@@ -31,8 +39,12 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.loadTeachers();
 });
 
+/**
+ * saveteacher.html
+ */
+
 app.controller('EditCtrl', function($scope, $http) {
-	var param = teacherId.split('/')[4]
+	var param = teacherId.split('/')[3].replace('teacher','');
 	
 	$scope.$on("loadStates", function(){
 		$scope.loadStates();
@@ -53,10 +65,23 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.loadTeacher = function(){
-		$http.get('/teacher/' + param).success(function(data){
-			$scope.teacher = data;
-			console.log(stringIt($scope.teacher));
-		});
+		if (param != 0) {
+			$http.get('/teacher/' + param).success(function(data){
+				$scope.teacher = data;
+				$scope.loadCitiesByStateName();
+				$scope.loadLocationsByCityName();
+				angular.forEach($scope.subjects, function(subject) {
+					angular.forEach($scope.teacher.subjects, function(teacherSubject) {
+						if(teacherSubject.subjectName == subject.subjectName) subject.checked = true;
+					});
+				});				
+				angular.forEach($scope.courses, function(course) {
+					angular.forEach($scope.teacher.courses, function(teacherCourse) {
+						if(teacherCourse.courseName == course.courseName) course.checked = true;
+					});
+				});
+			});
+		}
 	};
 	
 	$scope.$on("loadSubjects", function(){
@@ -180,6 +205,32 @@ app.controller('EditCtrl', function($scope, $http) {
 		if(teacherDepartmentFound == false){
 			if ($scope.teacher.departments == null) { $scope.teacher.departments = []; }
 			$scope.teacher.departments.push(department);
+		}
+	};
+	
+	$scope.$on('loadCitiesByStateName', function(){
+		$scope.loadCitiesByStateName();
+	});
+	
+	$scope.loadCitiesByStateName = function() {
+		var stateName = $scope.teacher.location.stateName;
+		if (stateName != '') {
+			$http.get('/cities/' + stateName).success(function(data){
+				$scope.cities = data;
+			});
+		}
+	};
+	
+	$scope.$on('loadLocationsByCityName', function(){
+		$scope.loadLocationsByCityName();
+	});
+	
+	$scope.loadLocationsByCityName = function() {
+		var cityName = $scope.teacher.location.cityName;
+		if (cityName != '') {
+			$http.get('/locations/' + cityName).success(function(data){
+				$scope.locations = data;
+			});
 		}
 	};
 	

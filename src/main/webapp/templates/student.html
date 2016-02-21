@@ -1,29 +1,41 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" ng-app="student">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" ng-app="parentnstudent">
 <head>
-	<meta charset="utf-8"/>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<title>Student KARD | Student</title>
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-	<link rel="stylesheet" href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
-	<link rel="stylesheet" href="../resources/libs/plugins/datatables/dataTables.bootstrap.css"/>
-	<link rel="stylesheet" href="../resources/libs/dist/css/AdminLTE.min.css"/>
-	<link rel="stylesheet" href="../resources/libs/dist/css/skins/_all-skins.min.css"/>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Student KARD | Student</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<link rel="stylesheet"
+	href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet"
+	href="../resources/libs/plugins/datatables/dataTables.bootstrap.css" />
+<link rel="stylesheet"
+	href="../resources/libs/dist/css/AdminLTE.min.css" />
+<link rel="stylesheet"
+	href="../resources/libs/dist/css/skins/_all-skins.min.css" />
 </head>
-<body class="hold-transition skin-blue sidebar-mini" ng-controller="ViewCtrl">
+<body class="hold-transition skin-blue sidebar-mini"
+	ng-controller="ViewCtrl">
 	<div class="wrapper">
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<header class="main-header">
-			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span class="logo-lg"><b>Student</b>KARD</span></a>
+			<a href="#" class="logo"><span class="logo-mini"><b>S</b>K</span><span
+				class="logo-lg"><b>Student</b>KARD</span></a>
 			<nav class="navbar navbar-static-top" role="navigation">
-				<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-		           <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
-		           <span class="icon-bar"></span><span class="icon-bar"></span>
-		         </a>
-		         <div class="navbar-custom-menu"></div>
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
+					role="button"> <span class="sr-only">Toggle navigation</span><span
+					class="icon-bar"></span> <span class="icon-bar"></span><span
+					class="icon-bar"></span>
+				</a>
+				<div class="navbar-custom-menu"></div>
 			</nav>
 		</header>
 		<!-- =============================================== -->
@@ -32,65 +44,89 @@
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<div class="content-wrapper">
-		
-<!-- =============================================== -->
-<!-- =============================================== -->
-<!-- =============================================== -->
-<section class="content-header">
-	<h1>Student <small>Control panel</small></h1>
-	<ol class="breadcrumb">
-		<li><button type="button" ng-click="createStudent()" class="btn btn-sm btn-info">
-			<i class="glyphicon glyphicon-plus"></i> Add Student
-		</button></li>
-	</ol>
-</section>
-<section class="content">
-	<div class="row">
-	<div class="col-xs-12">
-	<div class="box">
-		<div class="box-body">			
-			<table id="datatable" class="table table-bordered table-striped table-hover table-condensed">
-				<thead style="background-color: #31b0d5;"><tr><th>&nbsp;</th><th>Name</th></tr></thead>
-				<tbody><tr ng-repeat="student in students">
-					<td style="width: 6%;">
-					<button type="button" ng-click="openStudent(student)" class="btn btn-sm btn-success">
-						<i class="glyphicon glyphicon-edit"></i>
-					</button>
-					<button type="button" ng-click="deleteStudent(student)" class="btn btn-sm btn-danger">
+
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+			<section class="content-header">
+				<h1>
+					Student <small>Control panel</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><button type="button" ng-click="createParent()"
+							class="btn btn-sm btn-info">
+							<i class="glyphicon glyphicon-plus"></i> Add Student
+						</button></li>
+				</ol>
+			</section>
+			<section class="content">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="box">
+							<div class="box-body">
+								<table id="datatable"
+									class="table table-bordered table-striped table-hover table-condensed">
+									<thead style="background-color: #31b0d5;">
+										<tr>
+											<th>&nbsp;</th>
+											<th>Name</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="student in students">
+											<td style="width: 6%;">
+												<button type="button" ng-click="openStudent(student)"
+													class="btn btn-sm btn-success">
+													<i class="glyphicon glyphicon-edit"></i>
+												</button> <!-- <button type="button" ng-click="deleteStudent(student)" class="btn btn-sm btn-danger">
 						<i class="glyphicon glyphicon-trash"></i>
-					</button></td>
-					<td>{{student.studentName}}</td>
-				</tr></tbody>
-			</table>
+					</button> -->
+											</td>
+											<td>{{student.studentName}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+			<!-- =============================================== -->
+
 		</div>
-	</div>
-	</div>
-	</div>
-</section>
-<!-- =============================================== -->
-<!-- =============================================== -->
-<!-- =============================================== -->
-				
-		</div>		
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<footer class="main-footer">
-			<div class="pull-right hidden-xs"><b>Version</b> 1.0.0</div>
-			<strong>Copyright &copy; 2016-2017 <a href="http://creativedreamzzz.com">Creative Dreamzzz</a>.</strong> All rights reserved.
+			<div class="pull-right hidden-xs">
+				<b>Version</b> 1.0.0
+			</div>
+			<strong>Copyright &copy; 2016-2017 <a
+				href="http://creativedreamzzz.com">Creative Dreamzzz</a>.
+			</strong> All rights reserved.
 		</footer>
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 	</div>
-	<script type="text/javascript" src="../resources/libs/angularjs-1.3.8/angular.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/dist/js/app.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/angularjs-1.3.8/angular.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/dist/js/app.min.js"></script>
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
-	<script type="text/javascript" src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
-	<script type="text/javascript" src="../resources/js/student.js"></script>
+	<script type="text/javascript"
+		src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
+	<script type="text/javascript" src="../resources/js/parent.js"></script>
+	<!-- <script type="text/javascript" src="../resources/js/student.js"></script> -->
 </body>
 </html>

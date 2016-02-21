@@ -60,7 +60,7 @@ public class RedirectController {
 		return "teacher";
 	}
 	
-	@RequestMapping(value = "/createTeacher", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	@RequestMapping(value = "/teacher{teacherId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getSaveOrUpdateTeacherPage() {
 		return "saveteacher";
 	}
@@ -70,7 +70,7 @@ public class RedirectController {
 		return "student";
 	}
 	
-	@RequestMapping(value = "/student/{studentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	@RequestMapping(value = "/student{studentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getSaveOrUpdateStudentPage(@PathVariable Integer studentId) {
 		return "savestudent";
 	}
@@ -80,7 +80,7 @@ public class RedirectController {
 		return "parent";
 	}
 	
-	@RequestMapping(value = "/parent/{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	@RequestMapping(value = "/parent{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getSaveOrUpdateParentPage(@PathVariable Integer parentId) {
 		return "saveparent";
 	}
