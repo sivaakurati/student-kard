@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.enuminfo.school.hibernate.model.Student;
+import com.enuminfo.school.hibernate.repository.BatchRepository;
+import com.enuminfo.school.hibernate.repository.CourseRepository;
 import com.enuminfo.school.hibernate.repository.StudentRepsitory;
 
 /**
@@ -22,6 +24,8 @@ import com.enuminfo.school.hibernate.repository.StudentRepsitory;
 public class StudentService {
 
 	@Autowired StudentRepsitory repository;
+	@Autowired BatchRepository batchRepository;
+	@Autowired CourseRepository courseRepository;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Student> getAllStudents() {
@@ -44,5 +48,10 @@ public class StudentService {
 		Student student = new Student();
 		if (studentId != 0) student = repository.findOne(studentId);
 		return student;
+	}
+	
+	@RequestMapping(value = "/batch/{batchId}/course/{courseId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Student> getAllStudentsByBatchNCourse(@PathVariable Integer batchId, @PathVariable Integer courseId) {
+		return repository.findByBatchAndCourse(batchRepository.findOne(batchId), courseRepository.findOne(courseId));
 	}
 }

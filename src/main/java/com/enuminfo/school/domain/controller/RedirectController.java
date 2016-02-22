@@ -78,4 +78,14 @@ public class RedirectController {
 	public String getChangePasswordPage() {
 		return "changepassword";
 	}
+	
+	@RequestMapping(value = "/gradetracker", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getGradeTrackerPage() {
+		return "gradetracker";
+	}
+	
+	@RequestMapping(value = "/assignmenttracker", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getAssignmentTrackerPage() {
+		return "assignmenttracker";
+	}
 }
