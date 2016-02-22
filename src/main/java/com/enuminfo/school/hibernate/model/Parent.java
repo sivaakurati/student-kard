@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Kumar
  */
@@ -38,8 +40,10 @@ public class Parent implements Serializable {
 	private Location location;
 	private Long contactNo;
 	private Parent mainParentId;
-	private List<Parent> dependents;
 	private List<Student> students;
+	
+	private Parent[] dependents;
+	private Student[] childs;
 	
 	public Parent() {
 		// TODO Auto-generated constructor stub
@@ -129,7 +133,8 @@ public class Parent implements Serializable {
 		this.mainParentId = mainParentId;
 	}
 
-	@OneToMany (mappedBy = "parent", fetch = FetchType.EAGER)
+	@OneToMany (mappedBy = "parent", fetch = FetchType.LAZY)
+	@JsonIgnore
 	public List<Student> getStudents() {
 		return students;
 	}
@@ -139,11 +144,20 @@ public class Parent implements Serializable {
 	}
 
 	@Transient
-	public List<Parent> getDependents() {
+	public Parent[] getDependents() {
 		return dependents;
 	}
 
-	public void setDependents(List<Parent> dependents) {
+	public void setDependents(Parent[] dependents) {
 		this.dependents = dependents;
+	}
+
+	@Transient
+	public Student[] getChilds() {
+		return childs;
+	}
+
+	public void setChilds(Student[] childs) {
+		this.childs = childs;
 	}
 }

@@ -50,8 +50,8 @@ public class ParentService {
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveParent(@RequestBody Parent parent) {
 		if (parent.getParentId() == null) {
-			if (parent.getGender().equals("male")) parent.setPhoto("avatar5.png");
-			else parent.setPhoto("avatar2.png");
+			if (parent.getGender() != null && parent.getGender().equals("male")) parent.setPhoto("avatar5.png");
+			else if (parent.getGender() != null && parent.getGender().equals("female")) parent.setPhoto("avatar2.png");
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
 			User user = new User();
@@ -60,12 +60,12 @@ public class ParentService {
 			user.setPassword("p@5530rd");
 			user.setRoles(roles);
 			//userRepository.save(user);
-			parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
+			//parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
 			parent.setMainParentId(null);
-			Parent savedMainParent = repository.save(parent);
+			//Parent savedMainParent = repository.save(parent);
 			for (Parent dependent: parent.getDependents()) {
-				if (dependent.getGender().equals("male")) dependent.setPhoto("avatar5.png");
-				else dependent.setPhoto("avatar2.png");
+				if (dependent.getGender() != null && dependent.getGender().equals("male")) dependent.setPhoto("avatar5.png");
+				else if (dependent.getGender() != null && dependent.getGender().equals("female")) dependent.setPhoto("avatar2.png");
 				roles = new ArrayList<Role>();
 				roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
 				user = new User();
@@ -75,12 +75,12 @@ public class ParentService {
 				user.setRoles(roles);
 				//userRepository.save(user);
 				dependent.setLocation(locationRepository.findOne(dependent.getLocation().getLocationId()));
-				dependent.setMainParentId(savedMainParent);
+				dependent.setMainParentId(parent);
 				//repository.save(dependent);
 			}
-			for (Student child: parent.getStudents()) {
-				if (child.getGender().equals("male")) child.setPhoto("avatar5.png");
-				else child.setPhoto("avatar2.png");
+			for (Student child: parent.getChilds()) {
+				if (child.getGender() != null && child.getGender().equals("male")) child.setPhoto("avatar5.png");
+				else if (child.getGender() != null && child.getGender().equals("female")) child.setPhoto("avatar2.png");
 				roles = new ArrayList<Role>();
 				roles.add(roleRepository.findByRoleName("ROLE_STUDENT"));
 				user = new User();
@@ -89,7 +89,9 @@ public class ParentService {
 				user.setPassword("p@5530rd");
 				user.setRoles(roles);
 				//userRepository.save(user);
-				child.setParent(savedMainParent);
+				child.setParent(parent);
+				child.setBatch(batchRepository.findOne(child.getBatch().getBatchId()));
+				child.setCourse(courseRepository.findOne(child.getCourse().getCourseId()));
 				//studentRepository.save(child);
 			}
 		}

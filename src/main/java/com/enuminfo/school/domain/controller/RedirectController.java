@@ -5,7 +5,6 @@ package com.enuminfo.school.domain.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -65,24 +64,14 @@ public class RedirectController {
 		return "saveteacher";
 	}
 	
-	@RequestMapping(value = "/student", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getStudentPage() {
-		return "student";
+	@RequestMapping(value = "/studentnparent", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getStudentNParentPage() {
+		return "studentnparent";
 	}
 	
-	@RequestMapping(value = "/student{studentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getSaveOrUpdateStudentPage(@PathVariable Integer studentId) {
-		return "savestudent";
-	}
-	
-	@RequestMapping(value = "/parent", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getParentPage() {
-		return "parent";
-	}
-	
-	@RequestMapping(value = "/parent{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getSaveOrUpdateParentPage(@PathVariable Integer parentId) {
-		return "saveparent";
+	@RequestMapping(value = "/studentnparent{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getSaveOrUpdateStudentNParentPage() {
+		return "savestudentnparent";
 	}
 	
 	@RequestMapping(value = "/changepassword", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)

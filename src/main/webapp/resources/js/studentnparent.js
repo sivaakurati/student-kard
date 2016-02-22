@@ -1,4 +1,4 @@
-var app = angular.module('parentnstudent', []);
+var app = angular.module('studentnparent', []);
 var parentId = window.location.href;
 
 /**
@@ -6,29 +6,29 @@ var parentId = window.location.href;
  */
 
 app.controller('ViewCtrl', function($scope, $http) {
-	$scope.$on("loadParents", function(){
-		$scope.loadParents();
+	$scope.$on("loadStudents", function(){
+		$scope.loadStudents();
 	});
 	
-	$scope.loadParents = function(){
-		$http.get('/parent').success(function(data){
-			$scope.parents = data;
+	$scope.loadStudents = function(){
+		$http.get('/student').success(function(data){
+			$scope.students = data;
 		});
 	};
 	
-	$scope.createParent = function(){
-		window.location.href = '/parent0';
+	$scope.createStudentNParent = function(){
+		window.location.href = '/studentnparent0';
 	};
 	
-	$scope.openParent = function(parent){
+	$scope.openStudentNParent = function(parent){
 		window.location.href = '/parent' + parent.parentId;
 	};
 	
-	$scope.deleteParent = function(subject){
-		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + parent.parentName + '</span>', function(result) {
+	$scope.deleteStudentNParent = function(student){
+		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + student.studentName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/parent/' + parent.parentId).success(function() {
-					$scope.$emit('loadParents');
+				$http.delete('/student/' + student.studentId).success(function() {
+					$scope.$emit('loadStudents');
 				});
 			} else {
 				return;
@@ -36,7 +36,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 		});
 	};
 	
-	$scope.loadParents();
+	$scope.loadStudents();
 });
 
 /**
@@ -44,7 +44,7 @@ app.controller('ViewCtrl', function($scope, $http) {
  */
 
 app.controller('EditCtrl', function($scope, $http) {
-	var param = parentId.split('/')[3].replace('teacher','')
+	var param = parentId.split('/')[3].replace('studentnparent','')
 	
 	$scope.$on("loadStates", function(){
 		$scope.loadStates();
@@ -61,7 +61,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.getBack = function(){
-		window.location.href = '/parent';
+		window.location.href = '/studentnparent';
 	};
 	
 	$scope.loadParent = function(){
@@ -94,7 +94,6 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.saveParent = function(){
 		$http.post('/parent', $scope.parent).success(function(){
 			$scope.$emit('loadParents');
-			$('#parentmodal').hide();
 		});
 	};
 	

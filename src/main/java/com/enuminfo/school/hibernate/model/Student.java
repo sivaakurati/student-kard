@@ -3,6 +3,7 @@
  */
 package com.enuminfo.school.hibernate.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,17 +24,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table (name = "tbl_student")
-public class Student {
+public class Student implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer studentId;
 	private String studentName;
 	private String photo;
+	private String emailAddress;
 	private String gender;
 	private Date dateOfBirth;
 	private Date dateOfJoining;
 	private Batch batch;
 	private Course course;
 	private Parent parent;
+	
+	private String dob;
+	private String doj;
 	
 	public Student() {
 		// TODO Auto-generated constructor stub
@@ -66,6 +75,15 @@ public class Student {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	
+	@Column (name = "email_address")
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 	
 	@Transient
@@ -124,5 +142,23 @@ public class Student {
 
 	public void setDateOfJoining(Date dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
+	}
+
+	@Transient
+	public String getDob() {
+		return dob;
+	}
+
+	@Transient
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getDoj() {
+		return doj;
+	}
+
+	public void setDoj(String doj) {
+		this.doj = doj;
 	}
 }

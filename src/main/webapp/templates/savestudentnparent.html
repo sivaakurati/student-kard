@@ -1,10 +1,10 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org" ng-app="parentnstudent">
+	xmlns:th="http://www.thymeleaf.org" ng-app="studentnparent">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>Student KARD | Parent</title>
+<title>Student KARD | Student</title>
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
 	name="viewport" />
@@ -151,11 +151,13 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-2 control-label">Dependent(s)</label>
-										<div class="col-sm-8">
+										<div class="col-sm-10">
 											<table
 												class="table table-bordered table-striped table-hover table-condensed">
 												<thead style="background-color: #31b0d5;">
+													<tr>
+														<td colspan="7">Dependent(s)</td>
+													</tr>
 													<tr>
 														<th style="width: 25%">Name</th>
 														<th style="width: 25%">Gender</th>
@@ -225,109 +227,120 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-sm-2 control-label">Children(s)</label>
-										<div class="col-sm-8">
+										<div class="col-sm-10">
 											<table
 												class="table table-bordered table-striped table-hover table-condensed">
 												<thead style="background-color: #31b0d5;">
 													<tr>
-														<th style="width: 15%">Name</th>
-														<th style="width: 15%">Gender</th>
-														<th style="width: 15%">Date Of Birth</th>
-														<th style="width: 15%">Date Of Joining</th>
-														<th style="width: 15%">Batch</th>
-														<th style="width: 15%">Course</th>
+														<td colspan="7">Children(s)</td>
+													</tr>
+													<tr>
+														<th style="width: 14%">Name</th>
+														<th style="width: 14%">Email</th>
+														<th style="width: 14%">Gender</th>
+														<th style="width: 14%">Date Of Birth</th>
+														<th style="width: 14%">Date Of Joining</th>
+														<th style="width: 14%">Batch</th>
+														<th style="width: 14%">Course</th>
 													</tr>
 												</thead>
 												<tbody class="table-hover">
 													<tr>
 														<td><input type="text" class="form-control"
-															ng-model="parent.students[0].student.studentName" /></td>
+															ng-model="parent.childs[0].student.studentName" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.childs[0].student.emailAddress" /></td>
 														<td><input type="radio" name="gender"
-															ng-model="parent.students[0].student.gender" value="male" />&nbsp;Male
+															ng-model="parent.childs[0].student.gender" value="male" />&nbsp;Male
 															<input type="radio" name="gender"
-															ng-model="parent.students[0].student.gender"
+															ng-model="parent.childs[0].student.gender"
 															value="female" />&nbsp;Female</td>
 														<td><input type="date" class="form-control"
-															ng-model="parent.students[0].student.dateOfBirth" /></td>
+															ng-model="parent.childs[0].student.dateOfBirth" /></td>
 														<td><input type="date" class="form-control"
-															mg-model="parent.students[0].student.dateOfJoining" /></td>
+															mg-model="parent.childs[0].student.dateOfJoining" /></td>
 														<td><select class="form-control"
-															ng-model="parent.students[0].student.batch">
+															ng-model="parent.childs[0].student.batch">
 																<option value="">----- Select Batch -----</option>
 																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
 														</select></td>
 														<td><select class="form-control"
-															ng-model="parent.students[0].student.course">
+															ng-model="parent.childs[0].student.course">
 																<option value="">----- Select Course -----</option>
 																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
 														</select></td>
 													</tr>
 													<tr>
 														<td><input type="text" class="form-control"
-															ng-model="parent.students[1].student.studentName" /></td>
+															ng-model="parent.childs[1].student.studentName" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.childs[1].student.emailAddress" /></td>
 														<td><input type="radio" name="gender"
-															ng-model="parent.students[1].student.gender" value="male" />&nbsp;Male
+															ng-model="parent.childs[1].student.gender" value="male" />&nbsp;Male
 															<input type="radio" name="gender"
-															ng-model="parent.students[1].student.gender"
+															ng-model="parent.childs[1].student.gender"
 															value="female" />&nbsp;Female</td>
 														<td><input type="date" class="form-control"
-															ng-model="parent.students[1].student.dateOfBirth" /></td>
+															ng-model="parent.childs[1].student.dateOfBirth" /></td>
 														<td><input type="date" class="form-control"
-															ng-model="parent.students[1].student.dateOfJoining" /></td>
+															ng-model="parent.childs[1].student.dateOfJoining" /></td>
 														<td><select class="form-control"
-															ng-model="students[1].student.batch">
+															ng-model="childs[1].student.batch">
 																<option value="">----- Select Batch -----</option>
 																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
 														</select></td>
 														<td><select class="form-control"
-															ng-model="parent.students[1].student.course">
+															ng-model="parent.childs[1].student.course">
 																<option value="">----- Select Course -----</option>
 																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
 														</select></td>
 													</tr>
 													<tr>
 														<td><input type="text" class="form-control"
-															ng-model="parent.students[2].student.studentName" /></td>
+															ng-model="parent.childs[2].student.studentName" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.childs[2].student.emailAddress" /></td>
 														<td><input type="radio" name="gender"
-															ng-model="parent.students[2].student.gender" value="male" />&nbsp;Male
+															ng-model="parent.childs[2].student.gender" value="male" />&nbsp;Male
 															<input type="radio" name="gender"
-															ng-model="parent.students[2].student.gender"
+															ng-model="parent.childs[2].student.gender"
 															value="female" />&nbsp;Female</td>
 														<td><input type="date" class="form-control"
-															ng-model="parent.students[2].student.dateOfBirth" /></td>
+															ng-model="parent.childs[2].student.dateOfBirth" /></td>
 														<td><input type="date" class="form-control"
-															ng-model="parent.students[2].student.dateOfJoining" /></td>
+															ng-model="parent.childs[2].student.dateOfJoining" /></td>
 														<td><select class="form-control"
-															ng-model="parent.students[2].student.batch">
+															ng-model="parent.childs[2].student.batch">
 																<option value="">----- Select Batch -----</option>
 																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
 														</select></td>
 														<td><select class="form-control"
-															ng-model="parent.students[2].student.course">
+															ng-model="parent.childs[2].student.course">
 																<option value="">----- Select Course -----</option>
 																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
 														</select></td>
 													</tr>
 													<tr>
 														<td><input type="text" class="form-control"
-															ng-model="parent.students[3].student.studentName" /></td>
+															ng-model="parent.childs[3].student.studentName" /></td>
+														<td><input type="text" class="form-control"
+															ng-model="parent.childs[3].student.emailAddress" /></td>
 														<td><input type="radio" name="gender"
-															ng-model="parent.students[3].student.gender" value="male" />&nbsp;Male
+															ng-model="parent.childs[3].student.gender" value="male" />&nbsp;Male
 															<input type="radio" name="gender"
-															ng-model="parent.students[3].student.gender"
+															ng-model="parent.childs[3].student.gender"
 															value="female" />&nbsp;Female</td>
 														<td><input type="date" class="form-control"
-															ng-model="parent.students[3].student.dateOfBirth" /></td>
+															ng-model="parent.childs[3].student.dateOfBirth" /></td>
 														<td><input type="date" class="form-control"
-															ng-model="parent.students[3].student.dateOfJoining" /></td>
+															ng-model="parent.childs[3].student.dateOfJoining" /></td>
 														<td><select class="form-control"
-															ng-model="parent.students[3].student.batch">
+															ng-model="parent.childs[3].student.batch">
 																<option value="">----- Select Batch -----</option>
 																<option ng-repeat="batch in batchs" value="{{batch}}">{{batch.batchName}}</option>
 														</select></td>
 														<td><select class="form-control"
-															ng-model="parent.students[3].student.course">
+															ng-model="parent.childs[3].student.course">
 																<option value="">----- Select Course -----</option>
 																<option ng-repeat="course in courses" value="{{course}}">{{course.courseName}}</option>
 														</select></td>
@@ -384,6 +397,6 @@
 		src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
 	<script type="text/javascript"
 		src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
-	<script type="text/javascript" src="../resources/js/parent.js"></script>
+	<script type="text/javascript" src="../resources/js/studentnparent.js"></script>
 </body>
 </html>
