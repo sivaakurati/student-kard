@@ -79,8 +79,8 @@ public class TeacherService {
 			user.setPassword("p@5530rd");
 			user.setRoles(roles);
 			userRepository.save(user);
+			teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
 		}
-		teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
 		repository.save(teacher);
 	}
 	

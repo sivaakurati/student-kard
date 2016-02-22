@@ -70,12 +70,17 @@
 										<tr>
 											<th>&nbsp;</th>
 											<th>Name</th>
+											<th>Email ID</th>
+											<th>Contact No</th>
+											<th>Date of Joining</th>
+											<th>Course</th>
+											<th>Batch</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat="student in students">
 											<td style="width: 6%;">
-												<button type="button" ng-click="openStudent(student)"
+												<button type="button" ng-click="openStudentNParent(student)"
 													class="btn btn-sm btn-success">
 													<i class="glyphicon glyphicon-edit"></i>
 												</button> <!-- <button type="button" ng-click="deleteStudent(student)" class="btn btn-sm btn-danger">
@@ -83,6 +88,11 @@
 					</button> -->
 											</td>
 											<td>{{student.studentName}}</td>
+											<td>{{student.emailAddress}}</td>
+											<td>{{student.parent.contactNo}}</td>
+											<td>{{student.dateOfJoining | date: "dd-MMM-yyyy"}}</td>
+											<td>{{student.course.courseName}}</td>
+											<td>{{student.batch.batchName}}</td>
 										</tr>
 									</tbody>
 								</table>

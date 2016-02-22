@@ -25,7 +25,9 @@ import com.enuminfo.school.hibernate.repository.ParentRepository;
 import com.enuminfo.school.hibernate.repository.RoleRepository;
 import com.enuminfo.school.hibernate.repository.StudentRepsitory;
 import com.enuminfo.school.hibernate.repository.UserRepository;
+import com.enuminfo.school.util.DateTimeUtil;
 import com.enuminfo.school.util.StringUtil;
+import com.google.common.collect.Lists;
 
 /**
  * @author Kumar
@@ -59,40 +61,50 @@ public class ParentService {
 			user.setPassword(StringUtil.generatePassword());
 			user.setPassword("p@5530rd");
 			user.setRoles(roles);
-			//userRepository.save(user);
-			//parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
+			userRepository.save(user);
+			parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
 			parent.setMainParentId(null);
-			//Parent savedMainParent = repository.save(parent);
+			Parent savedMainParent = repository.save(parent);
 			for (Parent dependent: parent.getDependents()) {
-				if (dependent.getGender() != null && dependent.getGender().equals("male")) dependent.setPhoto("avatar5.png");
-				else if (dependent.getGender() != null && dependent.getGender().equals("female")) dependent.setPhoto("avatar2.png");
-				roles = new ArrayList<Role>();
-				roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
-				user = new User();
-				user.setUsername(parent.getEmailAddress());
-				user.setPassword(StringUtil.generatePassword());
-				user.setPassword("p@5530rd");
-				user.setRoles(roles);
-				//userRepository.save(user);
-				dependent.setLocation(locationRepository.findOne(dependent.getLocation().getLocationId()));
-				dependent.setMainParentId(parent);
-				//repository.save(dependent);
+				if (dependent.getParentName() != null) {
+					if (dependent.getGender() != null && dependent.getGender().equals("male")) dependent.setPhoto("avatar5.png");
+					else if (dependent.getGender() != null && dependent.getGender().equals("female")) dependent.setPhoto("avatar2.png");
+					roles = new ArrayList<Role>();
+					roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
+					user = new User();
+					user.setUsername(dependent.getEmailAddress());
+					user.setPassword(StringUtil.generatePassword());
+					user.setPassword("p@5530rd");
+					user.setRoles(roles);
+					userRepository.save(user);
+					dependent.setAddress(savedMainParent.getAddress());
+					dependent.setLocation(savedMainParent.getLocation());
+					dependent.setMainParentId(savedMainParent.getParentId());
+					repository.save(dependent);
+				}
 			}
 			for (Student child: parent.getChilds()) {
-				if (child.getGender() != null && child.getGender().equals("male")) child.setPhoto("avatar5.png");
-				else if (child.getGender() != null && child.getGender().equals("female")) child.setPhoto("avatar2.png");
-				roles = new ArrayList<Role>();
-				roles.add(roleRepository.findByRoleName("ROLE_STUDENT"));
-				user = new User();
-				user.setUsername(parent.getEmailAddress());
-				user.setPassword(StringUtil.generatePassword());
-				user.setPassword("p@5530rd");
-				user.setRoles(roles);
-				//userRepository.save(user);
-				child.setParent(parent);
-				child.setBatch(batchRepository.findOne(child.getBatch().getBatchId()));
-				child.setCourse(courseRepository.findOne(child.getCourse().getCourseId()));
-				//studentRepository.save(child);
+				if (child.getStudentName() != null) {
+					if (child.getGender() != null && child.getGender().equals("male")) child.setPhoto("avatar5.png");
+					else if (child.getGender() != null && child.getGender().equals("female")) child.setPhoto("avatar2.png");
+					roles = new ArrayList<Role>();
+					roles.add(roleRepository.findByRoleName("ROLE_STUDENT"));
+					user = new User();
+					user.setUsername(child.getEmailAddress());
+					user.setPassword(StringUtil.generatePassword());
+					user.setPassword("p@5530rd");
+					user.setRoles(roles);
+					userRepository.save(user);
+					child.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(child.getDob()));
+					child.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(child.getDoj()));
+					child.setParent(parent);
+					studentRepository.save(child);
+				}
+			}
+		} else {
+			repository.save(parent);
+			for (Parent dependent: parent.getDependents()) {
+				repository.save(dependent);
 			}
 		}
 	}
@@ -105,8 +117,27 @@ public class ParentService {
 	
 	@RequestMapping(value = "/{parentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Parent getParent(@PathVariable Integer parentId) {
-		Parent parent = new Parent();
-		if (parentId != 0) parent = repository.findOne(parentId);
+		Parent parent = null;
+		if (parentId == 0) {
+			parent = new Parent();
+			List<Parent> dependents = new ArrayList<Parent>();
+			dependents.add(new Parent());
+			dependents.add(new Parent());
+			dependents.add(new Parent());
+			dependents.add(new Parent());
+			parent.setDependents(dependents);
+			List<Student> childs = new ArrayList<Student>();
+			childs.add(new Student());
+			childs.add(new Student());
+			childs.add(new Student());
+			childs.add(new Student());
+			parent.setChilds(childs);
+		} else {
+			parent = repository.findOne(parentId);
+			List<Parent> dependents = new ArrayList<Parent>();
+			dependents.addAll(Lists.newArrayList(repository.findByMainPaent(parentId)));
+			parent.setDependents(dependents);
+		}
 		return parent;
 	}
 }

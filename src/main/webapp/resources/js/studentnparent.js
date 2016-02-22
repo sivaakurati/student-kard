@@ -20,8 +20,8 @@ app.controller('ViewCtrl', function($scope, $http) {
 		window.location.href = '/studentnparent0';
 	};
 	
-	$scope.openStudentNParent = function(parent){
-		window.location.href = '/parent' + parent.parentId;
+	$scope.openStudentNParent = function(student){
+		window.location.href = '/studentnparent' + student.parent.parentId;
 	};
 	
 	$scope.deleteStudentNParent = function(student){
@@ -67,7 +67,10 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadParent = function(){
 		$http.get('/parent/' + param).success(function(data){
 			$scope.parent = data;
-			console.log(stringIt($scope.parent));
+			if (param != 0) {
+				$scope.loadCitiesByState();
+				$scope.loadLocationsByCity();
+			}
 		});
 	};
 	
@@ -93,26 +96,29 @@ app.controller('EditCtrl', function($scope, $http) {
 	
 	$scope.saveParent = function(){
 		$http.post('/parent', $scope.parent).success(function(){
-			$scope.$emit('loadParents');
+			window.location.href = '/studentnparent';
 		});
 	};
 	
 	$scope.loadCitiesByState = function() {
-		var stateName = $('#stateName').val();
+		var val = stringIt($scope.parent.location.stateName).replace('"', '');
+		var stateName = val.substring(0, val.length-1);
 		$http.get('/cities/' + stateName).success(function(data){
 			$scope.cities = data;
 		});
 	};
 	
 	$scope.loadLocationsByCity = function() {
-		var cityName = $('#cityName').val();
+		var val = stringIt($scope.parent.location.cityName).replace('"', '');
+		var cityName = val.substring(0, val.length-1);
 		$http.get('/locations/' + cityName).success(function(data){
 			$scope.locations = data;
 		});
 	};
 	
 	$scope.loadLocationById = function() {
-		var locationId = $('#locationId').val();
+		var val = stringIt($scope.parent.location.locationId).replace('"', '');
+		var locationId = val.substring(0, val.length-1);
 		$http.get('/location/' + locationId).success(function(data){
 			$scope.location = data;
 		});

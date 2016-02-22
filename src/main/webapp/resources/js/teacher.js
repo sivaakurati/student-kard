@@ -116,8 +116,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	
 	$scope.saveTeacher = function(){
 		$http.post('/teacher', $scope.teacher).success(function(){
-			$('#teachermodal').hide();
-			window.location.href = '../../teacher';
+			window.location.href = '/teacher';
 		});
 	};
 	

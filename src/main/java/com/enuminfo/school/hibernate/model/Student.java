@@ -17,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * @author Kumar
  */
@@ -115,9 +113,8 @@ public class Student implements Serializable {
 		this.course = course;
 	}
 
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "parent_id")
-	@JsonIgnore
 	public Parent getParent() {
 		return parent;
 	}

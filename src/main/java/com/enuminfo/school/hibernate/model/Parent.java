@@ -39,11 +39,11 @@ public class Parent implements Serializable {
 	private String gender;
 	private Location location;
 	private Long contactNo;
-	private Parent mainParentId;
+	private Integer mainParentId;
 	private List<Student> students;
 	
-	private Parent[] dependents;
-	private Student[] childs;
+	private List<Student> childs;
+	private List<Parent> dependents;
 	
 	public Parent() {
 		// TODO Auto-generated constructor stub
@@ -125,15 +125,15 @@ public class Parent implements Serializable {
 	}
 
 	@Column (name = "main_parent_id")
-	public Parent getMainParentId() {
+	public Integer getMainParentId() {
 		return mainParentId;
 	}
 
-	public void setMainParentId(Parent mainParentId) {
+	public void setMainParentId(Integer mainParentId) {
 		this.mainParentId = mainParentId;
 	}
-
-	@OneToMany (mappedBy = "parent", fetch = FetchType.LAZY)
+	
+	@OneToMany (mappedBy = "parent", fetch = FetchType.EAGER)
 	@JsonIgnore
 	public List<Student> getStudents() {
 		return students;
@@ -144,20 +144,20 @@ public class Parent implements Serializable {
 	}
 
 	@Transient
-	public Parent[] getDependents() {
+	public List<Parent> getDependents() {
 		return dependents;
 	}
 
-	public void setDependents(Parent[] dependents) {
+	public void setDependents(List<Parent> dependents) {
 		this.dependents = dependents;
 	}
 
 	@Transient
-	public Student[] getChilds() {
+	public List<Student> getChilds() {
 		return childs;
 	}
 
-	public void setChilds(Student[] childs) {
+	public void setChilds(List<Student> childs) {
 		this.childs = childs;
 	}
 }
