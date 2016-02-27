@@ -6,7 +6,7 @@
     	<artifactId>spring-boot-starter-parent</artifactId>
     	<version>1.1.8.RELEASE</version>
  	 </parent>
-	<groupId>com.enuminfo.school</groupId>
+	<groupId>com.enuminfo.student</groupId>
 	<artifactId>student-kard</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Student KARD</name>
