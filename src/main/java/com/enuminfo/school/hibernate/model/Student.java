@@ -5,6 +5,7 @@ package com.enuminfo.school.hibernate.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -41,6 +43,8 @@ public class Student implements Serializable {
 	
 	private String dob;
 	private String doj;
+	
+	private List<Grade> grades;
 	
 	public Student() {
 		// TODO Auto-generated constructor stub
@@ -157,5 +161,14 @@ public class Student implements Serializable {
 
 	public void setDoj(String doj) {
 		this.doj = doj;
+	}
+
+	@OneToMany (mappedBy = "student", fetch = FetchType.EAGER)
+	public List<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
 	}
 }

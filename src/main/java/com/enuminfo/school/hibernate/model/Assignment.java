@@ -10,11 +10,12 @@ import javax.persistence.Table;
  * @author Kumar
  */
 //@Entity
-//@Table (name = "tbl_assignment_tracker")
-public class AssignmentTracker {
+//@Table (name = "tbl_assignment")
+public class Assignment {
 
-	private Integer gradeTrackerId;
+	private Integer assignmentId;
 	private Batch batch;
 	private Course course;
-	private Student student;
+	private Subject subject;
+	private String assignment;
 }

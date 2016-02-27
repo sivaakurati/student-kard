@@ -40,9 +40,14 @@ app.controller('ViewCtrl', function($scope, $http){
 	
 	$scope.loadTimeTrackerEvents = function() {
 		$http.get('/timetracker/events').success(function(data){
-			$scope.events = data;
-			console.log(stringIt($scope.events));
+			$scope.timeTrackerEvents = data;
+			console.log(stringIt($scope.timeTrackerEvents));
 		});
+	};
+	
+	$scope.calEventsExt = {
+		events: $scope.loadTimeTrackerEvents()
+		//events: [{"title":"Course101 - Sekhar - English","start":"2016-02-26T14:00:00.000+05:30","end":"2016-02-26T15:30:00.000+05:30","allDay":false}]
 	};
 	
 	 var date = new Date();
@@ -51,9 +56,6 @@ app.controller('ViewCtrl', function($scope, $http){
 	 var y = date.getFullYear();
 	 var currentView = "month";
 	
-    //$scope.events = [{"id":1,"title":"Course101 - Sekhar - English","start":"2016-02-19T10:00:00.000+05:30","end":"2016-02-19T11:00:00.000+05:30","allDay":false}];
-    //$scope.events = $scope.loadTimeTrackerEvents();
-    
     /* config object */
     $scope.uiConfig = {
     	calendar:{
@@ -74,21 +76,20 @@ app.controller('ViewCtrl', function($scope, $http){
     };
     
     $scope.saveTimeTracker = function(){
+    	console.log(stringIt($scope.timeTracker));
 		$http.post('/timetracker', $scope.timeTracker).success(function(){
 			$scope.$emit('loadCourses');
 			$scope.$emit('loadTeachers');
-			$scope.$emit('loadCalendar');
+			//$scope.$emit('loadTimeTrackerEvents');
 		});
 	};
 	
 	$scope.loadCourses();
 	$scope.loadTeachers();
-	$scope.loadTimeTrackerEvents();
+	//$scope.loadTimeTrackerEvents();
     
     /* event sources array*/
-    //$scope.eventSources = [$scope.events, $scope.eventSource];
-	$scope.eventSources = $scope.events;
-	//$scope.eventSources = $scope.loadTimeTrackerEvents();
+	$scope.eventSources = [ $scope.calEventsExt ];
 });
 
 function ini_events(ele){

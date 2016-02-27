@@ -53,11 +53,15 @@ public class TimeTrackerService {
 		timeTracker.setSubject(subject);
 		if (timeTracker.getFullDay() == null) timeTracker.setFullDay(false);
 		else timeTracker.setFullDay(true);
+		System.out.println(DateTimeUtil.convertGMT2ISTDateTime(tempStart));
+		System.out.println(DateTimeUtil.convertGMT2ISTDateTime(tempEnd));
 		timeTracker.setStartDate(DateTimeUtil.convertGMT2ISTDateTime(tempStart));
 		timeTracker.setEndDate(DateTimeUtil.convertGMT2ISTDateTime(tempEnd));
-		repository.save(timeTracker);
+		repository.save(timeTracker);		
 		TimeTrackerEvent event = new TimeTrackerEvent();
 		event.setTitle(timeTracker.getCourse().getCourseName() + " - " + timeTracker.getTeacher().getTeacherName() + " - " + timeTracker.getSubject().getSubjectName());
+		System.out.println(DateTimeUtil.convertGMT2ISTDateTimestamp(tempStart));
+		System.out.println(DateTimeUtil.convertGMT2ISTDateTimestamp(tempEnd));
 		event.setStart(DateTimeUtil.convertGMT2ISTDateTimestamp(tempStart));
 		event.setEnd(DateTimeUtil.convertGMT2ISTDateTimestamp(tempEnd));
 		event.setAllDay(timeTracker.getFullDay());

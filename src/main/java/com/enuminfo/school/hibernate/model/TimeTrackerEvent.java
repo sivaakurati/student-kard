@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Kumar
  */
@@ -36,6 +38,7 @@ public class TimeTrackerEvent implements Serializable {
 	@Id
 	@Column (name = "time_tracker_id")
 	@GeneratedValue (strategy = GenerationType.AUTO)
+	@JsonIgnore
 	public Integer getId() {
 		return id;
 	}

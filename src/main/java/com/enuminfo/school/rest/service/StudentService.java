@@ -3,6 +3,9 @@
  */
 package com.enuminfo.school.rest.service;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.enuminfo.school.hibernate.model.Grade;
 import com.enuminfo.school.hibernate.model.Student;
 import com.enuminfo.school.hibernate.repository.BatchRepository;
 import com.enuminfo.school.hibernate.repository.CourseRepository;
+import com.enuminfo.school.hibernate.repository.GradeRepository;
 import com.enuminfo.school.hibernate.repository.StudentRepsitory;
 
 /**
@@ -26,6 +31,7 @@ public class StudentService {
 	@Autowired StudentRepsitory repository;
 	@Autowired BatchRepository batchRepository;
 	@Autowired CourseRepository courseRepository;
+	@Autowired GradeRepository gradeRepository;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Student> getAllStudents() {
@@ -53,5 +59,18 @@ public class StudentService {
 	@RequestMapping(value = "/batch/{batchId}/course/{courseId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Student> getAllStudentsByBatchNCourse(@PathVariable Integer batchId, @PathVariable Integer courseId) {
 		return repository.findByBatchAndCourse(batchRepository.findOne(batchId), courseRepository.findOne(courseId));
+	}
+	
+	@RequestMapping(value = "/grades", method = RequestMethod.POST)
+	public void saveStudentGrades(@RequestBody List<Student> students) {
+		for (Iterator<Student> studentIterator = students.iterator(); studentIterator.hasNext();) {
+			Student student = studentIterator.next();
+			System.out.println(student.getStudentId() + " - " + student.getStudentName());
+			for (Iterator<Grade> gradeIterator = student.getGrades().iterator(); gradeIterator.hasNext();) {
+				Grade grade = gradeIterator.next();
+				grade.setStudent(student);
+				gradeRepository.save(grade);
+			}
+		}
 	}
 }
