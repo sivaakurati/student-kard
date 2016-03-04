@@ -103,11 +103,4 @@ public class DateTimeUtil {
         DateTime dTime = parser.parseDateTime(datetime);
         return dTime.toString();
 	}
-	
-	/*public static void main(String[] args) {
-		String tempStart = "2016-02-18T04:30:00.000Z";
-		String tempEnd = "2016-02-18T05:30:00.000Z";
-		System.out.println(convertGMT2ISTDateTime(tempStart) + " = " + convertGMT2ISTDateTimestamp(tempStart));
-		System.out.println(convertGMT2ISTDateTime(tempEnd) + " = " + convertGMT2ISTDateTimestamp(tempEnd));
-	}*/
 }

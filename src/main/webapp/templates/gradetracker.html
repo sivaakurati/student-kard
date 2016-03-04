@@ -86,8 +86,7 @@
 									<thead style="background-color: #31b0d5;">
 										<tr>
 											<th>Name</th>
-											<th ng-repeat="subject in subjects" ng-if="student.grades.length == 0">{{subject.subjectName}}</th>
-											<th ng-repeat="subject in student.grades" ng-if="student.grades.length != 0">{{subject.subjectName}}</th>
+											<th ng-repeat="subject in subjects">{{subject.subjectName}}</th>
 										</tr>
 									</thead>
 									<tbody>

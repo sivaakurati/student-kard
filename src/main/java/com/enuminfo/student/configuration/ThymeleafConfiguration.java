@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -15,6 +17,7 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 /**
  * @author Kumar
  */
+@Configuration
 public class ThymeleafConfiguration {
 
 	public @Bean ServletContextTemplateResolver templateResolver() {
@@ -31,6 +34,7 @@ public class ThymeleafConfiguration {
         final Set<TemplateResolver> templateResolveres = new HashSet<TemplateResolver>();
         templateResolveres.add(templateResolver());
         templateEngine.setTemplateResolvers(templateResolveres);
+        templateEngine.addDialect(new SpringSecurityDialect());
         return templateEngine;
     }
     
