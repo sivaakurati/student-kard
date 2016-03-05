@@ -56,10 +56,13 @@ app.controller('ViewCtrl', function($scope, $http){
 		angular.forEach($scope.subjects, function(subject) {
 			$scope.assignment.push({batch: batch, course: course, subject: subject, question: $('#assignment' + subject.subjectName).val()});
 		});
-		//$http.post('/assignment', $scope.assignment).success(function(){
-		//	$scope.$emit('loadBatches');			
-		//});
-		console.log(stringIt($scope.assignment));
+		$http.post('/assignment', $scope.assignment).success(function(){
+			$scope.$emit('loadBatches');			
+		});
+	};
+	
+	$scope.saveAssignmentResults = function() {
+		
 	};
 	
 	$scope.loadLoggerUserDetail();

@@ -87,19 +87,26 @@
 										<tr>
 											<th>Subject</th>
 											<th>Assignment</th>
+											<th sec:authorize="hasRole('ROLE_STUDENT')">Result</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr ng-repeat="subject in subjects">
 											<td>{{subject.subjectName}}</td>
 											<td><textarea class="form-control" id="assignmentOf{{subject.subjectName}}"></textarea></td>
+											<td sec:authorize="hasRole('ROLE_STUDENT')"><textarea class="form-control" id="resultOf{{subject.subjectName}}"></textarea></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 							<div class="box-footer">
 									<button type="button" class="btn btn-success pull-right"
-										ng-click="saveAssignments()">
+										sec:authorize="hasRole('ROLE_PARENT')" ng-click="saveAssignments()">
+										<i class="glyphicon glyphicon-ok"></i> Save
+									</button>
+									
+									<button type="button" class="btn btn-success pull-right"
+										sec:authorize="hasRole('ROLE_STUDENT')" ng-click="saveAssignmentResults()">
 										<i class="glyphicon glyphicon-ok"></i> Save
 									</button>
 								</div>
