@@ -15,4 +15,6 @@ public interface ParentRepository extends PagingAndSortingRepository<Parent, Int
 
 	@Query ("SELECT model FROM Parent model WHERE model.mainParentId = ?1")
 	Iterable<Parent> findByMainPaent(Integer parentId);
+	
+	Parent findByEmailAddress(String emailAddress);
 }

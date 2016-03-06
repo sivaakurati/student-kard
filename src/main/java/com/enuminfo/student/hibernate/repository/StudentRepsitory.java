@@ -17,4 +17,5 @@ public interface StudentRepsitory extends PagingAndSortingRepository<Student, In
 
 	Iterable<Student> findByParent(Parent parent);
 	Iterable<Student> findByBatchAndCourse(Batch batch, Course course);
+	Student findByEmailAddress(String emailAddress);
 }
