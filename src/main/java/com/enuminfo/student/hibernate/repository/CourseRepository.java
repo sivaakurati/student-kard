@@ -12,4 +12,5 @@ import com.enuminfo.student.hibernate.model.Course;
  */
 public interface CourseRepository extends PagingAndSortingRepository<Course, Integer>{
 
+	Course findByCourseName(String name);
 }

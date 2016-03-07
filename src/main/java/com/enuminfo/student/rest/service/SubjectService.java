@@ -38,4 +38,9 @@ public class SubjectService {
 		Subject subject = repository.findOne(subjectId);
 		repository.delete(subject);
 	}
+	
+	@RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Subject getBySubjectName(@PathVariable String name) {
+		return repository.findBySubjectName(name);
+	}
 }

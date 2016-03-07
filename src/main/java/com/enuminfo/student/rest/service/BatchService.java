@@ -38,4 +38,9 @@ public class BatchService {
 		Batch batch = repository.findOne(batchId);
 		repository.delete(batch);
 	}
+	
+	@RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Batch getByBatchName(@PathVariable String name) {
+		return repository.findByBatchName(name);
+	}
 }

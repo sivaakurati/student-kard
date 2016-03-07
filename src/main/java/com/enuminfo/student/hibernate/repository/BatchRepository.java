@@ -12,4 +12,5 @@ import com.enuminfo.student.hibernate.model.Batch;
  */
 public interface BatchRepository extends PagingAndSortingRepository<Batch, Integer> {
 
+	Batch findByBatchName(String name);
 }

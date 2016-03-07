@@ -37,6 +37,8 @@ public class Student implements Serializable {
 	private String photo;
 	private String emailAddress;
 	private String gender;
+	private String address;
+	private Long contactNo;
 	private Date dateOfBirth;
 	private Date dateOfJoining;
 	private Batch batch;
@@ -91,7 +93,7 @@ public class Student implements Serializable {
 		this.emailAddress = emailAddress;
 	}
 	
-	@Transient
+	@Column (name = "gender")
 	public String getGender() {
 		return gender;
 	}
@@ -183,5 +185,23 @@ public class Student implements Serializable {
 
 	public void setAssignmentResults(List<AssignmentResult> assignmentResults) {
 		this.assignmentResults = assignmentResults;
+	}
+	
+	@Column (name = "address")
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	@Column (name = "contact_no")
+	public Long getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(Long contactNo) {
+		this.contactNo = contactNo;
 	}
 }

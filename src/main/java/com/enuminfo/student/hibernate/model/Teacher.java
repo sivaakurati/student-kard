@@ -103,7 +103,7 @@ public class Teacher implements Serializable {
 		this.address = address;
 	}
 
-	@Transient
+	@Column (name = "gender")
 	public String getGender() {
 		return gender;
 	}
