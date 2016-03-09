@@ -73,6 +73,7 @@
 											<th>Name</th>
 											<th>Email ID</th>
 											<th>Contact No</th>
+											<th>Date Of Birth</th>
 											<th>Date Of Joining</th>
 											<th>Designation</th>
 											<th>Subject</th>
@@ -85,13 +86,12 @@
 												<button type="button" ng-click="openTeacher(teacher)"
 													class="btn btn-sm btn-success">
 													<i class="glyphicon glyphicon-edit"></i>
-												</button> <!-- <button type="button" ng-click="deleteTeacher(teacher)" class="btn btn-sm btn-danger">
-						<i class="glyphicon glyphicon-trash"></i>
-					</button> -->
+												</button>
 											</td>
 											<td>{{teacher.teacherName}}</td>
 											<td>{{teacher.emailAddress}}</td>
 											<td>{{teacher.contactNo}}</td>
+											<td>{{teacher.dateOfBirth | date: "dd-MMM-yyyy"}}</td>
 											<td>{{teacher.dateOfJoining | date: "dd-MMM-yyyy"}}</td>
 											<td>{{teacher.designation}}</td>
 											<td><span style="margin-right: 5px;"

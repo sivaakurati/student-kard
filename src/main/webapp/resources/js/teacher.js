@@ -68,6 +68,8 @@ app.controller('EditCtrl', function($scope, $http) {
 		if (param != 0) {
 			$http.get('/teacher/' + param).success(function(data){
 				$scope.teacher = data;
+				$scope.teacher.dob = new Date($scope.teacher.dob);
+				$scope.teacher.doj = new Date($scope.teacher.doj);
 				$scope.loadCitiesByStateName();
 				$scope.loadLocationsByCityName();
 				angular.forEach($scope.subjects, function(subject) {

@@ -39,6 +39,7 @@ public class Student implements Serializable {
 	private String gender;
 	private String address;
 	private Long contactNo;
+	private Location location;
 	private Date dateOfBirth;
 	private Date dateOfJoining;
 	private Batch batch;
@@ -120,6 +121,16 @@ public class Student implements Serializable {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	@ManyToOne (fetch = FetchType.EAGER)
+	@JoinColumn (name = "location_id")
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	@ManyToOne (fetch = FetchType.EAGER)

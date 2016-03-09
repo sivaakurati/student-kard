@@ -61,10 +61,10 @@ public class TeacherService {
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveTeacher(@RequestBody Teacher teacher) {
 		if (teacher.getTeacherId() == null) {
+			if (teacher.getGender() != null && teacher.getGender().equals("male")) teacher.setPhoto("avatar5.png");
+			else if (teacher.getGender() != null && teacher.getGender().equals("female")) teacher.setPhoto("avatar2.png");
 			teacher.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(teacher.getDob()));
 			teacher.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(teacher.getDoj()));
-			if (teacher.getGender() != null && teacher.getGender().equals("male")) teacher.setPhoto("avatar5.png");
-			else if (teacher.getGender() != null && teacher.getGender().equals("female")) teacher.setPhoto("avatar2.png");			
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
 			for (Iterator<Department> iterator = teacher.getDepartments().iterator(); iterator.hasNext();) {
@@ -79,8 +79,11 @@ public class TeacherService {
 			user.setPassword("p@5530rd");
 			user.setRoles(roles);
 			userRepository.save(user);
-			teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
+		} else {
+			teacher.setDateOfBirth(DateTimeUtil.convertSqlDate2UtilDate(teacher.getDob()));
+			teacher.setDateOfJoining(DateTimeUtil.convertSqlDate2UtilDate(teacher.getDoj()));
 		}
+		teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
 		repository.save(teacher);
 	}
 	
@@ -96,6 +99,8 @@ public class TeacherService {
 		if (teacherId != 0) teacher = repository.findOne(teacherId);
 		teacher.setSubjects(Lists.newArrayList(subjectRepository.findAll(teacherSubjectRepository.findByTeacherId(teacherId))));
 		teacher.setCourses(Lists.newArrayList(courseRepository.findAll(teacherCourseRepository.findByTeacherId(teacherId))));
+		teacher.setDob(DateTimeUtil.convertSqlDate2String(teacher.getDateOfBirth().toString()));
+		teacher.setDoj(DateTimeUtil.convertSqlDate2String(teacher.getDateOfJoining().toString()));
 		return teacher;
 	}
 	

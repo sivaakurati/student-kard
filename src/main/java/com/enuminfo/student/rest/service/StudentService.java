@@ -3,6 +3,7 @@
  */
 package com.enuminfo.student.rest.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,11 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.enuminfo.student.hibernate.model.Grade;
+import com.enuminfo.student.hibernate.model.Role;
 import com.enuminfo.student.hibernate.model.Student;
+import com.enuminfo.student.hibernate.model.User;
 import com.enuminfo.student.hibernate.repository.BatchRepository;
 import com.enuminfo.student.hibernate.repository.CourseRepository;
 import com.enuminfo.student.hibernate.repository.GradeRepository;
+import com.enuminfo.student.hibernate.repository.LocationRepository;
+import com.enuminfo.student.hibernate.repository.RoleRepository;
 import com.enuminfo.student.hibernate.repository.StudentRepsitory;
+import com.enuminfo.student.hibernate.repository.UserRepository;
+import com.enuminfo.student.util.DateTimeUtil;
+import com.enuminfo.student.util.StringUtil;
 
 /**
  * @author Kumar
@@ -32,6 +40,9 @@ public class StudentService {
 	@Autowired BatchRepository batchRepository;
 	@Autowired CourseRepository courseRepository;
 	@Autowired GradeRepository gradeRepository;
+	@Autowired UserRepository userRepository;
+	@Autowired RoleRepository roleRepository;
+	@Autowired LocationRepository locationRepository;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Student> getAllStudents() {
@@ -40,6 +51,24 @@ public class StudentService {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveStudent(@RequestBody Student student) {
+		if (student.getStudentId() == null) {
+			if (student.getGender() != null && student.getGender().equals("male")) student.setPhoto("avatar5.png");
+			else if (student.getGender() != null && student.getGender().equals("female")) student.setPhoto("avatar2.png");
+			student.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(student.getDob()));
+			student.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(student.getDoj()));
+			List<Role> roles = new ArrayList<Role>();
+			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
+			User user = new User();
+			user.setUsername(student.getEmailAddress());
+			user.setPassword(StringUtil.generatePassword());
+			user.setPassword("p@5530rd");
+			user.setRoles(roles);
+			userRepository.save(user);
+		} else {
+			student.setDateOfBirth(DateTimeUtil.convertSqlDate2UtilDate(student.getDob()));
+			student.setDateOfJoining(DateTimeUtil.convertSqlDate2UtilDate(student.getDoj()));
+		}
+		student.setLocation(locationRepository.findOne(student.getLocation().getLocationId()));
 		repository.save(student);
 	}
 	
@@ -53,6 +82,8 @@ public class StudentService {
 	public Student getStudent(@PathVariable Integer studentId) {
 		Student student = new Student();
 		if (studentId != 0) student = repository.findOne(studentId);
+		student.setDob(DateTimeUtil.convertSqlDate2String(student.getDateOfBirth().toString()));
+		student.setDoj(DateTimeUtil.convertSqlDate2String(student.getDateOfJoining().toString()));
 		return student;
 	}
 	

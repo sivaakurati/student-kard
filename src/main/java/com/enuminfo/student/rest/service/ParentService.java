@@ -4,6 +4,7 @@
 package com.enuminfo.student.rest.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.enuminfo.student.hibernate.model.Parent;
 import com.enuminfo.student.hibernate.model.Role;
-import com.enuminfo.student.hibernate.model.Student;
 import com.enuminfo.student.hibernate.model.User;
 import com.enuminfo.student.hibernate.repository.BatchRepository;
 import com.enuminfo.student.hibernate.repository.CourseRepository;
@@ -25,9 +25,7 @@ import com.enuminfo.student.hibernate.repository.ParentRepository;
 import com.enuminfo.student.hibernate.repository.RoleRepository;
 import com.enuminfo.student.hibernate.repository.StudentRepsitory;
 import com.enuminfo.student.hibernate.repository.UserRepository;
-import com.enuminfo.student.util.DateTimeUtil;
 import com.enuminfo.student.util.StringUtil;
-import com.google.common.collect.Lists;
 
 /**
  * @author Kumar
@@ -55,58 +53,16 @@ public class ParentService {
 			if (parent.getGender() != null && parent.getGender().equals("male")) parent.setPhoto("avatar5.png");
 			else if (parent.getGender() != null && parent.getGender().equals("female")) parent.setPhoto("avatar2.png");
 			List<Role> roles = new ArrayList<Role>();
-			roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
+			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
 			User user = new User();
 			user.setUsername(parent.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());
 			user.setPassword("p@5530rd");
 			user.setRoles(roles);
 			userRepository.save(user);
-			parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
-			parent.setMainParentId(null);
-			Parent savedMainParent = repository.save(parent);
-			for (Parent dependent: parent.getDependents()) {
-				if (dependent.getParentName() != null) {
-					if (dependent.getGender() != null && dependent.getGender().equals("male")) dependent.setPhoto("avatar5.png");
-					else if (dependent.getGender() != null && dependent.getGender().equals("female")) dependent.setPhoto("avatar2.png");
-					roles = new ArrayList<Role>();
-					roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
-					user = new User();
-					user.setUsername(dependent.getEmailAddress());
-					user.setPassword(StringUtil.generatePassword());
-					user.setPassword("p@5530rd");
-					user.setRoles(roles);
-					userRepository.save(user);
-					dependent.setAddress(savedMainParent.getAddress());
-					dependent.setLocation(savedMainParent.getLocation());
-					dependent.setMainParentId(savedMainParent.getParentId());
-					repository.save(dependent);
-				}
-			}
-			for (Student child: parent.getChilds()) {
-				if (child.getStudentName() != null) {
-					if (child.getGender() != null && child.getGender().equals("male")) child.setPhoto("avatar5.png");
-					else if (child.getGender() != null && child.getGender().equals("female")) child.setPhoto("avatar2.png");
-					roles = new ArrayList<Role>();
-					roles.add(roleRepository.findByRoleName("ROLE_STUDENT"));
-					user = new User();
-					user.setUsername(child.getEmailAddress());
-					user.setPassword(StringUtil.generatePassword());
-					user.setPassword("p@5530rd");
-					user.setRoles(roles);
-					userRepository.save(user);
-					child.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(child.getDob()));
-					child.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(child.getDoj()));
-					child.setParent(parent);
-					studentRepository.save(child);
-				}
-			}
-		} else {
-			repository.save(parent);
-			for (Parent dependent: parent.getDependents()) {
-				repository.save(dependent);
-			}
 		}
+		parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
+		repository.save(parent);
 	}
 	
 	@RequestMapping(value = "/{parentId}", method = RequestMethod.DELETE)
@@ -117,27 +73,19 @@ public class ParentService {
 	
 	@RequestMapping(value = "/{parentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Parent getParent(@PathVariable Integer parentId) {
-		Parent parent = null;
-		if (parentId == 0) {
-			parent = new Parent();
-			List<Parent> dependents = new ArrayList<Parent>();
-			dependents.add(new Parent());
-			dependents.add(new Parent());
-			dependents.add(new Parent());
-			dependents.add(new Parent());
-			parent.setDependents(dependents);
-			List<Student> childs = new ArrayList<Student>();
-			childs.add(new Student());
-			childs.add(new Student());
-			childs.add(new Student());
-			childs.add(new Student());
-			parent.setChilds(childs);
-		} else {
-			parent = repository.findOne(parentId);
-			List<Parent> dependents = new ArrayList<Parent>();
-			dependents.addAll(Lists.newArrayList(repository.findByMainPaent(parentId)));
-			parent.setDependents(dependents);
-		}
+		Parent parent = new Parent();
+		if (parentId != 0) parent = repository.findOne(parentId);
 		return parent;
+	}
+	
+	@RequestMapping(value = "/main", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Parent> getAllMainParent() {
+		List<Parent> allMainParentList = new ArrayList<Parent>();
+		Iterable<Parent> allParentList = repository.findAll();
+		for (Iterator<Parent> iterator = allParentList.iterator(); iterator.hasNext();) {
+			Parent parent = (Parent) iterator.next();
+			if (parent.getMainParentId() == null) allMainParentList.add(parent);
+		}
+		return allMainParentList;
 	}
 }

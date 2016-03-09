@@ -64,14 +64,24 @@ public class RedirectController {
 		return "saveteacher";
 	}
 	
-	@RequestMapping(value = "/studentnparent", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getStudentNParentPage() {
-		return "studentnparent";
+	@RequestMapping(value = "/student", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getStudentPage() {
+		return "student";
 	}
 	
-	@RequestMapping(value = "/studentnparent{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getSaveOrUpdateStudentNParentPage() {
-		return "savestudentnparent";
+	@RequestMapping(value = "/student{studentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getSaveOrUpdateStudentPage() {
+		return "savestudent";
+	}
+	
+	@RequestMapping(value = "/parent", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getParentPage() {
+		return "parent";
+	}
+	
+	@RequestMapping(value = "/parent{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getSaveOrUpdateParentPage() {
+		return "saveparent";
 	}
 	
 	@RequestMapping(value = "/changepassword", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)

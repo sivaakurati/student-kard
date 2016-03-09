@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.joda.time.DateTime;
@@ -98,9 +99,43 @@ public class DateTimeUtil {
         return date;
 	}
 	
+	public static Date convertGMTTime2ISTDate(String datetime) {
+		Date date = null;
+		DateTimeFormatter parser = ISODateTimeFormat.dateTime();
+        DateTime dTime = parser.parseDateTime(datetime);
+        DateTimeFormatter formatter = DateTimeFormat.mediumDateTime();
+        String strDate = formatter.print(dTime);
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy HH:MM:SS.ZZZ");
+        try {
+			date = dateFormat.parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        return date;
+	}
+	
 	public static String convertGMT2ISTDateTimestamp(String datetime) {
 		DateTimeFormatter parser = ISODateTimeFormat.dateTime();
         DateTime dTime = parser.parseDateTime(datetime);
         return dTime.toString();
+	}
+	
+	public static String convertSqlDate2String(String sqlDate) {
+		String strDate = null;
+		try {
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(sqlDate);
+			strDate = new SimpleDateFormat("MM/dd/yyyy").format(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return strDate;
+	}
+	
+	public static Date convertSqlDate2UtilDate(String sqlDate) {
+		String[] strDate = convertSqlDate2String(sqlDate).split("/");
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Integer.parseInt(strDate[2]), Integer.parseInt(strDate[0])-1, Integer.parseInt(strDate[1]));
+		calendar.add(Calendar.DATE, 1);
+		return calendar.getTime();
 	}
 }
