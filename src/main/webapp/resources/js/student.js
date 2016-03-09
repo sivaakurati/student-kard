@@ -24,6 +24,10 @@ app.controller('ViewCtrl', function($scope, $http) {
 		window.location.href = '/student' + student.studentId;
 	};
 	
+	$scope.openParent = function(parent){
+		window.location.href = '/parent' + parent.parentId;
+	};
+	
 	$scope.deleteStudent = function(student){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + student.studentName + '</span>', function(result) {
 			if(result == true) {
@@ -77,25 +81,30 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.loadParentDetailByMainParentId = function() {
-		var val = stringIt($scope.parent.mainParentId).replace('"', '');
+		var val = stringIt($scope.student.parent.parentId).replace('"', '');
 		var mainParentId = val.substring(0, val.length-1);
 		$http.get('/parent/' + mainParentId).success(function(data){
 			$scope.parent = data;
 			$scope.student = [];
 			$scope.student.location = [];
 			$scope.parent.mainParentId = $scope.parent.parentId;
-			$scope.loadCitiesByState();
-			$scope.loadLocationsByCity();
 			$scope.student.location.stateName = $scope.parent.location.stateName;
 			$scope.student.location.cityName = $scope.parent.location.cityName;
 			$scope.student.location.pinCode = $scope.parent.location.pinCode;
 			$scope.student.location.locationId = $scope.parent.location.locationId;
+			$scope.loadCitiesByState();
+			$scope.loadLocationsByCity();
 		});
 	};
 	
 	$scope.loadCoursesByBatch = function() {
-		var val = stringIt($scope.student.batch.batchId).replace('"', '');
-		var batchId = val.substring(0, val.length-1);
+		var batchId = '';
+		if ($scope.student.studentId == null) {
+			var val = stringIt($scope.student.batch.batchId).replace('"', '');
+			batchId = val.substring(0, val.length-1);
+		} else {
+			batchId = stringIt($scope.student.batch.batchId).replace('"', '');
+		}
 		$scope.courses = [];
 		angular.forEach($scope.batches, function(batch) {
 			if(batch.batchId == batchId) $scope.courses = batch.courses;

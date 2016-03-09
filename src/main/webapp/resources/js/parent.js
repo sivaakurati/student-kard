@@ -16,10 +16,6 @@ app.controller('ViewCtrl', function($scope, $http) {
 		window.location.href = '/parent0';
 	};
 	
-	$scope.openParent = function(parent){
-		window.location.href = '/parent' + parent.parentId;
-	};
-	
 	$scope.deleteParent = function(parent){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + parent.parentName + '</span>', function(result) {
 			if(result == true) {
@@ -37,6 +33,10 @@ app.controller('ViewCtrl', function($scope, $http) {
 
 app.controller('EditCtrl', function($scope, $http) {
 	var param = parentId.split('/')[3].replace('parent','')
+	
+	$scope.openParent = function(parent){
+		window.location.href = '../parent' + parent.parentId;
+	};
 	
 	$scope.$on("loadStates", function(){
 		$scope.loadStates();
@@ -59,7 +59,8 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.getBack = function(){
-		window.location.href = '/student';
+		if ($scope.parent.mainParentId == '')  window.location.href = '/student';
+		else window.location.href = '/parent' + $scope.parent.mainParentId;
 	};
 	
 	$scope.loadCoursesByBatch = function() {
@@ -73,7 +74,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	
 	$scope.saveParent = function(){
 		$http.post('/parent', $scope.parent).success(function(){
-			window.location.href = '/parent';
+			window.location.href = '/student';
 		});
 	};
 	
@@ -114,6 +115,7 @@ app.controller('EditCtrl', function($scope, $http) {
 		var locationId = val.substring(0, val.length-1);
 		$http.get('/location/' + locationId).success(function(data){
 			$scope.location = data;
+			$('#pinCode').val($scope.location.pinCode);
 		});
 	};
 	$scope.$on('loadLoggerUserDetail', function(){
@@ -126,9 +128,21 @@ app.controller('EditCtrl', function($scope, $http) {
 		});
 	};
 	
+	$scope.loadParent = function(){
+		if (param != 0) {
+			$http.get('/parent/' + param).success(function(data){
+				$scope.parent = data;
+				if ($scope.parent.mainParentId == null) $scope.parent.mainParentId = '';
+				$scope.loadCitiesByState();
+				$scope.loadLocationsByCity();
+			});
+		}
+	};
+	
 	$scope.loadLoggerUserDetail();
 	$scope.loadStates();
 	$scope.loadMainParents();
+	$scope.loadParent();
 });
 
 function stringIt(val) {

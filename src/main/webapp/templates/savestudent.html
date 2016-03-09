@@ -71,7 +71,7 @@
 										<label class="col-sm-4 control-label">Main Parent</label>
 										<div class="col-sm-6">
 											<select class="form-control" ng-change="loadParentDetailByMainParentId()"
-												ng-model="parent.mainParentId">
+												ng-model="student.parent.parentId">
 												<option value="">----- Select Parent -----</option>
 												<option ng-selected="parent.mainParentId==mainparent.parentId" ng-repeat="mainparent in mainparents" value="{{mainparent.parentId}}">{{mainparent.parentName}}</option>
 											</select>

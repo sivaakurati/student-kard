@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -40,6 +41,7 @@ public class Parent implements Serializable {
 	private Long contactNo;
 	private Integer mainParentId;
 	private List<Student> students;
+	private List<Parent> dependents;
 	
 	public Parent() {
 		// TODO Auto-generated constructor stub
@@ -137,5 +139,14 @@ public class Parent implements Serializable {
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+
+	@Transient
+	public List<Parent> getDependents() {
+		return dependents;
+	}
+
+	public void setDependents(List<Parent> dependents) {
+		this.dependents = dependents;
 	}
 }

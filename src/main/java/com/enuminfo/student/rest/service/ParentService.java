@@ -26,6 +26,7 @@ import com.enuminfo.student.hibernate.repository.RoleRepository;
 import com.enuminfo.student.hibernate.repository.StudentRepsitory;
 import com.enuminfo.student.hibernate.repository.UserRepository;
 import com.enuminfo.student.util.StringUtil;
+import com.google.common.collect.Lists;
 
 /**
  * @author Kumar
@@ -53,7 +54,7 @@ public class ParentService {
 			if (parent.getGender() != null && parent.getGender().equals("male")) parent.setPhoto("avatar5.png");
 			else if (parent.getGender() != null && parent.getGender().equals("female")) parent.setPhoto("avatar2.png");
 			List<Role> roles = new ArrayList<Role>();
-			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
+			roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
 			User user = new User();
 			user.setUsername(parent.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());
@@ -74,7 +75,12 @@ public class ParentService {
 	@RequestMapping(value = "/{parentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Parent getParent(@PathVariable Integer parentId) {
 		Parent parent = new Parent();
-		if (parentId != 0) parent = repository.findOne(parentId);
+		if (parentId != 0) {
+			parent = repository.findOne(parentId);
+			List<Parent> dependents = new ArrayList<Parent>();
+			dependents.addAll(Lists.newArrayList(repository.findByMainPaent(parentId)));
+			parent.setDependents(dependents);
+		}
 		return parent;
 	}
 	

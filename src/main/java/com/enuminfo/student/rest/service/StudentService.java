@@ -57,7 +57,7 @@ public class StudentService {
 			student.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(student.getDob()));
 			student.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(student.getDoj()));
 			List<Role> roles = new ArrayList<Role>();
-			roles.add(roleRepository.findByRoleName("ROLE_TEACHER"));
+			roles.add(roleRepository.findByRoleName("ROLE_STUDENT"));
 			User user = new User();
 			user.setUsername(student.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());

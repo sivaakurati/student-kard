@@ -79,6 +79,7 @@
 											<th>Date of Joining</th>
 											<th>Course</th>
 											<th>Batch</th>
+											<th>Parent</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -95,6 +96,12 @@
 											<td>{{student.dateOfJoining | date: "dd-MMM-yyyy"}}</td>
 											<td>{{student.course.courseName}}</td>
 											<td>{{student.batch.batchName}}</td>
+											<td style="width: 6%;">
+												<button type="button" ng-click="openParent(student.parent)"
+													class="btn btn-sm btn-success">
+													<i class="glyphicon glyphicon-edit"></i>
+												</button>
+											</td>
 										</tr>
 									</tbody>
 								</table>

@@ -73,12 +73,6 @@ public class RedirectController {
 	public String getSaveOrUpdateStudentPage() {
 		return "savestudent";
 	}
-	
-	@RequestMapping(value = "/parent", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-	public String getParentPage() {
-		return "parent";
-	}
-	
 	@RequestMapping(value = "/parent{parentId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
 	public String getSaveOrUpdateParentPage() {
 		return "saveparent";
