@@ -80,6 +80,7 @@ public class TeacherService {
 			user.setRoles(roles);
 			userRepository.save(user);
 		} else {
+			System.out.println(teacher.getDob());
 			teacher.setDateOfBirth(DateTimeUtil.convertSqlDate2UtilDate(teacher.getDob()));
 			teacher.setDateOfJoining(DateTimeUtil.convertSqlDate2UtilDate(teacher.getDoj()));
 		}

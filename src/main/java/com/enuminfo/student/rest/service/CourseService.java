@@ -45,9 +45,4 @@ public class CourseService {
 		if (courseId != 0) course = repository.findOne(courseId);
 		return course;
 	}
-	
-	@RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Course getByCourseName(@PathVariable String name) {
-		return repository.findByCourseName(name);
-	}
 }

@@ -92,4 +92,19 @@ public class RedirectController {
 	public String getAssignmentTrackerPage() {
 		return "assignmenttracker";
 	}
+	
+	@RequestMapping(value = "/assignmentresult", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String  getAssignmentResultPage() {
+		return "assignmentresult";
+	}
+	
+	@RequestMapping(value = "/graderesult", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String getGradeResultPage() {
+		return "graderesult";
+	}
+	
+	@RequestMapping(value = "/assignmentresults", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+	public String  getAssignmentResultsPage() {
+		return "assignmentresults";
+	}
 }

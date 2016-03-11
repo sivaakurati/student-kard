@@ -19,8 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * @author Kumar
  */
@@ -188,8 +186,7 @@ public class Student implements Serializable {
 		this.grades = grades;
 	}
 
-	@OneToMany (mappedBy = "student", fetch = FetchType.LAZY)
-	@JsonIgnore
+	@OneToMany (mappedBy = "student", fetch = FetchType.EAGER)
 	public List<AssignmentResult> getAssignmentResults() {
 		return assignmentResults;
 	}

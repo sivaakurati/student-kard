@@ -51,65 +51,50 @@
 					Assignment Tracker<small>Control Panel</small>
 				</h1>
 				<ol class="breadcrumb">
-					
+					<li><a ng-click="createAssignment('.edit-assignment');"><button type="button"
+								class="btn btn-sm btn-info">
+								<i class="glyphicon glyphicon-plus"></i> Add Assignment
+							</button></a></li>
+					<li><a ng-click="createAssignmentResults();"><button type="button"
+								class="btn btn-sm btn-info">
+								<i class="glyphicon glyphicon-list"></i>  View Assignment Results
+							</button></a></li>
 				</ol>
 			</section>
 			<section class="content">
 				<div class="row">
 					<div class="col-xs-12">
-						<div class="box box-info">
-							<form class="form-horizontal">
-							<div class="box-body">
-								<div class="form-group">
-									<label class="col-sm-2 control-label">Batch</label>
-									<div class="col-sm-6"><select class="form-control" 
-										ng-model="gradetracker.batch.batchId" ng-change="loadCoursesByBatch()">
-										<option ng-repeat="batch in batches" value="{{batch.batchId}}">{{batch.batchName}}</option>
-									</select></div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">Course</label>
-									<div class="col-sm-6"><select class="form-control" ng-change="loadSubjectsByCourse()"
-										ng-model="gradetracker.course.courseId">
-										<option ng-repeat="course in courses" value="{{course.courseId}}">{{course.courseName}}</option>
-									</select></div>
-								</div>
-							</div>
-							</form>
-						</div>
-					</div>
-					<div class="col-xs-12">
-						<div class="box box-primary" id="formDiv" style="display: none;">
+						<div class="box box-primary">
 							<div class="box-body">
 								<table
 									class="table table-bordered table-striped table-hover table-condensed">
 									<thead style="background-color: #31b0d5;">
 										<tr>
-											<th>Subject</th>
+											<th style="width: 4%">&nbsp;</th>
+											<th style="width: 10%">Batch</th>
+											<th style="width: 10%">Course</th>
+											<th style="width: 10%">Subject</th>
 											<th>Assignment</th>
-											<th sec:authorize="hasRole('ROLE_STUDENT')">Result</th>
+											<th style="width: 10%">Submission Date</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="subject in subjects">
-											<td>{{subject.subjectName}}</td>
-											<td><textarea class="form-control" id="assignmentOf{{subject.subjectName}}"></textarea></td>
-											<td sec:authorize="hasRole('ROLE_STUDENT')"><textarea class="form-control" id="resultOf{{subject.subjectName}}"></textarea></td>
+										<tr ng-repeat="assignment in assignments">
+											<td>
+												<button type="button" ng-click="openAssignment(assignment, '.edit-assignment')"
+													class="btn btn-sm btn-success">
+													<i class="glyphicon glyphicon-edit"></i>
+												</button>
+											</td>
+											<td>{{assignment.batch.batchName}}</td>
+											<td>{{assignment.course.courseName}}</td>
+											<td>{{assignment.subject.subjectName}}</td>
+											<td>{{assignment.assignment}}</td>
+											<td>{{assignment.lastSubmissionDate | date: "dd-MM-yyyy"}}</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-							<div class="box-footer">
-									<button type="button" class="btn btn-success pull-right"
-										sec:authorize="hasRole('ROLE_PARENT')" ng-click="saveAssignments()">
-										<i class="glyphicon glyphicon-ok"></i> Save
-									</button>
-									
-									<button type="button" class="btn btn-success pull-right"
-										sec:authorize="hasRole('ROLE_STUDENT')" ng-click="saveAssignmentResults()">
-										<i class="glyphicon glyphicon-ok"></i> Save
-									</button>
-								</div>
 						</div>
 					</div>
 				</div>
@@ -117,6 +102,78 @@
 			<!-- =============================================== -->
 			<!-- =============================================== -->
 			<!-- =============================================== -->
+
+		<div class="edit-assignment modal fade" id="assignmentmodal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			ng-controller="EditCtrl">
+			<div class="modal-dialog container">
+				<form class="form-horizontal">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Add/Edit Assignment</h4>
+						</div>
+						<div class="modal-body">
+							<input type="hidden" class="form-control"
+								ng-model="assignment.assignmentId" />
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Batch</label>
+								<div class="col-sm-8">
+									<select class="form-control" 
+										ng-model="assignment.batch.batchId" ng-change="loadCoursesByBatch()">
+										<option ng-repeat="batch in batches"
+											ng-selected="assignment.batch.batchId == batch.batchId"  
+											value="{{batch.batchId}}">{{batch.batchName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Course</label>
+								<div class="col-sm-8">
+									<select class="form-control" ng-change="loadSubjectsByCourse()"
+										ng-model="assignment.course.courseId">
+										<option ng-repeat="course in courses"
+											ng-selected="assignment.course.courseId == course.courseId" 
+											value="{{course.courseId}}">{{course.courseName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Subject</label>
+								<div class="col-sm-8">
+									<select class="form-control" 
+										ng-model="assignment.subject.subjectId">
+										<option ng-repeat="subject in subjects"
+											ng-selected="assignment.subject.subjectId == subject.subjectId" 
+											value="{{subject.subjectId}}">{{subject.subjectName}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-4 control-label">Assignment</label>
+								<div class="col-sm-8">
+									<textarea class="form-control" ng-model="assignment.assignment"></textarea>
+								</div>
+							</div>
+							<div class="form-group" ng-if="assignment.assignmentId == null">
+								<label class="col-sm-4 control-label">Last Submit</label>
+								<div class="col-sm-8">
+									<input type="date" class="form-control" ui-date="dateOptions" ui-date-format="mm/dd/yyyy" ng-model="assignment.lsd"/>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">
+								<i class="glyphicon glyphicon-remove"></i> Close
+							</button>
+							<button type="button" class="btn btn-success"
+								ng-click="saveAssignment()">
+								<i class="glyphicon glyphicon-ok"></i> Save
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 
 		</div>
 		<!-- =============================================== -->

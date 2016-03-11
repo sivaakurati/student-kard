@@ -25,14 +25,15 @@
 			<li class="treeview"><a href="#"><i class="fa fa-files-o"></i><i
 					class="fa fa-angle-left pull-right"></i><span>Curriculum</span></a>
 				<ul class="treeview-menu">
-					<li sec:authorize="hasRole('ROLE_TEACHER')"><a th:href="@{assignmenttracker}"><i
+					<li sec:authorize="hasRole('ROLE_EMPLOYEE')"><a th:href="@{assignmenttracker}"><i
 							class="fa fa-circle-o"></i>Assignment Tracker</a></li>
-					<li sec:authorize="hasRole('ROLE_STUDENT')"><a th:href="@{assignment}"><i
-							class="fa fa-circle-o"></i>Assignment Tracker</a></li>
-					<li><a th:href="@{gradetracker}"><i class="fa fa-circle-o"></i>Grade
-							Tracker</a></li>
-					<li><a th:href="@{timetracker}"><i class="fa fa-circle-o"></i>Time
-							Tracker</a></li>
+					<li sec:authorize="hasRole('ROLE_STUDENT')"><a th:href="@{assignmentresult}"><i
+							class="fa fa-circle-o"></i>Assignment</a></li>
+					<li sec:authorize="hasRole('ROLE_EMPLOYEE')"><a th:href="@{gradetracker}"><i 
+							class="fa fa-circle-o"></i>Grade Tracker</a></li>
+					<li sec:authorize="hasRole('ROLE_STUDENT') || hasRole('ROLE_PARENT')"><a th:href="@{graderesult}"><i 
+							class="fa fa-circle-o"></i>Grade</a></li>
+					<li><a th:href="@{timetracker}"><i class="fa fa-circle-o"></i>Time Tracker</a></li>
 				</ul></li>
 			<li class="treeview" sec:authorize="hasRole('ROLE_ADMIN')"><a
 				href="#"><i class="fa fa-laptop"></i><span>Registration</span> <i

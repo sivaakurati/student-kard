@@ -15,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author Kumar
@@ -32,6 +35,8 @@ public class AssignmentResult implements Serializable {
 	private Student student;
 	private String result;
 	private Date submittedDate;
+	
+	private String dos;
 	
 	public AssignmentResult() {
 		// TODO Auto-generated constructor stub
@@ -60,6 +65,7 @@ public class AssignmentResult implements Serializable {
 
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "student_id")
+	@JsonIgnore
 	public Student getStudent() {
 		return student;
 	}
@@ -84,5 +90,14 @@ public class AssignmentResult implements Serializable {
 
 	public void setSubmittedDate(Date submittedDate) {
 		this.submittedDate = submittedDate;
+	}
+
+	@Transient
+	public String getDos() {
+		return dos;
+	}
+
+	public void setDos(String dos) {
+		this.dos = dos;
 	}
 }

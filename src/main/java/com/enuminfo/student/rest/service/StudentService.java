@@ -4,6 +4,7 @@
 package com.enuminfo.student.rest.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,14 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.enuminfo.student.hibernate.model.AssignmentResult;
 import com.enuminfo.student.hibernate.model.Grade;
+import com.enuminfo.student.hibernate.model.Parent;
 import com.enuminfo.student.hibernate.model.Role;
 import com.enuminfo.student.hibernate.model.Student;
 import com.enuminfo.student.hibernate.model.User;
+import com.enuminfo.student.hibernate.repository.AssignmentResultRespository;
 import com.enuminfo.student.hibernate.repository.BatchRepository;
 import com.enuminfo.student.hibernate.repository.CourseRepository;
 import com.enuminfo.student.hibernate.repository.GradeRepository;
 import com.enuminfo.student.hibernate.repository.LocationRepository;
+import com.enuminfo.student.hibernate.repository.ParentRepository;
 import com.enuminfo.student.hibernate.repository.RoleRepository;
 import com.enuminfo.student.hibernate.repository.StudentRepsitory;
 import com.enuminfo.student.hibernate.repository.UserRepository;
@@ -36,6 +41,7 @@ import com.enuminfo.student.util.StringUtil;
 @RequestMapping(value = "/student")
 public class StudentService {
 
+	@Autowired ParentRepository parentRepository;
 	@Autowired StudentRepsitory repository;
 	@Autowired BatchRepository batchRepository;
 	@Autowired CourseRepository courseRepository;
@@ -43,6 +49,7 @@ public class StudentService {
 	@Autowired UserRepository userRepository;
 	@Autowired RoleRepository roleRepository;
 	@Autowired LocationRepository locationRepository;
+	@Autowired AssignmentResultRespository assignmentResultRepository;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Student> getAllStudents() {
@@ -96,12 +103,27 @@ public class StudentService {
 	public void saveStudentGrades(@RequestBody List<Student> students) {
 		for (Iterator<Student> studentIterator = students.iterator(); studentIterator.hasNext();) {
 			Student student = studentIterator.next();
-			System.out.println(student.getStudentId() + " - " + student.getStudentName());
 			for (Iterator<Grade> gradeIterator = student.getGrades().iterator(); gradeIterator.hasNext();) {
 				Grade grade = gradeIterator.next();
 				grade.setStudent(student);
 				gradeRepository.save(grade);
 			}
 		}
+	}
+	
+	@RequestMapping(value = "/assignment", method = RequestMethod.POST)
+	public void saveStudentAssignment(@RequestBody Student student) {
+		for (Iterator<AssignmentResult> iterator = student.getAssignmentResults().iterator(); iterator.hasNext();) {
+			AssignmentResult result = iterator.next();
+			result.setStudent(student);
+			result.setSubmittedDate(new Date());
+			assignmentResultRepository.save(result);
+		}
+	}
+	
+	@RequestMapping(value = "/parent/{parentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<Student> getStudentByParent(@PathVariable Integer parentId) {
+		Parent parent = parentRepository.findOne(parentId);
+		return repository.findByParent(parent);
 	}
 }

@@ -64,13 +64,15 @@
 									<label class="col-sm-2 control-label">Batch</label>
 									<div class="col-sm-6"><select class="form-control" 
 										ng-model="gradetracker.batch.batchId" ng-change="loadCoursesByBatch()">
+										<option value="">----- select batch -----</option>
 										<option ng-repeat="batch in batches" value="{{batch.batchId}}">{{batch.batchName}}</option>
 									</select></div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-2 control-label">Course</label>
-									<div class="col-sm-6"><select class="form-control" ng-change="loadStudentsByBatchNCourse()"
+									<div class="col-sm-6"><select class="form-control" ng-change="loadSubjectsByBatchNCourse()"
 										ng-model="gradetracker.course.courseId">
+										<option value="">----- select course -----</option>
 										<option ng-repeat="course in courses" value="{{course.courseId}}">{{course.courseName}}</option>
 									</select></div>
 								</div>

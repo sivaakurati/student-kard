@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,6 +34,8 @@ public class Assignment {
 	private String assignment;
 	private Date lastSubmissionDate;
 	private List<AssignmentResult> assignmentResults;
+	
+	private String lsd;
 	
 	public Assignment() {
 		// TODO Auto-generated constructor stub
@@ -105,5 +108,14 @@ public class Assignment {
 
 	public void setAssignmentResults(List<AssignmentResult> assignmentResults) {
 		this.assignmentResults = assignmentResults;
+	}
+
+	@Transient
+	public String getLsd() {
+		return lsd;
+	}
+
+	public void setLsd(String lsd) {
+		this.lsd = lsd;
 	}
 }

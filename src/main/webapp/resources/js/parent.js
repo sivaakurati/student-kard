@@ -59,7 +59,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.getBack = function(){
-		if ($scope.parent.mainParentId == '')  window.location.href = '/student';
+		if ($scope.parent == null || $scope.parent.mainParentId == '')  window.location.href = '/student';
 		else window.location.href = '/parent' + $scope.parent.mainParentId;
 	};
 	
