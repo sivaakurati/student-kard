@@ -1,4 +1,4 @@
-var app = angular.module('student', []);
+var app = angular.module('student', ['angularUtils.directives.dirPagination']);
 var studentId = window.location.href;
 
 app.controller('ViewCtrl', function($scope, $http) {
@@ -10,6 +10,11 @@ app.controller('ViewCtrl', function($scope, $http) {
 		$http.get('/student').success(function(data){
 			$scope.students = data;
 		});
+	};
+	
+	$scope.sort = function(keyname){
+		$scope.sortKey = keyname; 
+		$scope.reverse = !$scope.reverse;
 	};
 	
 	$scope.createParent = function(){

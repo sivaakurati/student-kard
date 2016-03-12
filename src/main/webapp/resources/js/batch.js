@@ -1,4 +1,4 @@
-var app = angular.module('batch', []);
+var app = angular.module('batch', ['angularUtils.directives.dirPagination']);
 
 app.controller('ViewCtrl', function($scope, $http) {
 	$scope.$on('loadBatchs', function(){
@@ -9,6 +9,11 @@ app.controller('ViewCtrl', function($scope, $http) {
 		$http.get('/batch').success(function(data){
 			$scope.batchs = data;
 		});
+	};
+	
+	$scope.sort = function(keyname){
+		$scope.sortKey = keyname; 
+		$scope.reverse = !$scope.reverse;
 	};
 	
 	$scope.createBatch = function(modalSelector){

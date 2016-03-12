@@ -65,23 +65,30 @@
 					<div class="col-xs-12">
 						<div class="box box-primary">
 							<div class="box-body">
+								<div class="form-group">
+									<input type="text" ng-model="search" class="form-control" placeholder="Search"/>
+								</div>
 								<table
 									class="table table-bordered table-striped table-hover table-condensed">
 									<thead style="background-color: #31b0d5;">
 										<tr>
 											<th>&nbsp;</th>
-											<th>Name</th>
+											<th ng-click="sort('teacherName')">Name&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='teacherName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
 											<th>Email ID</th>
 											<th>Contact No</th>
-											<th>Date Of Birth</th>
-											<th>Date Of Joining</th>
-											<th>Designation</th>
+											<th ng-click="sort('dateOfBirth')">Date Of Birth&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='dateOfBirth'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+											<th ng-click="sort('dateOfJoining')">Date Of Joining&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='dateOfJoining'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+											<th ng-click="sort('designation')">Designation&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='designation'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
 											<th>Subject</th>
 											<th>Courses</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="teacher in teachers">
+										<tr dir-paginate="teacher in teachers|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
 											<td>
 												<button type="button" ng-click="openTeacher(teacher)"
 													class="btn btn-sm btn-success">
@@ -103,6 +110,8 @@
 										</tr>
 									</tbody>
 								</table>
+								<dir-pagination-controls max-size="10" 
+									direction-links="true" boundary-links="true"></dir-pagination-controls>
 							</div>
 						</div>
 					</div>
@@ -143,6 +152,7 @@
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 	<script type="text/javascript"
 		src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
+	<script type="text/javascript" src="../resources/libs/dirPagination.js"></script>
 	<script type="text/javascript" src="../resources/js/teacher.js"></script>
 </body>
 </html>

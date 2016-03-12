@@ -1,4 +1,4 @@
-var app = angular.module('teacher', []);
+var app = angular.module('teacher', ['angularUtils.directives.dirPagination']);
 var teacherId = window.location.href;
 
 /**
@@ -14,6 +14,11 @@ app.controller('ViewCtrl', function($scope, $http) {
 		$http.get('/teacher').success(function(data){
 			$scope.teachers = data;
 		});
+	};
+	
+	$scope.sort = function(keyname){
+		$scope.sortKey = keyname; 
+		$scope.reverse = !$scope.reverse;
 	};
 	
 	$scope.createTeacher = function(teacher){

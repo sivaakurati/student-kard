@@ -1,4 +1,4 @@
-var app = angular.module('subject', []);
+var app = angular.module('subject', ['angularUtils.directives.dirPagination']);
 
 app.controller('ViewCtrl', function($scope, $http) {
 	$scope.$on("loadSubjects", function(){
@@ -19,6 +19,11 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.openSubject = function(subject, modalSelector){
 		$(modalSelector).modal();
 		$scope.$broadcast('renderSubject', angular.copy(subject));
+	};
+	
+	$scope.sort = function(keyname){
+		$scope.sortKey = keyname; 
+		$scope.reverse = !$scope.reverse;
 	};
 	
 	$scope.deleteSubject = function(subject){

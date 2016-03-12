@@ -1,4 +1,4 @@
-var app = angular.module('assignmenttracker', []);
+var app = angular.module('assignmenttracker', ['angularUtils.directives.dirPagination']);
 
 app.controller('ViewCtrl', function($scope, $http){
 	$scope.$on('loadAssignments', function(){
@@ -9,6 +9,11 @@ app.controller('ViewCtrl', function($scope, $http){
 		$http.get('/assignment').success(function(data){
 			$scope.assignments = data;
 		});
+	};
+	
+	$scope.sort = function(keyname){
+		$scope.sortKey = keyname; 
+		$scope.reverse = !$scope.reverse;
 	};
 	
 	$scope.createAssignment = function(modalSelector){

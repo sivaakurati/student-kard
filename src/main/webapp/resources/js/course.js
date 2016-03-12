@@ -1,4 +1,4 @@
-var app = angular.module('course', []);
+var app = angular.module('course', ['angularUtils.directives.dirPagination']);
 
 app.controller('ViewCtrl', function($scope, $http) {
 	$scope.$on('loadCourses', function(){
@@ -9,6 +9,11 @@ app.controller('ViewCtrl', function($scope, $http) {
 		$http.get('/course').success(function(data){
 			$scope.courses = data;
 		});
+	};
+	
+	$scope.sort = function(keyname){
+		$scope.sortKey = keyname; 
+		$scope.reverse = !$scope.reverse;
 	};
 	
 	$scope.createCourse = function(modalSelector){

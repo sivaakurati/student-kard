@@ -68,22 +68,31 @@
 					<div class="col-xs-12">
 						<div class="box">
 							<div class="box-body">
-								<table id="datatable"
+								<div class="form-group">
+									<input type="text" ng-model="search" class="form-control" placeholder="Search"/>
+								</div>
+								<table 
 									class="table table-bordered table-striped table-hover table-condensed">
 									<thead style="background-color: #31b0d5;">
 										<tr>
 											<th>&nbsp;</th>
-											<th>Name</th>
+											<th ng-click="sort('studentName')">Name&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='studentName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
 											<th>Email ID</th>
 											<th>Contact No</th>
-											<th>Date of Joining</th>
-											<th>Course</th>
-											<th>Batch</th>
+											<th ng-click="sort('dateOfBirth')">Date Of Birth&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='dateOfBirth'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+											<th ng-click="sort('dateOfJoining')">Date Of Joining&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='dateOfJoining'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+											<th ng-click="sort('course.courseName')">Course&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='course.courseName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+											<th ng-click="sort('batch.batchName')">Batch&nbsp;
+											<span class="glyphicon sort-icon" ng-show="sortKey=='batch.batchName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
 											<th>Parent</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="student in students">
+										<tr dir-paginate="student in students|orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
 											<td style="width: 6%;">
 												<button type="button" ng-click="openStudent(student)"
 													class="btn btn-sm btn-success">
@@ -92,7 +101,8 @@
 											</td>
 											<td>{{student.studentName}}</td>
 											<td>{{student.emailAddress}}</td>
-											<td>{{student.parent.contactNo}}</td>
+											<td>{{student.contactNo}}</td>
+											<td>{{student.dateOfBirth | date: "dd-MMM-yyyy"}}</td>
 											<td>{{student.dateOfJoining | date: "dd-MMM-yyyy"}}</td>
 											<td>{{student.course.courseName}}</td>
 											<td>{{student.batch.batchName}}</td>
@@ -105,6 +115,8 @@
 										</tr>
 									</tbody>
 								</table>
+								<dir-pagination-controls max-size="10" 
+									direction-links="true" boundary-links="true"></dir-pagination-controls>
 							</div>
 						</div>
 					</div>
@@ -145,6 +157,7 @@
 	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
 	<script type="text/javascript"
 		src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
+	<script type="text/javascript" src="../resources/libs/dirPagination.js"></script>
 	<script type="text/javascript" src="../resources/js/student.js"></script>
 </body>
 </html>

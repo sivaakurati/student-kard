@@ -50,6 +50,7 @@ app.controller('ViewCtrl', function($scope, $http){
 					$scope.subjects.push(subject);
 				});
 			}
+			console.log($scope.subjects.length);
 			if ($scope.subjects.length != 0) $('#formDiv').show();
 			else $('#formDiv').hide();
 		});
