@@ -73,9 +73,28 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveBatch = function(){
+		if($scope.batch.batchName == '' || $scope.batch.batchName == null) {
+			bootbox.alert('Please enter the valid batch name!!');
+			e.stopPropagation();
+		}
+		if($scope.batch.courses == '' || $scope.batch.courses == null) {
+			bootbox.alert('Please select atleast one course name!!');
+			e.stopPropagation();
+		}
+		for(var i=0; i < $scope.batchs.length; i++) {			
+			if($scope.batchs[i].batchName == $scope.batch.batchName) {
+				if($scope.batch.batchId!=null){					
+					//
+				} else {
+					bootbox.alert('Entered batch name already exists!!!');
+					e.stopPropagation();
+				}
+			}
+		}
 		$http.post('/batch', $scope.batch).success(function(){
-			$scope.$emit('loadBatchs');
 			$('#batchmodal').modal('hide');
+			bootbox.alert('Batch name '+$scope.batch.batchName+' saved successfully');
+			$scope.$emit('loadBatchs');
 		});
 	};
 });

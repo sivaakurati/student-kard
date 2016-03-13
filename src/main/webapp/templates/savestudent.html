@@ -70,7 +70,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Main Parent</label>
 										<div class="col-sm-6">
-											<select class="form-control" ng-change="loadParentDetailByMainParentId()"
+											<select class="form-control" id="parent" ng-change="loadParentDetailByMainParentId()"
 												ng-model="student.parent.parentId">
 												<option value="">----- Select Parent -----</option>
 												<option ng-selected="parent.mainParentId==mainparent.parentId" ng-repeat="mainparent in mainparents" value="{{mainparent.parentId}}">{{mainparent.parentName}}</option>
@@ -83,21 +83,21 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Name</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="studentName" 
 												ng-model="student.studentName" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Email ID</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="emailAddress" 
 												ng-model="student.emailAddress" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Gender</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="gender"
 												ng-model="student.gender">
 												<option value="">----- Select Gender -----</option>
 												<option value="male">Male</option>
@@ -114,7 +114,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">State</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="stateName" 
 												ng-model="student.location.stateName"
 												ng-change="loadCitiesByState()">
 												<option value="">----- Select State -----</option>
@@ -125,7 +125,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">City</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="city" 
 												ng-model="student.location.cityName"
 												ng-change="loadLocationsByCity()">
 												<option value="">----- Select City -----</option>
@@ -136,7 +136,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Location</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="location" 
 												ng-model="student.location.locationId"
 												ng-change="loadLocationById()">
 												<option value="">----- Select Location -----</option>
@@ -147,7 +147,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Pin Code</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="pincode" 
 												value="{{student.location.pinCode}}" />
 										</div>
 									</div>
@@ -161,21 +161,21 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Date Of Birth</label>
 										<div class="col-sm-6">
-											<input type="date" class="form-control"
+											<input type="date" class="form-control" id="dob"
 												ui-date-format="dd-mm-yyyy" ng-model="student.dob" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Date Of Joining</label>
 										<div class="col-sm-6">
-											<input type="date" class="form-control"
+											<input type="date" class="form-control" id="doj"
 												ui-date-format="dd-mm-yyyy" ng-model="student.doj" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Batch</label>
 										<div class="col-sm-6">
-											<select class="form-control" ng-change="loadCoursesByBatch()"
+											<select class="form-control" id="batch" ng-change="loadCoursesByBatch()"
 												ng-model="student.batch.batchId">
 												<option value="">----- Select Batch -----</option>
 												<option ng-selected="student.batch.batchId==batch.batchId" 
@@ -186,7 +186,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Course</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="course" 
 												ng-model="student.course.courseId">
 												<option value="">----- Select Course -----</option>
 												<option ng-selected="student.course.courseId==course.courseId"  
@@ -242,6 +242,7 @@
 		src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
 	<script type="text/javascript"
 		src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
+			<script type="text/javascript" src="../resources/libs/dirPagination.js"></script>
 	<script type="text/javascript" src="../resources/js/student.js"></script>
 </body>
 </html>

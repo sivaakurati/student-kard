@@ -106,6 +106,32 @@ app.controller('EditCtrl', function($scope, $http){
 	};
 	
 	$scope.saveAssignment = function() {
+		var batch = $("#batch").val();
+		var course = $("#course").val();
+		var subject = $("#subject").val();
+		var assignment = $("#assignment").val();
+		
+		if(batch == '' || batch == null) {
+			bootbox.alert('Please select the valid batch!!');
+			e.stopPropagation();
+		}
+		if(course == '' || course == null) {
+			bootbox.alert('Please select the valid course!!');
+			e.stopPropagation();
+		}
+		if(subject == '' || subject == null) {
+			bootbox.alert('Please select the valid subject!!');
+			e.stopPropagation();
+		}		
+		if(assignment.trim() == '' || assignment == null) {
+			bootbox.alert('Please enter the valid assignment!!');
+			e.stopPropagation();
+		}
+		/*if($scope.assignment.course.courseId == '' || $scope.assignment.course.courseId == null) {
+			bootbox.alert('Please enter the valid course!!');
+			e.stopPropagation();
+		}*/
+		
 		$http.post('/assignment', $scope.assignment).success(function(){
 			$scope.$emit('loadAssignments');			
 		});

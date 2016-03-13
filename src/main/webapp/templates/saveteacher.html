@@ -74,21 +74,21 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Name</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="name"
 												ng-model="teacher.teacherName" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Email ID</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="email"
 												ng-model="teacher.emailAddress" />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Gender</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="gender"
 												ng-model="teacher.gender">
 												<option value="">----- Select Gender -----</option>
 												<option value="male">Male</option>
@@ -99,13 +99,13 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Address</label>
 										<div class="col-sm-6">
-											<textarea class="form-control" ng-model="teacher.address"></textarea>
+											<textarea class="form-control" ng-model="teacher.address" id="address"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">State</label>
 										<div class="col-sm-6">
-											<select class="form-control"
+											<select class="form-control" id="stateName" 
 												ng-model="teacher.location.stateName"
 												ng-change="loadCitiesByState()">
 												<option value="">----- Select State -----</option>
@@ -118,7 +118,7 @@
 										<label class="col-sm-4 control-label">City</label>
 										<div class="col-sm-6">
 											<select class="form-control"
-												ng-model="teacher.location.cityName"
+												ng-model="teacher.location.cityName" id="city"
 												ng-change="loadLocationsByCity()">
 												<option value="">----- Select City -----</option>
 												<option ng-selected="teacher.location.cityName==city"
@@ -129,7 +129,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Location</label>
 										<div class="col-sm-6">
-											<select class="form-control"
+											<select class="form-control" id="location"
 												ng-model="teacher.location.locationId"
 												ng-change="loadLocationById()">
 												<option value="">----- Select Location -----</option>
@@ -141,12 +141,12 @@
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Pin Code</label>
-										<div class="col-sm-6"><input type="text" class="form-control" value="{{teacher.location.pinCode}}"/></div>
+										<div class="col-sm-6"><input type="text" id="pincode" class="form-control" value="{{teacher.location.pinCode}}"/></div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Contact Number</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="cNum"
 												ng-model="teacher.contactNo" />
 										</div>
 									</div>
@@ -167,7 +167,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Designation</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="designation" 
 												ng-model="teacher.designation" />
 										</div>
 									</div>
@@ -175,7 +175,7 @@
 										<label class="col-sm-4 control-label">Subject</label>
 										<div class="col-sm-6">
 											<div class="checkbox" ng-repeat="subject in subjects">
-												<label><input type="checkbox"
+												<label><input type="checkbox" 
 													ng-checked="subject.checked"
 													ng-click="changeTeacherSubject(subject)" />
 													{{subject.subjectName}}</label>
@@ -254,6 +254,7 @@
 		src="../resources/libs/bootstrap-3.3.2/js/bootbox.js"></script>
 	<script type="text/javascript"
 		src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.8/select2.min.js"></script>
+			<script type="text/javascript" src="../resources/libs/dirPagination.js"></script>
 	<script type="text/javascript" src="../resources/js/teacher.js"></script>
 </body>
 </html>

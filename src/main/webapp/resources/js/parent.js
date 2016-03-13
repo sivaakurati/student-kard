@@ -73,6 +73,46 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveParent = function(){
+		//alert($scope.parent.parentName);
+		var parent = $("#parent").val();
+		var stateName = $("#stateName").val();
+		var city = $("#city").val();
+		var location = $("#location").val();
+		var pincode = $("#pincode").val();
+		
+		if( parent.trim() == '' || parent == null) {
+			bootbox.alert('Please enter the valid parent name!!');
+			e.stopPropagation();
+		}
+		if($scope.parent.emailAddress == '' || $scope.parent.emailAddress == null) {
+			bootbox.alert('Please enter the valid email address!!');
+			e.stopPropagation();
+		}
+		if($scope.parent.gender == '' || $scope.parent.gender == null) {
+			bootbox.alert('Please enter the valid gender!!');
+			e.stopPropagation();
+		}
+		if($scope.parent.address == '' || $scope.parent.address == null) {
+			bootbox.alert('Please enter the valid address!!');
+			e.stopPropagation();
+		}
+		if($scope.parent.contactNo == '' || $scope.parent.contactNo == null) {
+			bootbox.alert('Please enter the valid contact number!!');
+			e.stopPropagation();
+		}
+		if(stateName == '' || stateName == null) {
+			bootbox.alert('Please select the valid stateName!!');
+			e.stopPropagation();
+		}
+		if(city == '' || city == null) {
+			bootbox.alert('Please select the valid city!!');
+			e.stopPropagation();
+		}
+		
+		if(location == '' || location == null) {
+			bootbox.alert('Please select the valid location!!');
+			e.stopPropagation();
+		}
 		$http.post('/parent', $scope.parent).success(function(){
 			window.location.href = '/student';
 		});

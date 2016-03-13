@@ -26,6 +26,10 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.changePassword = function() {
 		var newPassword = $('#newPassword').val();
 		var retypePassword = $('#retypePassword').val();
+		if(newPassword == '' || newPassword == null ) {
+			bootbox.alert('Please enter the valid password!!');
+			e.stopPropagation();
+		}
 		if (newPassword == retypePassword) {
 			$scope.user.password = newPassword;
 			$http.post('/user/logged/save', $scope.user).success(function(){

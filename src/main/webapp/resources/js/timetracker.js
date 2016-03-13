@@ -76,6 +76,28 @@ app.controller('ViewCtrl', function($scope, $http){
     };
     
     $scope.saveTimeTracker = function(){
+		var course = $("#courseId").val();
+		var teacher = $("#teacherId").val();
+		var subject = $("#subjectId").val();
+		var assignment = $("#assignment").val();
+		
+		if(course == '' || course == null) {
+			bootbox.alert('Please select the valid course!!');
+			e.stopPropagation();
+		}
+		if(teacher == '' || teacher == null) {
+			bootbox.alert('Please select the valid teacher!!');
+			e.stopPropagation();
+		}
+		if(subject == '' || subject == null) {
+			bootbox.alert('Please select the valid subject!!');
+			e.stopPropagation();
+		}		
+		if(assignment.trim() == '' || assignment == null) {
+			bootbox.alert('Please enter the valid assignment!!');
+			e.stopPropagation();
+		}
+		
     	console.log(stringIt($scope.timeTracker));
 		$http.post('/timetracker', $scope.timeTracker).success(function(){
 			$scope.$emit('loadCourses');

@@ -83,7 +83,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Name</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control"
+											<input type="text" class="form-control" id="parent" 
 												ng-model="parent.parentName" />
 										</div>
 									</div>
@@ -115,7 +115,7 @@
 										<label class="col-sm-4 control-label">State</label>
 										<div class="col-sm-6">
 											<select class="form-control" 
-												ng-model="parent.location.stateName"
+												ng-model="parent.location.stateName" id="stateName"
 												ng-change="loadCitiesByState()">
 												<option value="">----- Select State -----</option>
 												<option ng-selected="parent.location.stateName==state" ng-repeat="state in states" value="{{state}}">{{state}}</option>
@@ -125,7 +125,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">City</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="city" 
 												ng-model="parent.location.cityName"
 												ng-change="loadLocationsByCity()">
 												<option value="">----- Select City -----</option>
@@ -136,7 +136,7 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Location</label>
 										<div class="col-sm-6">
-											<select class="form-control" 
+											<select class="form-control" id="location" 
 												ng-model="parent.location.locationId"
 												ng-change="loadLocationById()">
 												<option value="">----- Select Location -----</option>

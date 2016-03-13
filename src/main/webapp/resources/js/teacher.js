@@ -122,6 +122,67 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveTeacher = function(){
+		var name = $("#name").val();
+		var email = $("#email").val();
+		var gender = $("#gender").val();
+		var address = $("#address").val();
+		var stateName = $("#stateName").val();
+		var city = $("#city").val();
+		var location = $("#location").val();
+		var pincode = $("#pincode").val();
+		var cNum = $("#cNum").val();
+		var designation = $("#designation").val();
+		
+		if( name.trim() == '' || name == null) {
+			bootbox.alert('Please enter the valid teacher name!!');
+			e.stopPropagation();
+		}
+		if( email.trim() == '' || email == null) {
+			bootbox.alert('Please enter the valid email!!');
+			e.stopPropagation();
+		}
+		if(gender == '' || gender == null) {
+			bootbox.alert('Please select the valid gender!!');
+			e.stopPropagation();
+		}
+		if( address.trim() == '' || address == null) {
+			bootbox.alert('Please enter the valid address!!');
+			e.stopPropagation();
+		}
+		if(stateName == '' || stateName == null) {
+			bootbox.alert('Please select the valid stateName!!');
+			e.stopPropagation();
+		}
+		if(city == '' || city == null) {
+			bootbox.alert('Please select the valid city!!');
+			e.stopPropagation();
+		}
+		
+		if(location == '' || location == null) {
+			bootbox.alert('Please select the valid location!!');
+			e.stopPropagation();
+		}
+		if( cNum.trim() == '' || cNum == null) {
+			bootbox.alert('Please enter the valid contact number!!');
+			e.stopPropagation();
+		}
+		if( designation.trim() == '' || designation == null) {
+			bootbox.alert('Please enter the valid designation!!');
+			e.stopPropagation();
+		}
+		if($scope.teacher.subjects == '' || $scope.teacher.subjects == null) {
+			bootbox.alert('Please select atleast one subject name!!');
+			e.stopPropagation();
+		}
+		if($scope.teacher.courses == '' || $scope.teacher.courses == null) {
+			bootbox.alert('Please select atleast one course name!!');
+			e.stopPropagation();
+		}
+		if($scope.teacher.departments == '' || $scope.teacher.departments == null) {
+			bootbox.alert('Please select atleast one department name!!');
+			e.stopPropagation();
+		}
+		
 		$http.post('/teacher', $scope.teacher).success(function(){
 			window.location.href = '/teacher';
 		});

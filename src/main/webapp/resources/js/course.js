@@ -66,6 +66,7 @@ app.controller('EditCtrl', function($scope, $http) {
 				++index;
 			});
 		}
+		//alert(courseSubjectFound);
 		if(courseSubjectFound == false){
 			if ($scope.course.subjects == null) { $scope.course.subjects = []; }
 			$scope.course.subjects.push(subject);
@@ -73,9 +74,28 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveCourse = function(){
+		if($scope.course.courseName == '' || $scope.course.courseName == null) {
+			bootbox.alert('Please enter the valid course name!!');
+			e.stopPropagation();
+		}
+		if($scope.course.subjects == '' || $scope.course.subjects == null) {
+			bootbox.alert('Please select atleast one subject name!!');
+			e.stopPropagation();
+		}
+		for(var i=0; i < $scope.courses.length; i++) {			
+			if($scope.courses[i].courseName == $scope.course.courseName) {
+				if($scope.course.courseId!=null){					
+					//
+				} else {
+					bootbox.alert('Entered course name already exists!!!');
+					e.stopPropagation();
+				}
+			}
+		}
 		$http.post('/course', $scope.course).success(function(){
-			$scope.$emit('loadCourses');
 			$('#coursemodal').modal('hide');
+			bootbox.alert('Course name '+$scope.course.courseName+' saved successfully');
+			$scope.$emit('loadCourses');
 		});
 	};
 });
