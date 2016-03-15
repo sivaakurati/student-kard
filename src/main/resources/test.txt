@@ -1,0 +1,1053 @@
+<form:form action="/submitPayroll" method="post" modelAttribute="payroll" id="approveForm" enctype="multipart/form-data" >
+<c:forEach items="${payrollList}" var="emp">	
+	<tr class="tableBg "><td style="width:13%;">
+	<input type="radio" name="contractorSelect" class="detailsRow3"/> 
+	<input type="hidden" class="detailsOfContractor"   
+value="${emp.empAltId}^${emp.fullName}^${emp.designation}^${emp.reportingMgr}^${emp.empId}^${emp.ggiId}" />
+<input type="hidden" id="fileCount_${emp.empId}"  value="0"/>
+<form:hidden path="deptType" id="deptType" value="${deptType}" />
+<div id="fileDiv"> <p class="successMsgManager">${fileMsg}</p>														 
+		<table class="filestyle " id="attachmentTable" style="float:left;" border="1">
+			<thead><tr class="tableHeading">							
+					<th style="text-align:center;">Sl No.</th>
+					<th style="text-align:center;">File Name</th></tr></thead>
+			<tbody class="tbodyfile" id="myTable">	</tbody></table> </div>   
+ <div id="dialog-box-message" ><div id="dialog-file-format-message" title="File upload message" >
+<p><span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+Only pdf, doc, docx, xls, xlsx, oft, msg files are allowed to attach!</p>		</div>						
+								<div id="dialog-confirm" title="File upload message">
+									  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;"></span>
+									  Are you sure you want to delete the file?</p>
+								</div>
+								<div id="dialog-delete-message" title="File upload message">
+								  <p><span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+								    File deleted successfully</p>		  
+								</div></div>
+<a href="<c:url value="/submitPayroll"/>"><button class="btnStyle" name="action" value="Save" id="saveButton" >SAVE</button></a>
+<a href="<c:url value="/submitPayroll"/>"><button class="btnStyle" name="action" value="Submit" id="submitButton" onclick="javascript:onValueCheck();" >SUBMIT</button></a>
+<script src="<%=basePath%>resources/js/jquery.min.js"></script>
+		<script src="<%=basePath%>resources/js/bootstrap.min.js"></script>
+		<script src="<%=basePath%>resources/js/jquery-ui.js"></script>
+		<script src="<%=basePath%>resources/js/angular.min.js"></script>
+		<script src="<%=basePath%>resources/js/angular-route.min.js"></script>
+		<script src="<%=basePath%>resources/js/custom.js"></script>								
+if(payrollList>0){
+			$("input:radio[name=contractorSelect]:first").prop('checked', true);			
+			var initialVal=$('input[name=contractorSelect]:checked').next('.detailsOfContractor').val();
+			var list=initialVal.split('^');								
+var text; var empId = $("#HCOMID").val();
+var count = $("#fileCount_"+empId).val();
+			$('#myTable').empty();	$("#fileDiv").hide();		    
+		    $.ajax({
+			    type: "GET",
+			    url: "${pageContext.request.contextPath}/getAttachmentList",
+			    data: "empId=" + empId + "&deptType=FINANCE",
+			    success: function(data) {	    	
+			    	for(var i = 0; i < data.length; i++) {
+			    		//if(data[i].createdBy == loggedInUser) {
+			    			$("#fileDiv").show();
+			    		if(data[i].fileUploadedDept == 'FINANCE') {
+			    			count = Number(count) + 1;
+			    			$("#fileCount_"+empId).val(count);
+			    			text = text + "<tr id='myTablerow'><td>"+(i+1)+"</td><td><a href='<c:url value='/openFile/"+data[i].id+"' />' ><span style='color:black' >"+data[i].fileName+"</span></a></td><td>"+data[i].fileSize+"</td><td><a href='#' onclick='javascript:deleteFile("+data[i].id+")' ><span data-toggle='tooltip' title='Delete'  data-placement='top' style='color:black' class='fa fa-trash-o' ></span></a></td></tr>";
+			    		} else {
+			    			text = text + "<tr id='myTablerow'><td>"+(i+1)+"</td><td><a href='<c:url value='/openFile/"+data[i].id+"' />' ><span style='color:black' >"+data[i].fileName+"</span></a></td><td>"+data[i].fileSize+"</td><td>&nbsp;</td></tr>";
+			    		}
+			    	}	    	
+			    	$('#myTable').append(text);						      
+			    },
+			    error: function() {
+			      $('#myTable').append("");	   $("#fileDiv").hide();
+			    }
+			  });		    
+		    $('#fileSectionBrowse').html(''); $('#fileSectionBrowse').val('');  $('#addFile').addClass('hide');
+		    $('#uploaded-files').addClass('hide');  $('#uploaded-files td').remove();								
+//end of onload 
+$('#fileSectionBrowse').click(function(e){
+		$('#addFile').removeClass('hide');
+	});								
+$('#addFile').click(function(e){
+		//$('#fileDiv').show();
+		var empId = $("#HCOMID").val();
+		var count = $("#fileCount_"+empId).val();
+		if(count >= 1) {
+			
+			$("#dialog-file-onlyone-message").dialog({
+	    	    modal: true,
+	    	    buttons: {
+	    	      Ok: function() {
+	    	        $("#dialog-file-onlyone-message").dialog("close");
+	    	      }
+	    	    }
+		   	});
+			$("#fileSectionBrowse").val('');
+			return false;
+		}
+		$("#fileCount_"+empId).val(0);
+		var fd = new FormData(document.getElementById("approveForm"));
+		var filename = $('#fileSectionBrowse').val();
+		var extension = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
+	    if (extension == "doc" || extension == "docx" || extension == "xls" || extension == "oft" || 
+	            extension == "xlsx" || extension == "msg" || extension == "pdf") {
+	    	var fileSize = $('#fileSectionBrowse')[0].files[0].size;
+	    	//1048576
+	        if(fileSize > 5242880) {
+	        	$("#dialog-file-size-message").dialog({
+		    	    modal: true,
+		    	    buttons: {
+		    	      Ok: function() {
+		    	        $("#dialog-file-size-message").dialog("close");
+		    	      }
+		    	    }
+			   	});
+	        	$("#fileSectionBrowse").val('');
+	        	return false;
+	        }
+	    } else {            	
+	    	//alert("Only pdf, doc, docx, xls, xlsx, oft, msg files are allowed to attach!");
+	    	$("#dialog-file-format-message").dialog({
+			    modal: true,
+			    buttons: {
+			      Ok: function() {
+			        $("#dialog-file-format-message").dialog( "close" );
+			      }
+			    }
+			  });
+	    	$("#fileSectionBrowse").val('');
+	    	return false;
+	    }	
+	 	$.ajax({
+	 		dataType : 'json',
+		    type: "POST",
+		    url: "${pageContext.request.contextPath}/addAttachmentFile",
+		    data: fd,			    
+		     enctype: 'multipart/form-data',
+		     processData: false, 
+		     contentType:false,
+		     success : function(result) {
+		    	$("#fileSectionBrowse").val('');	    	
+		    	 var text;	    	 
+		    		$('#myTable').empty(); 
+		    		$("#fileDiv").hide();
+		    	 	$.ajax({
+		    		    type: "GET",
+		    		    url: "${pageContext.request.contextPath}/getAttachmentList",
+		    		    data: "empId=" + empId + "&deptType=FINANCE",
+		    		    success: function(data) {
+		    		    	for(var i = 0; i < data.length; i++) {
+		    		    		//if(data[i].createdBy == loggedInUser) {
+								$("#fileDiv").show();
+		    		    		if(data[i].fileUploadedDept == 'FINANCE') {
+		    		    			count = Number($("#fileCount_"+empId).val()) + 1;
+		    		    			$("#fileCount_"+empId).val(count);
+		    		    			text = text + "<tr id='myTablerow'><td>"+(i+1)+"</td><td><a href='<c:url value='/openFile/"+data[i].id+"' />' ><span style='color:black' >"+data[i].fileName+"</span></a></td><td>"+data[i].fileSize+"</td><td><a href='#' onclick='javascript:deleteFile("+data[i].id+")' ><span data-toggle='tooltip' title='Delete'  data-placement='top' style='color:black' class='fa fa-trash-o' ></span></a></td></tr>";
+					    		} else {
+					    			text = text + "<tr id='myTablerow'><td>"+(i+1)+"</td><td><a href='<c:url value='/openFile/"+data[i].id+"' />' ><span style='color:black' >"+data[i].fileName+"</span></a></td><td>"+data[i].fileSize+"</td><td>&nbsp;</td></tr>";
+					    		}
+		    		    	}	    	
+		    		    	$('#myTable').append(text);						      
+		    		    },
+		    		    error: function(data) {
+		    		      $('#myTable').append("");	
+		    		    }
+		    		  });
+		    		$("#dialog-success-message").dialog({
+			    	    modal: true,
+			    	    buttons: {
+			    	      Ok: function() {
+			    	        $("#dialog-success-message").dialog("close");
+			    	      }
+			    	    }
+			    	  });
+		     }, error : function(result){
+	     	}	    
+		  });
+	 	
+	});
+
+	function deleteFile(id) {	
+		$( "#dialog-confirm" ).dialog({
+			 autoOpen: true,	
+		      resizable: true,		      
+		      height:200,
+		      modal: true,
+		      buttons: {
+		        "Ok": function() {
+		        	$.ajax({
+					    type: "GET",
+					    url: "${pageContext.request.contextPath}/removeFile/"+id,
+					    success: function(data) {
+					    	var text;
+					     	$('#myTable').empty();
+					     	$("#fileDiv").hide();
+					     	var empId = $("#HCOMID").val();
+					     	$.ajax({
+							    type: "GET",
+							    url: "${pageContext.request.contextPath}/getAttachmentList",
+							    data: "empId=" + empId + "&deptType=FINANCE",
+							    success: function(data) {		    	
+						    		for(var i = 0; i < data.length; i++) {
+						    			//if(data[i].createdBy == loggedInUser) {
+										$("#fileDiv").show();
+						    			if(data[i].fileUploadedDept == 'FINANCE') {
+							    			text = text + "<tr id='myTablerow'><td>"+(i+1)+"</td><td><a href='<c:url value='/openFile/"+data[i].id+"' />' ><span style='color:black' >"+data[i].fileName+"</span></a></td><td>"+data[i].fileSize+"</td><td><a href='#' onclick='javascript:deleteFile("+data[i].id+")' ><span data-toggle='tooltip' title='Delete'  data-placement='top' style='color:black' class='fa fa-trash-o' ></span></a></td></tr>";
+							    		} else {
+							    			text = text + "<tr id='myTablerow'><td>"+(i+1)+"</td><td><a href='<c:url value='/openFile/"+data[i].id+"' />' ><span style='color:black' >"+data[i].fileName+"</span></a></td><td>"+data[i].fileSize+"</td><td>&nbsp;</td></tr>";
+							    		}
+						    		}		    	
+							    	$('#myTable').append(text);						      
+							    },  error: function() {
+							      $('#myTable').append("");	
+							    }
+							  });
+					     	var count = $("#fileCount_"+empId).val();
+					     	count = Number(count) - 1;
+					     	$("#fileCount_"+empId).val(count);
+					     	//alert('File deleted successfully');
+					     	$("#dialog-delete-message").dialog({
+					    	    modal: true,
+					    	    buttons: {
+					    	      Ok: function() {
+					    	        $("#dialog-delete-message").dialog("close");
+					    	      }
+					    	    }
+					    	  });
+					    }, error: function() {
+					      //alert('error');			     
+					    }
+					  });
+		        	$("#dialog-confirm").dialog("close");
+		        },
+		        Cancel: function() {
+		          $("#dialog-confirm").dialog("close");
+		        }
+		      }
+		    });
+	}	
+
+function onValueCheck() {			
+		var cdsSelectcon =  $('#personalLoanText').val();
+		cdsSelectcon = cdsSelectcon.trim();
+		if(cdsSelectcon == 'yes') {				
+			var infraCdAmntcon =  $('#personalLoanAmnt').val();
+			if(infraCdAmntcon <= 0) {
+				//alert('Amount cannot be zero');
+				$("#dialog-amount-message").dialog({
+	    		    	    modal: true,
+	    		    	    buttons: {
+	    		    	      Ok: function() {
+	    		    	        $("#dialog-amount-message").dialog("close");
+	    		    	      }
+	    		    	    }
+	    			   	});
+				event.preventDefault();
+				return false;
+			}				
+		}
+<input type="hidden" id="bangHolidays" value="${bangHolidays}" /><input type="hidden" id="chenHolidays" value="${chenHolidays}" />	
+currentTime = new Date(); var minDate = new Date(currentTime.getFullYear(),currentTime.getMonth(),1);	
+var holydays = [];
+		var strVale = '';
+		//alert($('#empCity').val());
+		if($('#empCity').val() == 'BANGALORE') {
+			strVale = $('#bangHolidays').val();
+		} else {
+			strVale = $('#chenHolidays').val();
+			
+		}
+		var strings = strVale.split(",");
+		for (var i=0; i<strings.length; i++) {
+			holydays.push(strings[i]);
+		}
+$( "#resignDate" ).datepicker({
+                       showOn: "button",
+                       buttonImage: "<%=basePath%>resources/images/calendar_icon.png",
+                       buttonImageOnly: true,
+                       buttonText: "Select date",
+                       //minDate: minDate,
+                       minDate: -60,
+                       //beforeShowDay: $.datepicker.noWeekends,
+                       beforeShowDay : function (date)
+		              	{
+				 			for (var i = 0; i < holydays.length; i++) {
+		                      if (new Date(holydays[i]).toString() == date.toString()) {
+		                          return [false, ''];
+		                      }
+		                  }
+				 			if(date != null) {
+								var day = date.getDay();
+							    //return [(day != 0 && day != 2)];
+								return [(day != 0 && day != 6)];
+							}	
+		                  return [true, ''];
+		              	},
+                       onSelect: function(date){            
+                           var date1 = $('#resignDate').datepicker('getDate');   
+                           
+                           var date = new Date( Date.parse( date1 ) ); 
+                           //alert(date);
+                           //date.setDate( date.getDate() + 1 ); 
+                           date.setDate( date.getDate()  );
+                           var newDate = date.toDateString(); 
+                           newDate = new Date( Date.parse( newDate ) );  
+                           $('#leaveDate').datepicker("option","minDate",newDate);            
+                       },
+                       dateFormat: 'dd-M-yy'
+              });
+		
+			$( "#leaveDate" ).datepicker({
+				showOn: "button",
+	            buttonImage: "<%=basePath%>resources/images/calendar_icon.png",
+	            buttonImageOnly: true,
+	            buttonText: "Select date",
+	            minDate: minDate,
+	            //beforeShowDay: $.datepicker.noWeekends,
+	            beforeShowDay : function (date)
+	              	{
+			 			for (var i = 0; i < holydays.length; i++) {
+	                      if (new Date(holydays[i]).toString() == date.toString()) {
+	                          return [false, ''];
+	                      }
+	                  }
+			 			if(date != null) {
+							var day = date.getDay();
+						    //return [(day != 0 && day != 2)];
+							return [(day != 0 && day != 6)];
+						}	
+	                  return [true, ''];
+	              	},
+	            dateFormat: 'dd-M-yy'
+			});	
+		
+		 	$("#resignDate").datepicker("refresh");
+		 	$("#leaveDate").datepicker("refresh");
+		}	
+<!DOCTYPE html> <html><head>
+		<title>SoCGen Exit Process</title>
+		<%@ page language="java" contentType="text/html; charset=utf8" pageEncoding="utf8" %>
+		<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+		<%@ page trimDirectiveWhitespaces="true" %>
+		<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+		Integer empListSize = (Integer) request.getAttribute("empListSize");
+		%>
+		<link rel="shortcut icon" href="<%=basePath%>resources/ico/favicon.ico111"/>
+		<link rel="stylesheet" href="<%=basePath%>resources/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<%=basePath%>resources/css/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="<%=basePath%>resources/css/custom.css">
+		<link rel="stylesheet" href="<%=basePath%>resources/css/formValidation.css">
+		<link rel="stylesheet" href="<%=basePath%>resources/css/jquery-ui.css">		
+		<link rel="stylesheet" href="<%=basePath%>resources/css/bootstrap-table.css">
+<div id="table">
+			<input type="hidden" id="empList" value="<%=empListSize%>"/>
+			<c:if test="${empty empList}">
+  				<p class="emptyClass">No records were submitted in this time period!!!</p>
+			</c:if>
+			<c:if test="${not empty empList}">
+				<table data-toggle="table" data-height="500" data-pagination="true" data-search="true" 
+					 data-show-columns="true" 
+					 data-sort-name="name" data-sort-order="desc" data-show-export="true" >
+			    	<thead>
+			       	<tr>
+			            <th data-sortable="true">Emp Name</th>
+						<th data-sortable="true">Emp No.</th>
+						<th data-sortable="true">Emp Type</th>						
+						<th data-sortable="true">Personal Loan</th>						
+						<th data-sortable="true">Cash Advance</th>
+						<th data-sortable="true">Total Recovery</th>
+						<th data-sortable="true">Comments</th>
+						<th data-sortable="true">Updated By</th>
+						<th data-sortable="true">Updated Date</th>
+		        	</tr>
+		    	</thead>
+		    	<tbody>
+		    		<c:forEach items="${empList}" var="emp">	 
+					<tr class="tableBg ">
+					<td>${emp.fullName}</td>
+					<td>${emp.empId}</td>
+					<td>${emp.empType}</td>
+					<td>${emp.personalLoanAmnt}</td>	
+					<td>${emp.cashAdvanceAmnt}</td>
+					<td>${emp.totalRecoveryAmnt}</td>	
+					<td>${emp.totalRecoveryComments}</td>
+					<td>${emp.createdBy}</td>
+					<td>${emp.createdDate}</td>					
+					</tr>								 
+					</c:forEach>     
+		    	</tbody>    
+				</table>
+			</c:if>
+			</div>
+<script src="<%=basePath%>resources/js/jquery.min.js"></script>
+		<script src="<%=basePath%>resources/js/bootstrap.min.js"></script>
+		<script src="<%=basePath%>resources/js/jquery-ui.js"></script>	
+		<script src="<%=basePath%>resources/js/bootstrap-table.js"></script>  
+  		<script src="<%=basePath%>resources/js/bootstrap-table-export.js"></script>   
+   		<script src="<%=basePath%>resources/js/tableExport.js"></script>	
+		<script src="<%=basePath%>resources/js/custom.js"></script>
+$('#table').bootstrapTable({ });
+CREATE TABLE "RADEXIT"."EXIT_ATTACHMENTS" 
+   (	"ID" NUMBER, 
+	"EMP_RESIGNTN_ID" VARCHAR2(50 BYTE), 
+	"FILE_NAME" VARCHAR2(100 BYTE), 
+	"FILE_UPLOAD_DEPT" VARCHAR2(100 BYTE), 
+	"PATH" VARCHAR2(500 BYTE), 
+	"CREATED_BY" VARCHAR2(50 BYTE), 
+	"CREATED_DATE" TIMESTAMP (6), 
+	"MODIFIED_BY" VARCHAR2(50 BYTE), 
+	"MODIFIED_DATE" TIMESTAMP (6), 
+	"ATTACHMENTCOMENT" VARCHAR2(2000 BYTE), 
+	"DEL_STATUS" VARCHAR2(5 BYTE), 
+	"FILE_SIZE" VARCHAR2(20 BYTE), 
+	 PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 131072 NEXT 131072 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SMT"  ENABLE, 
+	 FOREIGN KEY ("EMP_RESIGNTN_ID")
+	  REFERENCES "RADEXIT"."EXIT_EMP_RESIGNATION" ("HCOM_ID") ENABLE
+   );
+create or replace 
+PROCEDURE SENDMAIL (p_to IN VARCHAR2,p_name IN VARCHAR2, clearance_text IN VARCHAR2)
+AS
+  l_mail_conn   UTL_SMTP.connection;
+  l_boundary    VARCHAR2(50) := '----=*#abc1234321cba#*=';
+  v_from VARCHAR2(100);
+  v_subject VARCHAR2(100);
+  v_html_msg VARCHAR2(32767);
+  v_smtp_host VARCHAR(200);
+  v_smtp_port NUMBER;
+BEGIN
+  v_smtp_port:=25;
+   --Test
+  --DBMS_OUTPUT.PUT_LINE ('sendmail p_to ' || p_to);
+  v_smtp_host:='smtp-goss.int.world.socgen';
+  l_mail_conn := UTL_SMTP.open_connection(v_smtp_host, v_smtp_port);
+  v_html_msg:='<html><head><meta charset=''ISO-8859-1''></head><body>Dear  <span style='||'font-weight:bold'||'>'
+                                                                || p_name||
+                                                ',</span><br><br>'|| clearance_text ||' approvals are pending in your queue for approval, please log in to the below link to approve the resignation<br>
+                                                <br>Log in to the below link for further status <br>
+                                                e-separation tool link : ' ||'http://localhost:8080/eSeparation/'|| ' <br><br>
+                                                <br><div style=' ||'font-weight:bold'||'>Regards,</div><br><div style='||'font-weight:bold'||'>MyHR-India <br>Ph: #915915<br>Email:<a href='||'mailto:MyHR-India@socgen.com'||'>MyHR-India@socgen.com</a></div>
+                                               <br><br><div >Note:  Please do not reply to this e-mail, this is auto generated e-mail hence it will not be monitored. Kindly contact <a href='||'mailto:MyHR-India@socgen.com'||'>MyHR-India@socgen.com</a> for any queries</div> <br><br>
+                                                <div style=' || 'color:gray' ||'><hr></hr>GSC-E-Separation Version: 1.0 Environment: DEV <hr></hr></div> </body></html>';
+  v_from:='GSC-EXIT-NoReply@socgen.com';
+  v_subject:='Reminder Notification';
+  UTL_SMTP.helo(l_mail_conn, v_smtp_host);
+  UTL_SMTP.mail(l_mail_conn, v_from);
+  UTL_SMTP.rcpt(l_mail_conn, p_to);
+  UTL_SMTP.open_data(l_mail_conn);
+  UTL_SMTP.write_data(l_mail_conn, 'Date: ' || TO_CHAR(SYSDATE, 'DD-MON-YYYY HH24:MI:SS') || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'To: ' || p_to || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'From: ' || v_from || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'Subject: ' || v_subject || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'Reply-To: ' || v_from || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'MIME-Version: 1.0' || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'Content-Type: multipart/alternative; boundary="' || l_boundary || '"' || UTL_TCP.crlf || UTL_TCP.crlf);
+  IF v_html_msg IS NOT NULL THEN
+    UTL_SMTP.write_data(l_mail_conn, '--' || l_boundary || UTL_TCP.crlf);
+    UTL_SMTP.write_data(l_mail_conn, 'Content-Type: text/html; charset="iso-8859-1"' || UTL_TCP.crlf || UTL_TCP.crlf);
+    UTL_SMTP.write_data(l_mail_conn, v_html_msg);
+    UTL_SMTP.write_data(l_mail_conn, UTL_TCP.crlf || UTL_TCP.crlf);
+  END IF;
+  UTL_SMTP.write_data(l_mail_conn, '--' || l_boundary || '--' || UTL_TCP.crlf);
+  UTL_SMTP.close_data(l_mail_conn);
+  UTL_SMTP.quit(l_mail_conn);
+END;  
+
+create or replace 
+PROCEDURE SENDMAILTOALL(
+    email_ids IN EMAILIDLIST,
+    p_name    IN VARCHAR2,
+    p_duedate IN VARCHAR2)
+AS
+  l_mail_conn UTL_SMTP.connection;
+  l_boundary   VARCHAR2(50) := '----=*#abc1234321cba#*=';
+  v_from       VARCHAR2(100);
+  v_subject    VARCHAR2(100);
+  v_html_msg   VARCHAR2(32767);
+  v_smtp_host  VARCHAR(200);
+  v_smtp_port  NUMBER;
+  emails       VARCHAR2(2500);
+ -- emails1      VARCHAR2(550);
+  emails1      VARCHAR2(2500);
+  empId        VARCHAR2(20);
+  l_recipients INTEGER;
+  rcpt LONG;
+  p_tooo EMAILIDLIST;
+BEGIN
+  v_smtp_port :=25;
+  v_smtp_host :='smtp-goss.int.world.socgen';
+  l_mail_conn := UTL_SMTP.open_connection(v_smtp_host, v_smtp_port);
+ v_html_msg:='<html><head><meta charset=''ISO-8859-1''></head><body><body>Dear  <span style='||'font-weight:bold'||'>'
+                                                                || p_name||
+                                                ',</span><br><br>Resignation approvals are pending in your queue for approval, please log in to the below link to approve the resignation<br>
+                                                <br>e-separation tool link : ' ||'http://localhost:8080/eSeparation/'|| ' <br><br>
+                                                <br><div style=' ||'font-weight:bold'||'>Regards,</div><br><div style='||'font-weight:bold'||'>MyHR-India <br>Ph: #915915<br>Email:<a href='||'mailto:MyHR-India@socgen.com'||'>MyHR-India@socgen.com</a></div>
+                                               <br><br><div >Note:  Please do not reply to this e-mail, this is auto generated e-mail hence it will not be monitored. Kindly contact <a href='||'mailto:MyHR-India@socgen.com'||'>MyHR-India@socgen.com</a> for any queries</div> <br><br>
+                                                <div style=' || 'color:gray' ||'><hr></hr>GSC-E-Separation Version: 1.0 Environment: DEV <hr></hr></div> </body></html>';
+  v_from      :='GSC-EXIT-NoReply@socgen.com';
+  v_subject   :='Reminder Notification';
+  UTL_SMTP.helo(l_mail_conn, v_smtp_host);
+  UTL_SMTP.mail(l_mail_conn, v_from);
+  l_recipients := email_ids.count;
+  DBMS_OUTPUT.PUT_LINE ('sendmailtotal l_recipients ' || l_recipients);
+  FOR i IN 1 .. l_recipients
+  LOOP
+    emails    :=email_ids(i);
+    IF i <= l_recipients THEN
+        IF email_ids(i) = '' THEN
+          DBMS_OUTPUT.PUT_LINE ('INSIDE EMPTY  ' || i);
+        ELSIF email_ids(i) is null THEN
+          DBMS_OUTPUT.PUT_LINE ('INSIDE  NULL ' || i);
+        ELSE
+          emails1 := '<' || email_ids(i) || '>' || ',' || emails1 ;
+        END IF;
+         DBMS_OUTPUT.PUT_LINE ('sendmailtotal emails1 < ' || emails1);
+    END IF;
+   DBMS_OUTPUT.PUT_LINE ('i == ' || i);
+   IF email_ids(i) = '' THEN
+          DBMS_OUTPUT.PUT_LINE ('INSIDE EMPTY  ' || i);
+        ELSIF email_ids(i) is null THEN
+          DBMS_OUTPUT.PUT_LINE ('INSIDE  NULL ' || i);
+        ELSE
+          emails := '<'||email_ids(i)||'>' ;
+           UTL_SMTP.rcpt(l_mail_conn, emails);
+        END IF;
+  END LOOP;
+  UTL_SMTP.open_data(l_mail_conn);
+  UTL_SMTP.write_data(l_mail_conn, 'Date: ' || TO_CHAR(SYSDATE, 'DD-MON-YYYY HH24:MI:SS') || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'To: ' || emails1 || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'From: ' || v_from || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'Subject: ' || v_subject || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'Reply-To: ' || v_from || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'MIME-Version: 1.0' || UTL_TCP.crlf);
+  UTL_SMTP.write_data(l_mail_conn, 'Content-Type: multipart/alternative; boundary="' || l_boundary || '"' || UTL_TCP.crlf || UTL_TCP.crlf);
+  IF v_html_msg IS NOT NULL THEN
+    UTL_SMTP.write_data(l_mail_conn, '--' || l_boundary || UTL_TCP.crlf);
+    UTL_SMTP.write_data(l_mail_conn, 'Content-Type: text/html; charset="iso-8859-1"' || UTL_TCP.crlf || UTL_TCP.crlf);
+    UTL_SMTP.write_data(l_mail_conn, v_html_msg);
+    UTL_SMTP.write_data(l_mail_conn, UTL_TCP.crlf || UTL_TCP.crlf);
+  END IF;
+  UTL_SMTP.write_data(l_mail_conn, '--' || l_boundary || '--' || UTL_TCP.crlf);
+  UTL_SMTP.close_data(l_mail_conn);
+  UTL_SMTP.quit(l_mail_conn);
+END; 
+
+create or replace 
+PROCEDURE SENDREMAINDER AS 
+  v_due_date    DATE;
+  v_resign_date    DATE;
+  v_updated_date    DATE;
+  v_date        VARCHAR(30);
+  v_status      VARCHAR(100);
+  updatedDateString      VARCHAR(1000);
+  emailList EMAILIDLIST;
+   cihrsFlag BOOLEAN := FALSE;
+  finalClearance BOOLEAN := FALSE;
+  deptCont BOOLEAN := FALSE;
+  deptEmp BOOLEAN := FALSE;
+  v_count NUMBER;
+  deptFinP2P BOOLEAN := FALSE;
+  deptFinance BOOLEAN := FALSE;
+  deptAdmin BOOLEAN := FALSE;
+  deptGTS BOOLEAN := FALSE;
+  deptHrOps BOOLEAN := FALSE;
+  deptVMG BOOLEAN := FALSE;
+    
+CURSOR c1
+IS
+  SELECT at.HCOM_ID  AS empId,
+    at.DOL_DATE      AS duedateInString,
+    at.DOR_DATE      AS resignDateInString,
+    emp.emp_fullname AS empName ,
+    status,
+    (SELECT emp_fullname
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = at.EMP_REPORTING_MANAGER
+    )           AS MgrName,
+    (SELECT emp_fullname 
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = (SELECT EMP_REPORTING_MANAGER
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = emp.EMP_REPORTING_MANAGER) 
+    )           AS Lev2MgrName, 
+    (SELECT emp_first_name 
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = at.EMP_REPORTING_MANAGER
+    )           AS MgrFirstName,
+    (SELECT emp_first_name  
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = (SELECT EMP_REPORTING_MANAGER
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = emp.EMP_REPORTING_MANAGER) 
+    )           AS Lev2MgrFirstName,
+  emp.emp_email AS empEmail,
+  (SELECT emp_email
+  FROM XXX_SGGSC_ALL_EMPLOYEES
+  WHERE emp_id = at.EMP_REPORTING_MANAGER
+  ) AS MgrEmail,
+  (SELECT emp_email 
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = (SELECT EMP_REPORTING_MANAGER
+    FROM XXX_SGGSC_ALL_EMPLOYEES
+    WHERE emp_id = emp.EMP_REPORTING_MANAGER) 
+    )           AS Lev2MgrEmail, 
+  at.UPDATED_DATE AS updatedDate 
+FROM exit_emp_resignation at
+LEFT JOIN XXX_SGGSC_ALL_EMPLOYEES emp
+ON at.hcom_id          =emp.emp_id
+WHERE at.DOL_DATE     IS NOT NULL
+AND at.status         IN ('Submitted','Resignation Approved By Manager','Resignation Approved By HRBP',
+  'Resignation Approved By CIHRS','Contractor Resignation Submitted', 'Resignation Approved By CIHRS for Contractors')
+AND emp.emp_term_date IS NULL;
+BEGIN  
+  FOR emp_record IN c1
+  LOOP
+      v_due_date:=TO_DATE(emp_record.duedateInString, 'DD-MM-YYYY');
+      v_resign_date:=TO_DATE(emp_record.resignDateInString, 'DD-MM-YYYY');      
+      v_status  := (emp_record.status);      
+      IF (v_status) = ('Submitted') THEN 
+        IF (TO_DATE(sysdate) >= TO_DATE(v_resign_date+3)) THEN               
+                DBMS_OUTPUT.PUT_LINE('status : ' || v_status || ' empid : ' || (emp_record.empId) || ' empname : ' || (emp_record.empName) || ' v_resign_date : ' || v_resign_date);
+                DBMS_OUTPUT.PUT_LINE ('sending the mail to... ' || emp_record.Lev2MgrEmail);                
+                update EXIT_EMP_RESIGNATION set MGR_CHK = 1  
+                where HCOM_ID = emp_record.empId;                
+                DBMS_OUTPUT.PUT_LINE('Query updated');              
+              --SENDMAILLEV2MGR('chetan.hegde@socgen.com', emp_record.Lev2MgrFirstName,'chetan.hegde@socgen.com',emp_record.MgrFirstName, emp_record.empName, 'Resignation');               
+            ELSIF (TO_DATE(sysdate) >= TO_DATE(v_resign_date+2)) THEN 
+                DBMS_OUTPUT.PUT_LINE ('v_resign_date GREATER THAN OR EQUALS TO sysdate' || v_resign_date);
+                --SENDMAIL(emp_record.MgrEmail,emp_record.MgrName,'Resignation');               
+           END IF;
+      END IF;      
+      IF (v_status) = ('Resignation Approved By CIHRS') THEN            
+          updatedDateString := emp_record.updatedDate;             
+          updatedDateString := SUBSTR(updatedDateString, 1, 9);
+          v_updated_date := TO_DATE(updatedDateString, 'DD-MM-YYYY');        
+         IF (TO_DATE(sysdate) >= TO_DATE(v_updated_date+2)) THEN             
+            --DBMS_OUTPUT.PUT_LINE('status : ' || v_status || ' empid : ' || (emp_record.empId) || ' v_resign_date : ' || v_resign_date);
+            DBMS_OUTPUT.PUT_LINE ('v_updated_date GREATER THAN OR EQUALS TO sysdate' || v_updated_date);           
+            deptFinP2P := TRUE;            
+            deptFinance := TRUE;
+            deptAdmin := TRUE;
+            deptGTS := TRUE;
+            deptHrOps := TRUE;            
+            v_count := 0;
+            BEGIN
+                select count(RES.HCOM_ID) into v_count FROM EXIT_EMP_RESIGNATION RES 
+                LEFT OUTER JOIN EXIT_MANAGER_CLEARANCE CLR ON RES.HCOM_ID = CLR.EMP_RESIGNTN_ID 
+                WHERE RES.STATUS IN ('Resignation Approved By CIHRS') 
+                and (CLR.STATUS is null or CLR.STATUS not IN ('Submitted')) and RES.HCOM_ID =  emp_record.empId ;
+                exception 
+                  WHEN NO_DATA_FOUND THEN
+                  v_count := 0;
+                DBMS_OUTPUT.PUT_LINE('v_count :: ' || v_count);   
+            END;            
+            IF(v_count>0) THEN
+              DBMS_OUTPUT.PUT_LINE ('CIHRS :: v_count is greater than zero ' || v_count);
+              --SENDMAIL(emp_record.MgrEmail,emp_record.MgrName,emp_record.duedateInString);
+              --SENDMAIL('chetan.hegde@socgen.com','CHETAN-DEPT-emp-clr-Mgr','duedate');
+              IF (TO_DATE(sysdate) >= TO_DATE((v_updated_date+3))) THEN               
+                  update EXIT_EMP_RESIGNATION set MGR_CHK = 2  
+                  where HCOM_ID = emp_record.empId;
+                  DBMS_OUTPUT.PUT_LINE ('sending the mail to LEV2 MAGR... ' || emp_record.Lev2MgrEmail );
+                  --SENDMAILLEV2MGR('chetan.hegde@socgen.com', emp_record.Lev2MgrFirstName,'chetan.hegde@socgen.com',emp_record.MgrFirstName, emp_record.empName, 'Project Clearance');  
+                  DBMS_OUTPUT.PUT_LINE('Query updated for mgr clearance');
+               ELSE
+                  DBMS_OUTPUT.PUT_LINE ('sending the mail to MAGR... ' || emp_record.MgrEmail);                  
+               END IF;
+            END IF;            
+         END IF;
+      END IF;
+      
+     
+  END LOOP;
+  
+  IF (cihrsFlag) THEN  
+    DBMS_OUTPUT.PUT_LINE('After cihrs completed ');
+     DECLARE
+          teamEmailList EMAILIDLIST;
+          BEGIN
+                teamEmailList := GET_CIHRS_EMAILID();               
+                teamEmailList.EXTEND(2);                
+                --SENDMAILTOALL(teamEmailList,'Team', sysdate);                 
+          END;
+  END IF; 
+    
+  IF (deptFinP2P) THEN  
+      DBMS_OUTPUT.PUT_LINE('After completion for deptFinP2P');
+      v_count := 0;
+      BEGIN
+          select count(RES.HCOM_ID) into v_count FROM EXIT_EMP_RESIGNATION RES 
+          LEFT OUTER JOIN EXIT_FINANCE_CLEARANCE_P2P CLR ON RES.HCOM_ID = CLR.EMP_RESIGNTN_ID 
+          WHERE RES.STATUS IN ('Resignation Approved By CIHRS') 
+          and (CLR.STATUS is null or CLR.STATUS not IN ('Submitted')) ;
+          exception 
+            WHEN NO_DATA_FOUND THEN
+            v_count := 0;
+          DBMS_OUTPUT.PUT_LINE('deptFinP2P :: v_count :: ' || v_count);   
+      END;
+      IF(v_count>0) THEN
+        DBMS_OUTPUT.PUT_LINE ('deptFinP2P :: v_count is greater than zero ' || v_count);        
+        DECLARE
+          teamEmailList EMAILIDLIST;
+          BEGIN
+                teamEmailList := GET_USER_FIN_P2P_EMAILID();
+                --teamEmailList := EMAILIDLIST();
+                teamEmailList.EXTEND(2);
+                --teamEmailList :=emailList;
+                --SENDMAILTOALL(teamEmailList,'Team', sysdate);  
+                --SENDMAIL('chetan.hegde@socgen.com','CHETAN-FIN_P2P','duedate');
+          END;
+      END IF;     
+  END IF;
+END;
+
+create or replace 
+FUNCTION GET_USER_FIN_P2P_EMAILID 
+RETURN EMAILIDLIST
+AS  CURSOR c_customers is     
+select emp_email AS empEmail,
+    (SELECT emp_email FROM xxx_sggsc_all_employees WHERE  emp_id=xx.EMP_REPORTING_MANAGER) AS MgrMail,r.role,emp_id_alt 
+            from xxx_sggsc_all_employees xx 
+						 left outer join EXIT_USER_ROLE ur on xx.emp_id = ur.hcom_id 
+						 left outer join EXIT_ROLE r on r.id = ur.role_id
+             where r.role in  ('FINANCEP2P');
+   empEmail_list EMAILIDLIST := EMAILIDLIST();
+   counter integer :=0;
+BEGIN
+   FOR n IN c_customers LOOP
+      counter := counter + 1;
+      empEmail_list.extend;
+      empEmail_list(counter)  := n.empEmail;
+     dbms_output.put_line(empEmail_list(counter));
+   END LOOP;
+   return empEmail_list;
+END;
+
+List<HolidayForm> listHolidays =  service.getSggscHolidays();
+			String bangHolidays = ""; String chenHolidays = "";
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        SimpleDateFormat holidayFormat = new SimpleDateFormat("dd-MMM-yy");	        
+			if(listHolidays!=null && listHolidays.size()>0) {				
+				for(HolidayForm holiday : listHolidays) {
+					if(holiday.getHolidayDate()!=null) {
+				        String[] arrSplit = holiday.getHolidayDate().split(" ");
+				        Date convertedDate = sdf.parse(arrSplit[0]);       
+						if(holiday.getHolidayCity().equalsIgnoreCase(ESeparationUtil.CITY_BANGALORE)) {
+							if(bangHolidays != "" && bangHolidays != null) {							
+								bangHolidays = bangHolidays +","+ holidayFormat.format(convertedDate);
+							} else {
+								bangHolidays = holidayFormat.format(convertedDate);
+							}						
+						} else {
+							if(chenHolidays != "" && chenHolidays != null) {
+								chenHolidays = chenHolidays +","+ holidayFormat.format(convertedDate);
+							} else {
+								chenHolidays = holidayFormat.format(convertedDate);
+							}
+						}
+					}
+				}
+			}
+			model.addAttribute("bangHolidays", bangHolidays);  model.addAttribute("chenHolidays", chenHolidays);
+@RequestMapping(value = "/getAttachmentList", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Attachment> getAttachmentList(@RequestParam("empId") String empId, @RequestParam("deptType") String deptType, RedirectAttributes model) throws ESeparationException {
+    	List<Attachment> list = new ArrayList<Attachment>();
+    	if(empId!=null && deptType!=null) {
+    		if(deptType.equalsIgnoreCase(ESeparationUtil.ROLE_TYPE_MANAGER)) {
+    			list= service.getAttachmentByHcomId(empId, ESeparationUtil.DEPARTMENT_TYPE_MANAGER);
+            } else {
+            	//list= service.getAttachmentByHcomId(empId, ESeparationUtil.DEPARTMENT_TYPE_HROPS);
+            }
+    	} return list;
+	}			
+@RequestMapping(value = "/openFile/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody void openFile(HttpServletRequest request, HttpServletResponse response, @PathVariable String id, RedirectAttributes redirectAttrs) throws ESeparationException, IOException{
+String fullPath = ""; List<Attachment> listAttachment = service.getAttachmentById(id);
+		if(listAttachment != null && listAttachment.size()>0) {
+			Attachment attachment = listAttachment.get(0);
+			fullPath = attachment.getPath();
+			try { File downloadFile = new File(fullPath);
+				FileInputStream inputStream = new FileInputStream(downloadFile);				
+				String mimeType = context.getMimeType(fullPath);
+				if (mimeType == null) {					
+					mimeType = "application/octet-stream";
+				}		
+				response.setContentType(mimeType);
+				response.setContentLength((int) downloadFile.length());					
+				String headerKey = "Content-Disposition";
+				String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
+				response.setHeader(headerKey, headerValue);
+				OutputStream outStream = response.getOutputStream();
+				byte[] buffer = new byte[BUFFER_SIZE];
+				int bytesRead = -1;				
+				while ((bytesRead = inputStream.read(buffer)) != -1) {
+					outStream.write(buffer, 0, bytesRead);
+				}
+				inputStream.close();  outStream.close();
+			} catch(FileNotFoundException foe) {
+				redirectAttrs.addFlashAttribute("fileErrorMsg", "Uploaded file is not in the destination location");
+			}
+		} 
+	}
+	
+	@RequestMapping(value = "/addAttachmentFile", method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String addAttachmentFile(MultipartHttpServletRequest request, RedirectAttributes model) throws ESeparationException, IOException {
+    	Date date = new Date();
+    	try {  String empId = request.getParameter("empId");
+			String deptType = request.getParameter("deptType");
+			String filePath = System.getProperty("filePath");
+			if(empId!=null && deptType!=null) {
+				List<EmpResignation> empResignationList = service.getEmpByHcomId(empId);
+		    	if(empResignationList != null && empResignationList.size()>0) {
+		    		Iterator<String> itr =  request.getFileNames();    	 
+		            MultipartFile multiFile = request.getFile(itr.next());
+		            DecimalFormat df = new DecimalFormat("#.###");		 
+		            String saveDirectory = filePath + File.separator + empResignationList.get(0).getHcomId().toString() + File.separator;
+		            File file = new File(saveDirectory);
+		    		if (!file.exists()) {
+		    			if (file.mkdir()) {
+		    				LOG.info("Directory is created!");
+		    			} else {
+		    				LOG.info("Failed to create directory!");
+		    			}
+		    		}
+		    		String multiFileSize = "";
+		    		String fileName = multiFile.getOriginalFilename();
+		    		long fileSize = multiFile.getSize();
+		    		if(fileSize < 1000000) {
+		    			double size = (double) fileSize/(1024);
+		    			multiFileSize = df.format(size);
+		    			multiFileSize = multiFileSize + ESeparationUtil.FILE_SIZE_KB;
+		    		} else {
+		    			double size = (double) fileSize/(1024*1024);
+		    			multiFileSize = df.format(size);
+		    			multiFileSize = multiFileSize + ESeparationUtil.FILE_SIZE_MB;
+		    		}		           
+		    		multiFile.transferTo(new File(saveDirectory + fileName));
+		            Attachment attachment = new Attachment();
+		            attachment.setEmpResign(empResignationList.get(0));
+		            attachment.setFileName(fileName);
+		            if(deptType.equalsIgnoreCase(ESeparationUtil.ROLE_TYPE_MANAGER)) {
+		            	attachment.setFileUploadedDept(ESeparationUtil.ROLE_TYPE_MANAGER);
+		            } else {
+		            	attachment.setFileUploadedDept(ESeparationUtil.ROLE_TYPE_INVALID);
+		            }
+		            attachment.setPath(saveDirectory + fileName);
+		            attachment.setDelStatus(ESeparationUtil.DELETE_STATUS_NO);
+		            attachment.setFileSize(multiFileSize);
+		            attachment.setCreatedBy((String) request.getSession().getAttribute("EmployeeName"));
+		            attachment.setCreatedDate(new Timestamp(date.getTime()));
+		            attachment.setModifiedBy((String) request.getSession().getAttribute("EmployeeName"));
+		            attachment.setModifiedDate(new Timestamp(date.getTime()));
+		            String attString = service.saveAttachement(attachment);
+		            model.addFlashAttribute("fileMsg", "File uploaded successfully");
+		    	}
+			}
+    	} catch (ESeparationException exp) {
+			LOG.error(exp.getMessage());
+			model.addAttribute("errorMsg", ESeparationUtil.ERROR_MSG);
+			return "errorPage";
+		} catch (Exception ex) {
+			LOG.error(ex.getMessage());
+			model.addAttribute("errorMsg", ESeparationUtil.ERROR_MSG);
+			return "errorPage";
+		}
+		return toJson("File Uploaded successfully.");    	
+	}
+	
+	public String toJson(Object data)
+    {
+        ObjectMapper mapper=new ObjectMapper();
+        StringBuilder builder=new StringBuilder();
+        try {
+            builder.append(mapper.writeValueAsString(data));
+        } catch (Exception e) {            
+            e.printStackTrace();
+        }  return builder.toString();
+    }
+	
+	@RequestMapping(value = "/removeFile/{id}", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void removeFile(Model model, @PathVariable long id, HttpServletRequest request, RedirectAttributes redirectAttrs) throws ESeparationException {
+    	Date date = new Date();
+    	if(id > 0) {    		
+    		List<Attachment> listAttachment = service.getAttachmentById(String.valueOf(id));
+    		if(listAttachment != null && listAttachment.size()>0) {
+    			Attachment attachment = listAttachment.get(0);
+    			attachment.setDelStatus(ESeparationUtil.DELETE_STATUS_YES);
+    			attachment.setModifiedBy((String) request.getSession().getAttribute("EmployeeName"));
+    			attachment.setModifiedDate(new Timestamp(date.getTime()));
+    			String saveAttachement  = service.saveAttachement(attachment);  
+    			redirectAttrs.addFlashAttribute("fileMsg", "File deleted successfully");
+    		}
+    	}    	
+    }
+private void finalClearanceMailTemp(String departmentName, String hcomId, String empId, String transferType) throws ESeparationException, MessagingException {
+		String empEmailId = "";
+		String empMgrEmailId = "";
+		String empFullName = "";
+		String approverEmailId = "";
+		String approverFullName = "";
+		String hropsEmailId = "";
+		String hcomEmpFullName = "";
+		String hcomEmpAltId = "";
+		String env = System.getProperty("env");
+		String version=System.getProperty("version");		
+		List<Employee> empList = service.getHCOMByHCOMId(hcomId);
+		if(empList != null && empList.size()>0) {
+			approverEmailId = empList.get(0).getEmail();
+			approverFullName = empList.get(0).getFullName();
+		}		
+		List<Employee> resignedEmpList = service.getHCOMByHCOMId(empId);
+		if(resignedEmpList != null && resignedEmpList.size()>0) {
+			empEmailId = resignedEmpList.get(0).getEmail();
+			empMgrEmailId = resignedEmpList.get(0).getMgrEmail();
+			empFullName = resignedEmpList.get(0).getFirstName();
+			hcomEmpFullName = resignedEmpList.get(0).getFullName();
+			hcomEmpAltId = resignedEmpList.get(0).getEmpAltId();
+		}
+		List<Employee> hropsList = service.getEmailListByRole(ESeparationUtil.MAIL_ROLE_TYPE_HROPS);
+		if(hropsList != null && hropsList.size()>0) {
+			for(Employee emp : hropsList) {                            
+				if(hropsList.size()>1) {
+					if(hropsEmailId != "") {
+						hropsEmailId = emp.getEmail() + ", " + hropsEmailId  ;
+					} else {
+						hropsEmailId = emp.getEmail();
+					}	                    	  
+				} else {
+					hropsEmailId = emp.getEmail();
+				}                             
+			}			
+		}
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		String ccAddressList = "";
+		ccAddressList = hropsEmailId;
+		empFullName = controller.toCamelCase(empFullName);
+		approverFullName = controller.toCamelCase(approverFullName);
+		hcomEmpFullName = controller.toCamelCase(hcomEmpFullName);
+		helper.setFrom(ESeparationUtil.FROM_ADDRESS);			
+		helper.setTo(empEmailId);	
+		message.addRecipients(Message.RecipientType.CC, InternetAddress.parse(ccAddressList));
+		if(transferType != null) {
+			helper.setSubject("Transfer Process Final Clearance Notification for "+hcomEmpFullName+" - "+hcomEmpAltId);
+			helper.setText("<html><head><meta charset='ISO-8859-1'>" +
+					"</head><body>Dear <span style='font-weight:bold'>"+empFullName+"</span>,<br><br>With reference to your transfer, <span style='font-weight:bold'>"+approverFullName+"</span> from " +
+					departmentName +" has approved your final clearance and your transfer process ends here. Please contact your HR for further action.<br><br>" +
+					"<br><div style='font-weight:bold'>Regards,</div><br><div style='font-weight:bold'>MyHR-India <br>Ph: #915915<br>Email:<a href='MyHR-India@socgen.com'>MyHR-India@socgen.com</a></div>"+
+					"<br><br><div >Note:  Please do not reply to this e-mail, this is auto generated e-mail hence it will not be monitored. "
+					+"Kindly contact <a href='MyHR-India@socgen.com'>MyHR-India@socgen.com</a> for any queries</div> <br><br>"
+					+"<div style='color:gray'><hr></hr>GSC-E-Separation Version: "+version+" Environment: "+env+"<hr></hr></div>" +
+					"</body></html>", true);
+		}  String sendMail = System.getProperty("sendMail");	
+		if(sendMail.trim().equalsIgnoreCase(ESeparationUtil.SEND_MAIL_STATUS_ONE)) {
+			mailSender.send(message);
+		}
+}
+<!-- Email Service Beans and respective injections-->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp-"/>
+      <property name="port" value="25" />
+    </bean>
+//DOL sort
+Collections.sort(payrollList, new DateSorter());
+public class DateSorter implements Comparator<Employee> {
+    
+	public int compare(Employee e1, Employee e2) {
+	   String firstDateString = e1.getLeaveDate();
+	   String secondDateString = e2.getLeaveDate();
+	
+	   if (secondDateString == null || firstDateString == null) {
+	       return 0;
+	   }	
+	   // Convert to Dates
+	   SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");//11-Mar-2016
+	   Date firstDate;
+		try {
+			firstDate = sdf.parse(firstDateString);
+			Date secondDate = sdf.parse(secondDateString);
+		
+			   if (firstDate.after(secondDate)) return 1;
+			   else if (firstDate.before(secondDate)) return -1;
+			   else return 0;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return 0;   
+   }
+  //
+  List<Employee> employeeList = service.getAllActiveEmployees();
+			if(employeeList!=null && employeeList.size()>0) {
+				for(Employee employee : employeeList) {
+					empList.add(employee.getFullName());
+		empMapList.put(employee.getEmpId(), employee.getFullName() + " : "+ employee.getEmpId()+ " : "+ employee.getDesignation());					
+				}
+			}	Map sortedMap = sortByValue(empMapList);
+			model.addAttribute("empList", sortedMap);		
+@RequestMapping(value = "/getUserRoles", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<UserRole> getUserRoles(@RequestParam("empId") String empId)  {
+    	LOG.info("Inside getUserRoles : "+empId);
+    	List<UserRole> list = new ArrayList<UserRole>();
+    	list= service.getUserRoleByHcomId(empId);
+    	return list;	}	
+	private Map sortByValue(Map unsortedMap) {
+		Map sortedMap = new TreeMap(new ValueComparator(unsortedMap)); //RedirectAttributes redirectAttrs
+		sortedMap.putAll(unsortedMap); //redirectAttrs.addFlashAttribute("successMsg", "Record submitted successfully");
+		return sortedMap; //return "redirect:/userAssign";}
+		<body onload="appendSelectOption();">
+<form:select path="hcomId" items="${empList}" id="hcomId" onchange="javascript:assignUserRoles();" />		
+<c:forEach var="role" items="${roles}">
+	<tr><td><form:checkbox path="roleNames" id="${role.roleID}" value="${role.roleID}" cssClass="roleCheck"  /></td>
+	<td>${role.rolename}</td><td>${role.roleDesc}</td></tr></c:forEach>
+function assignUserRoles(){
+			if($("#hcomId").val() == '') {
+				$("#saveButton").attr("disabled", true);
+				$(".roleCheck").attr("disabled", true);
+				$(".roleCheck").prop('checked', false);
+				alert("Please choose Employee Name!!");
+				return false; }
+			$("#saveButton").attr("disabled", false);
+			$(".roleCheck").prop('checked', false);
+			$(".roleCheck").attr("disabled", false);
+			var empId = $("#hcomId").val();
+			$.ajax({
+			    type: "GET",
+			    url: "${pageContext.request.contextPath}/getUserRoles",
+			    data: "empId=" + empId,
+			    success: function(data) {
+			    	for(var i=0; i<data.length; i++) {
+				    	$("#"+data[i].roleId).prop('checked', true);
+			    	}			    	
+			    },
+			    error: function(data) {  //alert('error');  }
+			});		}		
+function appendSelectOption() {
+			$("#hcomId").prepend("<option value='' selected='selected'>Select</option>");
+			$("#saveButton").attr("disabled", true);  $(".roleCheck").attr("disabled", true);   }		
+public class PropertyReading implements ServletContextListener {
+	@Override
+    public void contextDestroyed(ServletContextEvent event) {    }
+    @Override
+    public void contextInitialized(ServletContextEvent event) {     
+        final Properties propsFromFile = new Properties();
+        try {               
+        	String propertyHome = System.getProperty("catalina.home"); 			
+			 String filePath=propertyHome+File.separator+"properties"+File.separator+"environment.properties";			 
+			 FileInputStream fis = new FileInputStream(filePath);
+			 propsFromFile.load(fis);
+        } catch (final IOException e) {  e.printStackTrace();   }
+        for (String prop : propsFromFile.stringPropertyNames())
+          { if (System.getProperty(prop) == null)
+             {	System.setProperty(prop, propsFromFile.getProperty(prop));
+             } } } }
+<listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener>       
+      <listener-class>com.sg.webapp.util.PropertyReading</listener-class>
+   </listener>	
