@@ -131,14 +131,14 @@ function ini_events(ele){
 function allDayClicked() {
 	var allDayCheckBoxVal = $("#allDay").is(':checked')?1:0;
 	if (allDayCheckBoxVal == 1) {
-		$('#startDate').hide();
+		//$('#startDate').hide();
 		$('#endDate').hide();
-		$('#startTime').hide();
+		//$('#startTime').hide();
 		$('#endTime').hide();
 	} else {
-		$('#startDate').show();
+		//$('#startDate').show();
 		$('#endDate').show();
-		$('#startTime').show();
+		//$('#startTime').show();
 		$('#endTime').show();
 	}
 };

@@ -57,8 +57,12 @@ app.controller('EditCtrl', function($scope, $http) {
 		}
 		for(var i=0; i < $scope.subjects.length; i++) {			
 			if($scope.subjects[i].subjectName == $scope.subject.subjectName) {
-				bootbox.alert('Entered subject name already exists!!!');
-				e.stopPropagation();
+				if($scope.subject.subjectId!=null){					
+					//
+				} else {
+					bootbox.alert('Entered subject name already exists!!!');
+					e.stopPropagation();
+				}
 			}
 		}		
 		$http.post('/subject', $scope.subject).success(function(){

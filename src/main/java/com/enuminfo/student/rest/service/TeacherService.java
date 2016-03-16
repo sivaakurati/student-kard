@@ -11,13 +11,13 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.enuminfo.student.domain.service.MailService;
 import com.enuminfo.student.hibernate.model.Department;
 import com.enuminfo.student.hibernate.model.Role;
 import com.enuminfo.student.hibernate.model.Subject;
@@ -50,8 +50,7 @@ public class TeacherService {
 	@Autowired TeacherSubjectRepository teacherSubjectRepository;
 	@Autowired TeacherCourseRepository teacherCourseRepository;
 	@Autowired CourseRepository courseRepository;
-	
-	@Autowired JavaMailSender mailSender;
+	@Autowired MailService mailService;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Teacher> getAllTeachers() {
@@ -86,6 +85,7 @@ public class TeacherService {
 		}
 		teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
 		repository.save(teacher);
+		mailService.sendTeacherDetail(teacher);
 	}
 	
 	@RequestMapping(value = "/{teacherId}", method = RequestMethod.DELETE)
