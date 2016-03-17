@@ -149,9 +149,9 @@ CREATE TABLE tbl_student(
 -- tbl_time_tracker TABLE
 DROP TABLE IF EXISTS tbl_time_tracker;
 CREATE TABLE tbl_time_tracker(
-	time_tracker_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	batch_id int(11) NOT NULL REFERENCES tbl_batch (batch_id),
+    time_tracker_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     course_id int(11) NOT NULL REFERENCES tbl_course (course_id),
+    teacher_id int(11) NOT NULL REFERENCES tbl_teacher (teacher_id),
     subject_id int(11) NOT NULL REFERENCES tbl_subject (subject_id),
     start_date date NOT NULL,
     end_date date NOT NULL,
@@ -163,8 +163,8 @@ DROP TABLE IF EXISTS tbl_time_tracker_event;
 CREATE TABLE tbl_time_tracker_event(
 	time_tracker_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	event_title varchar(500) NOT NULL,
-    event_start varchar(20) NOT NULL,
-    event_end varchar(20) NOT NULL,
+    event_start varchar(100) NOT NULL,
+    event_end varchar(100) NOT NULL,
     event_all_day boolean NULL
 );
 

@@ -75,7 +75,7 @@ public class DateTimeUtil {
         DateTime dTime = parser.parseDateTime(datetime);
         DateTimeFormatter formatter = DateTimeFormat.mediumDateTime();
         String strDate = formatter.print(dTime);
-        DateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy HH:mm:ss aaa");
+        DateFormat dateFormat = new SimpleDateFormat("MMM dd,yyyy HH:MM:SS");
         try {
 			date = dateFormat.parse(strDate);
 		} catch (ParseException e) {

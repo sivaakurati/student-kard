@@ -38,16 +38,20 @@ app.controller('ViewCtrl', function($scope, $http){
 		$scope.loadTimeTrackerEvents();
 	});
 	
+	$scope.events = [];	
 	$scope.loadTimeTrackerEvents = function() {
+		$scope.events = [];
 		$http.get('/timetracker/events').success(function(data){
-			$scope.timeTrackerEvents = data;
-			console.log(stringIt($scope.timeTrackerEvents));
+			for(var i=0;i<data.length;i++) {
+				$scope.events.push({
+					idx: data[i].idx,
+					title: data[i].title,
+					allDay: data[i].allDay,
+					start: new Date(data[i].start),
+					end:  new Date(data[i].end),
+				});
+			}
 		});
-	};
-	
-	$scope.calEventsExt = {
-		events: $scope.loadTimeTrackerEvents()
-		//events: [{"title":"Course101 - Sekhar - English","start":"2016-02-26T14:00:00.000+05:30","end":"2016-02-26T15:30:00.000+05:30","allDay":false}]
 	};
 	
 	 var date = new Date();
@@ -79,7 +83,6 @@ app.controller('ViewCtrl', function($scope, $http){
 		var course = $("#courseId").val();
 		var teacher = $("#teacherId").val();
 		var subject = $("#subjectId").val();
-		var assignment = $("#assignment").val();
 		
 		if(course == '' || course == null) {
 			bootbox.alert('Please select the valid course!!');
@@ -92,26 +95,21 @@ app.controller('ViewCtrl', function($scope, $http){
 		if(subject == '' || subject == null) {
 			bootbox.alert('Please select the valid subject!!');
 			e.stopPropagation();
-		}		
-		if(assignment.trim() == '' || assignment == null) {
-			bootbox.alert('Please enter the valid assignment!!');
-			e.stopPropagation();
 		}
 		
-    	console.log(stringIt($scope.timeTracker));
 		$http.post('/timetracker', $scope.timeTracker).success(function(){
 			$scope.$emit('loadCourses');
 			$scope.$emit('loadTeachers');
-			//$scope.$emit('loadTimeTrackerEvents');
+			$scope.$emit('loadTimeTrackerEvents');
 		});
 	};
 	
 	$scope.loadCourses();
 	$scope.loadTeachers();
-	//$scope.loadTimeTrackerEvents();
+	$scope.loadTimeTrackerEvents();
     
     /* event sources array*/
-	$scope.eventSources = [ $scope.calEventsExt ];
+	$scope.eventSources = [$scope.events];
 });
 
 function ini_events(ele){
