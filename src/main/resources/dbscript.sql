@@ -15,7 +15,7 @@ CREATE TABLE tbl_location(
 
 -- tbl_role TABLE --
 DROP TABLE IF EXISTS tbl_role;
-CREATE TABLE tbl_user_role(
+CREATE TABLE tbl_role(
     role_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     role_name varchar(50) NOT NULL
 );
@@ -34,6 +34,16 @@ CREATE TABLE tbl_user_role(
     user_role_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_id int(11) NOT NULL REFERENCES tbl_user (user_id),    
     role_id int(11) NOT NULL REFERENCES tbl_role (role_id)        
+);
+
+-- tbl_role TABLE --
+DROP TABLE IF EXISTS tbl_location;
+CREATE TABLE tbl_location(
+    location_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    location_name varchar(50) NOT NULL,
+    city_name varchar(50) NOT NULL,
+    state_name varchar(50) NOT NULL,
+    pin_code int(11) NOT NULL
 );
 
 -- tbl_course TABLE
@@ -111,6 +121,7 @@ CREATE TABLE tbl_parent(
     parent_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     parent_name varchar(50) NOT NULL,
     photo varchar(500) NOT NULL,
+    gender varchar(10) NOT NULL,
     address varchar(500) NOT NULL,
     location_id int(11) NOT NULL REFERENCES tbl_location (location_id),
     contact_no int(10) NOT NULL,
@@ -163,7 +174,7 @@ CREATE TABLE tbl_grade(
 	grade_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	student_id int(11) NOT NULL REFERENCES tbl_student (student_id),
     subject_id int(11) NOT NULL REFERENCES tbl_subject (subject_id),
-    marks int(20) NOT NULL,
+    marks int(20) NOT NULL
 );
 
 -- tbl_assignment TABLE
@@ -185,4 +196,11 @@ CREATE TABLE tbl_assignment_result(
     student_id int(11) NOT NULL REFERENCES tbl_student (student_id),
     result varchar(500) NOT NULL,
     submitted_date date NULL
+);
+
+-- tbl_department TABLE
+DROP TABLE IF EXISTS tbl_department;
+CREATE TABLE tbl_department(
+	department_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	department_name varchar(500) NOT NULL
 );

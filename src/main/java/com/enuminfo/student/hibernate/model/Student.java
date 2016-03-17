@@ -169,6 +169,7 @@ public class Student implements Serializable {
 		this.dob = dob;
 	}
 
+	@Transient
 	public String getDoj() {
 		return doj;
 	}
