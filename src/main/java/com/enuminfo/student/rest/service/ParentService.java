@@ -25,6 +25,7 @@ import com.enuminfo.student.hibernate.repository.ParentRepository;
 import com.enuminfo.student.hibernate.repository.RoleRepository;
 import com.enuminfo.student.hibernate.repository.StudentRepsitory;
 import com.enuminfo.student.hibernate.repository.UserRepository;
+import com.enuminfo.student.util.MailUtil;
 import com.enuminfo.student.util.StringUtil;
 import com.google.common.collect.Lists;
 
@@ -58,12 +59,15 @@ public class ParentService {
 			User user = new User();
 			user.setUsername(parent.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());
-			user.setPassword("p@5530rd");
 			user.setRoles(roles);
 			userRepository.save(user);
+			parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
+			repository.save(parent);
+			new MailUtil().sendParentDetail(parent, user);
+		} else {
+			parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
+			repository.save(parent);			
 		}
-		parent.setLocation(locationRepository.findOne(parent.getLocation().getLocationId()));
-		repository.save(parent);
 	}
 	
 	@RequestMapping(value = "/{parentId}", method = RequestMethod.DELETE)

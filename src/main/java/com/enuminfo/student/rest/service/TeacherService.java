@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.enuminfo.student.domain.service.MailService;
 import com.enuminfo.student.hibernate.model.Department;
 import com.enuminfo.student.hibernate.model.Role;
 import com.enuminfo.student.hibernate.model.Subject;
@@ -32,6 +31,7 @@ import com.enuminfo.student.hibernate.repository.TeacherRepository;
 import com.enuminfo.student.hibernate.repository.TeacherSubjectRepository;
 import com.enuminfo.student.hibernate.repository.UserRepository;
 import com.enuminfo.student.util.DateTimeUtil;
+import com.enuminfo.student.util.MailUtil;
 import com.enuminfo.student.util.StringUtil;
 import com.google.common.collect.Lists;
 
@@ -50,7 +50,6 @@ public class TeacherService {
 	@Autowired TeacherSubjectRepository teacherSubjectRepository;
 	@Autowired TeacherCourseRepository teacherCourseRepository;
 	@Autowired CourseRepository courseRepository;
-	@Autowired MailService mailService;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Iterable<Teacher> getAllTeachers() {
@@ -75,17 +74,17 @@ public class TeacherService {
 			User user = new User();
 			user.setUsername(teacher.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());
-			user.setPassword("p@5530rd");
 			user.setRoles(roles);
 			userRepository.save(user);
+			teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
+			repository.save(teacher);
+			new MailUtil().sendTeacherDetail(teacher, user);
 		} else {
-			System.out.println(teacher.getDob());
 			teacher.setDateOfBirth(DateTimeUtil.convertSqlDate2UtilDate(teacher.getDob()));
 			teacher.setDateOfJoining(DateTimeUtil.convertSqlDate2UtilDate(teacher.getDoj()));
+			teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
+			repository.save(teacher);
 		}
-		teacher.setLocation(locationRepository.findOne(teacher.getLocation().getLocationId()));
-		repository.save(teacher);
-		mailService.sendTeacherDetail(teacher);
 	}
 	
 	@RequestMapping(value = "/{teacherId}", method = RequestMethod.DELETE)

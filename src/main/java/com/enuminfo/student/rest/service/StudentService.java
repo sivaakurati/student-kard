@@ -32,6 +32,7 @@ import com.enuminfo.student.hibernate.repository.RoleRepository;
 import com.enuminfo.student.hibernate.repository.StudentRepsitory;
 import com.enuminfo.student.hibernate.repository.UserRepository;
 import com.enuminfo.student.util.DateTimeUtil;
+import com.enuminfo.student.util.MailUtil;
 import com.enuminfo.student.util.StringUtil;
 
 /**
@@ -68,15 +69,17 @@ public class StudentService {
 			User user = new User();
 			user.setUsername(student.getEmailAddress());
 			user.setPassword(StringUtil.generatePassword());
-			user.setPassword("p@5530rd");
 			user.setRoles(roles);
 			userRepository.save(user);
+			student.setLocation(locationRepository.findOne(student.getLocation().getLocationId()));
+			repository.save(student);
+			new MailUtil().sendStudentDetail(student, user);
 		} else {
 			student.setDateOfBirth(DateTimeUtil.convertSqlDate2UtilDate(student.getDob()));
 			student.setDateOfJoining(DateTimeUtil.convertSqlDate2UtilDate(student.getDoj()));
-		}
-		student.setLocation(locationRepository.findOne(student.getLocation().getLocationId()));
-		repository.save(student);
+			student.setLocation(locationRepository.findOne(student.getLocation().getLocationId()));
+			repository.save(student);
+		}		
 	}
 	
 	@RequestMapping(value = "/{studentId}", method = RequestMethod.DELETE)
