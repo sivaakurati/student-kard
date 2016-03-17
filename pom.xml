@@ -11,11 +11,25 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Student KARD</name>
 	<description>Student KARD Framework</description>
+	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<guava.version>19.0</guava.version>
 	</properties>
+	<build>
+		<resources>
+			<resource><directory>src/main/java</directory></resource>
+			<resource><directory>src/main/resources</directory></resource>
+			<resource><directory>src/main/webapp</directory></resource>
+		</resources>
+		<plugins>
+			<plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -74,51 +88,6 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>2.9.2</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>src/main/webapp</directory>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skipTests>${unit-tests.skip}</skipTests>
-					<includes>
-						<include>*Test.java</include>
-						<include>*Test.class</include>
-					</includes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<profiles>
-		<profile>
-			<id>integration</id>
-			<properties>
-				<unit-tests.skip>true</unit-tests.skip>
-				<assertj.version>1.7.0</assertj.version>
-				<mockito.version>1.10.8</mockito.version>
-				<rest-assured.version>2.4.0</rest-assured.version>
-			</properties>
-		</profile>
-	</profiles>
 </project>
