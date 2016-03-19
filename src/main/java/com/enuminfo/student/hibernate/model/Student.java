@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,7 +33,7 @@ public class Student implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer studentId;
 	private String studentName;
-	private String photo;
+	private byte[] photo;
 	private String emailAddress;
 	private String gender;
 	private String address;
@@ -74,12 +75,13 @@ public class Student implements Serializable {
 		this.studentName = studentName;
 	}
 
-	@Column (name = "photo")
-	public String getPhoto() {
+	@Lob
+	@Column (name = "photo", columnDefinition = "mediumblog")
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 	

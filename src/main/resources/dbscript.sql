@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS tbl_teacher;
 CREATE TABLE tbl_teacher(
     teacher_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     teacher_name varchar(50) NOT NULL,
-    photo varchar(500) NOT NULL,
+    photo blob NULL,
     email_address varchar(50) NOT NULL,
     address varchar(500) NOT NULL,
     location_id int(11) NOT NULL REFERENCES tbl_location (location_id),
@@ -120,7 +120,7 @@ DROP TABLE IF EXISTS tbl_parent;
 CREATE TABLE tbl_parent(
     parent_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     parent_name varchar(50) NOT NULL,
-    photo varchar(500) NOT NULL,
+    photo blob NULL,
     gender varchar(10) NOT NULL,
     address varchar(500) NOT NULL,
     location_id int(11) NOT NULL REFERENCES tbl_location (location_id),
@@ -134,7 +134,7 @@ DROP TABLE IF EXISTS tbl_student;
 CREATE TABLE tbl_student(
     student_id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     student_name varchar(50) NOT NULL,
-    photo varchar(500) NOT NULL,
+    photo blob NULL,
     address varchar(500) NOT NULL,
     location_id int(11) NOT NULL REFERENCES tbl_location (location_id),
     gender varchar(10) NOT NULL,
@@ -143,7 +143,8 @@ CREATE TABLE tbl_student(
     date_of_joining date NOT NULL,
     batch_id int(11) NOT NULL REFERENCES tbl_batch (batch_id),
     course_id int(11) NOT NULL REFERENCES tbl_course (course_id),
-    parent_id int(11) NOT NULL REFERENCES tbl_parent (parent_id)
+    parent_id int(11) NOT NULL REFERENCES tbl_parent (parent_id),
+    email_address varchar(50) NOT NULL
 );
 
 -- tbl_time_tracker TABLE

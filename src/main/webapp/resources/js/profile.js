@@ -11,7 +11,22 @@ app.controller('ViewCtrl', function($scope, $http) {
 		});
 	};
 	
+	$scope.editPhoto = function(modalSelector){
+		$(modalSelector).modal();
+		$scope.$broadcast('renderPhoto', {});
+	};
+	
 	$scope.loadLoggerUserDetail();
+});
+
+app.controller('EditCtrl', function($scope, $http) {
+	$scope.$on('renderPhoto', function(event){
+		$scope.render();
+	});
+	
+	$scope.render = function(){
+		
+	};
 });
 
 function stringIt(val) {
