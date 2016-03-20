@@ -44,6 +44,7 @@ public class Student implements Serializable {
 	private Batch batch;
 	private Course course;
 	private Parent parent;
+	private String imgName;
 	
 	private String dob;
 	private String doj;
@@ -215,4 +216,14 @@ public class Student implements Serializable {
 	public void setContactNo(Long contactNo) {
 		this.contactNo = contactNo;
 	}
+	
+	@Column (name = "image_name")
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	
 }

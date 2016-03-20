@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.enuminfo.student.hibernate.model.Student;
 import com.enuminfo.student.hibernate.model.User;
 import com.enuminfo.student.hibernate.repository.ParentRepository;
 import com.enuminfo.student.hibernate.repository.StudentRepsitory;
@@ -39,7 +40,14 @@ public class UserService {
 		loggedObject = teacherRepository.findByEmailAddress(username);
 		if (loggedObject == null) {
 			loggedObject = parentRepository.findByEmailAddress(username);
-			if (loggedObject == null) loggedObject = studentRepository.findByEmailAddress(username);
+			if (loggedObject == null) {
+				loggedObject = studentRepository.findByEmailAddress(username); 
+				Student student = (Student) loggedObject;
+				if (student.getImgName() == null || student.getImgName() == "") {
+					if (student.getGender() != null && student.getGender().equals("male")) student.setImgName("avatar5.png");
+					else if (student.getGender() != null && student.getGender().equals("female")) student.setImgName("avatar2.png");
+				}
+			}
 		}
 		return loggedObject;
 	}

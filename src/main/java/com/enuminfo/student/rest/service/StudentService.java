@@ -60,8 +60,8 @@ public class StudentService {
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveStudent(@RequestBody Student student) {
 		if (student.getStudentId() == null) {
-			//if (student.getGender() != null && student.getGender().equals("male")) student.setPhoto("avatar5.png");
-			//else if (student.getGender() != null && student.getGender().equals("female")) student.setPhoto("avatar2.png");
+			if (student.getGender() != null && student.getGender().equals("male")) student.setImgName("avatar5.png");
+			else if (student.getGender() != null && student.getGender().equals("female")) student.setImgName("avatar2.png");
 			student.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(student.getDob()));
 			student.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(student.getDoj()));
 			List<Role> roles = new ArrayList<Role>();
@@ -75,6 +75,10 @@ public class StudentService {
 			repository.save(student);
 			new MailUtil().sendStudentDetail(student, user);
 		} else {
+			if (student.getImgName() == null || student.getImgName() == "") {
+				if (student.getGender() != null && student.getGender().equals("male")) student.setImgName("avatar5.png");
+				else if (student.getGender() != null && student.getGender().equals("female")) student.setImgName("avatar2.png");
+			}
 			student.setDateOfBirth(DateTimeUtil.convertSqlDate2UtilDate(student.getDob()));
 			student.setDateOfJoining(DateTimeUtil.convertSqlDate2UtilDate(student.getDoj()));
 			student.setLocation(locationRepository.findOne(student.getLocation().getLocationId()));
