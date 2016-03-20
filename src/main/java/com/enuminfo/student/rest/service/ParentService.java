@@ -52,8 +52,8 @@ public class ParentService {
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveParent(@RequestBody Parent parent) {
 		if (parent.getParentId() == null) {
-			//if (parent.getGender() != null && parent.getGender().equals("male")) parent.setPhoto("avatar5.png");
-			//else if (parent.getGender() != null && parent.getGender().equals("female")) parent.setPhoto("avatar2.png");
+			if (parent.getGender() != null && parent.getGender().equals("male")) parent.setImgName("avatar5.png");
+			else if (parent.getGender() != null && parent.getGender().equals("female")) parent.setImgName("avatar2.png");
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName("ROLE_PARENT"));
 			User user = new User();

@@ -46,6 +46,7 @@ public class Teacher implements Serializable {
 	private Date dateOfBirth;
 	private Date dateOfJoining;
 	private String designation;
+	private String imgName;
 	private List<Subject> subjects;
 	private List<TimeTracker> timeTrackers;
 	private List<Course> courses;
@@ -78,7 +79,7 @@ public class Teacher implements Serializable {
 	}
 
 	@Lob
-	@Column (name = "photo", columnDefinition = "mediumblog")
+	@Column (name = "photo", columnDefinition = "BINARY(5242880)")
 	public byte[] getPhoto() {
 		return photo;
 	}
@@ -215,5 +216,14 @@ public class Teacher implements Serializable {
 
 	public void setDoj(String doj) {
 		this.doj = doj;
+	}
+
+	@Column (name = "img_name")
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
 	}
 }

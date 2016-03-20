@@ -41,6 +41,7 @@ public class Parent implements Serializable {
 	private Location location;
 	private Long contactNo;
 	private Integer mainParentId;
+	private String imgName;
 	private List<Student> students;
 	private List<Parent> dependents;
 	
@@ -150,5 +151,14 @@ public class Parent implements Serializable {
 
 	public void setDependents(List<Parent> dependents) {
 		this.dependents = dependents;
+	}
+
+	@Column (name = "img_name")
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
 	}
 }

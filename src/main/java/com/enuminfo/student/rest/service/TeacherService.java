@@ -59,8 +59,8 @@ public class TeacherService {
 	@RequestMapping(method = RequestMethod.POST)
 	public void saveTeacher(@RequestBody Teacher teacher) {
 		if (teacher.getTeacherId() == null) {
-			//if (teacher.getGender() != null && teacher.getGender().equals("male")) teacher.setPhoto("avatar5.png");
-			//else if (teacher.getGender() != null && teacher.getGender().equals("female")) teacher.setPhoto("avatar2.png");
+			if (teacher.getGender() != null && teacher.getGender().equals("male")) teacher.setImgName("avatar5.png");
+			else if (teacher.getGender() != null && teacher.getGender().equals("female")) teacher.setImgName("avatar2.png");
 			teacher.setDateOfBirth(DateTimeUtil.convertGMT2ISTDate(teacher.getDob()));
 			teacher.setDateOfJoining(DateTimeUtil.convertGMT2ISTDate(teacher.getDoj()));
 			List<Role> roles = new ArrayList<Role>();

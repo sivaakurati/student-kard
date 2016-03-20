@@ -216,8 +216,8 @@ public class Student implements Serializable {
 	public void setContactNo(Long contactNo) {
 		this.contactNo = contactNo;
 	}
-	
-	@Column (name = "image_name")
+
+	@Column (name = "img_name")
 	public String getImgName() {
 		return imgName;
 	}

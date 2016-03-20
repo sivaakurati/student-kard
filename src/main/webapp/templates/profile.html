@@ -73,7 +73,9 @@
 										<div class="box-body box-profile">
 											<a href="#" title="Change profile picture"><img class="profile-user-img img-responsive img-circle" ng-click="editPhoto('.edit-photo')"
 												src="../profile/{{loggerUser.imgName}}" /></a>
-											<h3 class="profile-username text-center">{{loggerUser.teacherName}}</h3>
+											<h3 class="profile-username text-center" sec:authorize="hasRole('ROLE_EMPLOYEE')">{{loggerUser.teacherName}}</h3>
+											<h3 class="profile-username text-center" sec:authorize="hasRole('ROLE_STUDENT')">{{loggerUser.studentName}}</h3>
+											<h3 class="profile-username text-center" sec:authorize="hasRole('ROLE_PARENT')">{{loggerUser.parentName}}</h3>
 											<ul class="list-group list-group-unbordered">
 												<li class="list-group-item"><b>Contact</b><a
 													class="pull-right">{{loggerUser.contactNo}}</a></li>
@@ -202,7 +204,7 @@
 			$.ajax({
 		 		dataType : 'json',
 			    type: "POST",
-			    url: '/upload/addAttachmentFile',
+			    url: '/file',
 			    data: fd,			    
 			     enctype: 'multipart/form-data',
 			     processData: false, 
