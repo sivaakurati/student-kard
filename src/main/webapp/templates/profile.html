@@ -92,22 +92,29 @@
 											<h3 class="box-title">Other Details</h3>
 										</div>
 										<div class="box-body">
-											<strong><i class="fa fa-book margin-r-5"></i> Date
+											<strong sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_STUDENT')"><i class="fa fa-book margin-r-5"></i> Date
 												Of Birth</strong>
-											<p class="text-muted">{{loggerUser.dateOfBirth | date: "dd-MMM-yyyy"}}</p>
-											<hr />
+											<p class="text-muted" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_STUDENT')">{{loggerUser.dateOfBirth | date: "dd-MMM-yyyy"}}</p>
+											<hr sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_STUDENT')"/>
 											<strong><i class="fa fa-map-marker margin-r-5"></i>
 												Address</strong>
 											<p class="text-muted">
 												{{loggerUser.address}}<br />{{loggerUser.location.locationName}}
 												- {{loggerUser.location.pinCode}} <br />{{loggerUser.location.cityName}}<br />{{loggerUser.location.stateName}}<br />INDIA
 											</p>
-											<hr />
-											<strong ng-if="loggerUser.subjects != null"><i class="fa fa-file-text-o margin-r-5"></i>Teaching
+											<hr sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_STUDENT')"/>
+											
+											<strong sec:authorize="hasRole('ROLE_EMPLOYEE')"><i class="fa fa-file-text-o margin-r-5"></i>Teaching
 												Subject</strong> <br />
-											<br /> <span style="margin-right: 5px;"
-												class="label label-info"
+											<br sec:authorize="hasRole('ROLE_EMPLOYEE')"/> <span style="margin-right: 5px;"
+												class="label label-info" sec:authorize="hasRole('ROLE_EMPLOYEE')"
 												ng-repeat="subject in loggerUser.subjects">&nbsp;{{subject.subjectName}}&nbsp;</span>
+											
+											<strong sec:authorize="hasRole('ROLE_STUDENT')"><i class="fa fa-book margin-r-5"></i> Batch</strong>
+											<p class="text-muted" sec:authorize="hasRole('ROLE_STUDENT')">{{loggerUser.batch.batchName}}</p>
+											
+											<strong sec:authorize="hasRole('ROLE_STUDENT')"><i class="fa fa-book margin-r-5"></i> Course</strong>
+											<p class="text-muted" sec:authorize="hasRole('ROLE_STUDENT')">{{loggerUser.course.courseName}}</p>
 										</div>
 									</div>
 								</div>
