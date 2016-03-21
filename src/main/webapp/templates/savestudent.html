@@ -59,6 +59,10 @@
 							class="btn btn-sm btn-info">
 							<i class="glyphicon glyphicon-backward"></i> Go back
 						</button></li>
+					<li ng-if="student.studentId == null"><button type="button" ng-click="bulkUpload('.bulk-upload')"
+							class="btn btn-sm btn-info">
+							<i class="glyphicon glyphicon-backward"></i> Bulk Upload
+						</button></li>
 				</ol>
 			</section>
 			<section class="content">
@@ -211,6 +215,38 @@
 			<!-- =============================================== -->
 
 		</div>
+		
+		<div class="bulk-upload modal fade" id="uploadmodal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+			>
+			<div class="modal-dialog container">
+				<form class="form-horizontal" id="uploadForm" enctype="multipart/form-data" method="post">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Bulk Upload</h4>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">File</label>
+								<div class="col-sm-10">
+									<input type="file" name="file" id="fileSectionBrowse" />
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">
+								<i class="glyphicon glyphicon-remove"></i> Close
+							</button>
+							<button type="button" class="btn btn-success"
+								id="upload">
+								<i class="glyphicon glyphicon-ok"></i> Save
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 		<footer class="main-footer">

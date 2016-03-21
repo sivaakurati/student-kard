@@ -231,6 +231,19 @@ app.controller('EditCtrl', function($scope, $http) {
 		}
 	};
 	
+	$scope.bulkUpload = function(modalSelector){
+		$(modalSelector).modal();
+		$scope.$broadcast('renderBulk', {});
+	};
+	
+	$scope.$on('renderBulk', function(event){
+		$scope.render();
+	});
+	
+	$scope.render = function(){
+		
+	};
+	
 	$scope.loadLoggerUserDetail();
 	$scope.loadStates();
 	$scope.loadBatchs();
