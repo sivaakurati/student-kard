@@ -2,22 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>Student KARD | Home</title>
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport" />
-<link rel="stylesheet"
-	href="../resources/libs/bootstrap-3.3.2/css/bootstrap.css" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-<link rel="stylesheet"
-	href="../resources/libs/dist/css/AdminLTE.min.css" />
-<link rel="stylesheet"
-	href="../resources/libs/dist/css/skins/_all-skins.min.css" />
+<link th:replace="util/import :: head" />
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -120,16 +106,6 @@
 		<!-- =============================================== -->
 		<!-- =============================================== -->
 	</div>
-	<script type="text/javascript"
-		src="../resources/libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/libs/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/libs/plugins/fastclick/fastclick.min.js"></script>
-	<script type="text/javascript"
-		src="../resources/libs/dist/js/app.min.js"></script>
-	<script type="text/javascript" src="../resources/libs/dist/js/demo.js"></script>
+	<script th:replace="util/import :: scripts"></script>
 </body>
 </html>
