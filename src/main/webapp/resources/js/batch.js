@@ -6,7 +6,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadBatchs = function(){
-		$http.get('/batch').success(function(data){
+		$http.get('/studentkard/batch').success(function(data){
 			$scope.batchs = data;
 		});
 	};
@@ -29,7 +29,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.deleteBatch = function(batch){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + batch.batchName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/batch/' + batch.batchId).success(function() {
+				$http.delete('/studentkard/batch/' + batch.batchId).success(function() {
 					$scope.$emit('loadBatchs');
 				});
 			} else {
@@ -44,7 +44,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 app.controller('EditCtrl', function($scope, $http) {
 	$scope.$on('renderBatch', function(event, batch){
 		$scope.batch = batch;
-		$http.get('/course').success(function(data){
+		$http.get('/studentkard/course').success(function(data){
 			$scope.courses = data;			
 			angular.forEach($scope.courses, function(course) {
 				angular.forEach(batch.courses, function(batchCourse) {
@@ -91,7 +91,7 @@ app.controller('EditCtrl', function($scope, $http) {
 				}
 			}
 		}
-		$http.post('/batch', $scope.batch).success(function(){
+		$http.post('/studentkard/batch', $scope.batch).success(function(){
 			$('#batchmodal').modal('hide');
 			bootbox.alert('Batch name '+$scope.batch.batchName+' saved successfully');
 			$scope.$emit('loadBatchs');

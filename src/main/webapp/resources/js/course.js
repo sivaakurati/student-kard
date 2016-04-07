@@ -6,7 +6,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadCourses = function(){
-		$http.get('/course').success(function(data){
+		$http.get('/studentkard/course').success(function(data){
 			$scope.courses = data;
 		});
 	};
@@ -29,7 +29,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.deleteCourse = function(course){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + course.courseName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/course/' + course.courseId).success(function() {
+				$http.delete('/studentkard/course/' + course.courseId).success(function() {
 					$scope.$emit('loadCourses');
 				});
 			} else {
@@ -44,7 +44,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 app.controller('EditCtrl', function($scope, $http) {
 	$scope.$on('renderCourse', function(event, course){
 		$scope.course = course;
-		$http.get('/subject').success(function(data){
+		$http.get('/studentkard/subject').success(function(data){
 			$scope.subjects = data;			
 			angular.forEach($scope.subjects, function(subject) {
 				angular.forEach(course.subjects, function(courseSubject) {
@@ -92,7 +92,7 @@ app.controller('EditCtrl', function($scope, $http) {
 				}
 			}
 		}
-		$http.post('/course', $scope.course).success(function(){
+		$http.post('/studentkard/course', $scope.course).success(function(){
 			$('#coursemodal').modal('hide');
 			bootbox.alert('Course name '+$scope.course.courseName+' saved successfully');
 			$scope.$emit('loadCourses');

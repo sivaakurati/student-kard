@@ -6,7 +6,7 @@ app.controller('ViewCtrl', function($scope, $http){
 	});
 	
 	$scope.loadAssignments = function(){
-		$http.get('/assignment').success(function(data){
+		$http.get('/studentkard/assignment').success(function(data){
 			$scope.assignments = data;
 		});
 	};
@@ -51,7 +51,7 @@ app.controller('EditCtrl', function($scope, $http){
 	});
 	
 	$scope.loadBatches = function(){
-		$http.get('/batch').success(function(data){
+		$http.get('/studentkard/batch').success(function(data){
 			$scope.batches = data;
 		});
 	};
@@ -74,7 +74,7 @@ app.controller('EditCtrl', function($scope, $http){
 	});
 	
 	$scope.loadLoggerUserDetail = function(){
-		$http.get('/user').success(function(data){
+		$http.get('/studentkard/user').success(function(data){
 			$scope.loggerUser = data;
 		});
 	};
@@ -87,7 +87,7 @@ app.controller('EditCtrl', function($scope, $http){
 		} else {
 			courseId = stringIt($scope.assignment.course.courseId).replace('"', '');
 		}
-		$http.get('/course/' + courseId).success(function(data){
+		$http.get('/studentkard/course/' + courseId).success(function(data){
 			$scope.course = data;
 			$scope.subjects = [];
 			if ($scope.loggerUser != '') {
@@ -132,7 +132,7 @@ app.controller('EditCtrl', function($scope, $http){
 			e.stopPropagation();
 		}*/
 		
-		$http.post('/assignment', $scope.assignment).success(function(){
+		$http.post('/studentkard/assignment', $scope.assignment).success(function(){
 			$scope.$emit('loadAssignments');			
 		});
 	};

@@ -6,9 +6,9 @@ app.controller('ViewCtrl', function($scope, $http){
 	});
 	
 	$scope.loadAssignments = function(){
-		$http.get('/user').success(function(data){
+		$http.get('/studentkard/user').success(function(data){
 			$scope.student = data;
-			$http.get('/assignment/student/' + $scope.student.studentId).success(function(data){
+			$http.get('/studentkard/assignment/student/' + $scope.student.studentId).success(function(data){
 				$scope.assignments = data;
 			});
 		});
@@ -20,7 +20,7 @@ app.controller('ViewCtrl', function($scope, $http){
 			var res = $('#result' + assignment.assignmentId).val();
 			if (res != '') $scope.student.assignmentResults.push({assignment: assignment, result: res});
 		});
-		$http.post('/student/assignment', $scope.student).success(function(){
+		$http.post('/studentkard/student/assignment', $scope.student).success(function(){
 			$scope.loadAssignments();			
 		});
 	};

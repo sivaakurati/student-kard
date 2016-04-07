@@ -60,7 +60,7 @@
 									<div class="box box-primary">
 										<div class="box-body box-profile">
 											<a href="#" title="Change profile picture"><img class="profile-user-img img-responsive img-circle" ng-click="editPhoto('.edit-photo')"
-												src="../profile/{{loggerUser.imgName}}" /></a>
+												src="../studentkard/profile/{{loggerUser.imgName}}" /></a>
 											<h3 class="profile-username text-center" sec:authorize="hasRole('ROLE_EMPLOYEE')">{{loggerUser.teacherName}}</h3>
 											<h3 class="profile-username text-center" sec:authorize="hasRole('ROLE_STUDENT')">{{loggerUser.studentName}}</h3>
 											<h3 class="profile-username text-center" sec:authorize="hasRole('ROLE_PARENT')">{{loggerUser.parentName}}</h3>
@@ -185,7 +185,7 @@
 			$.ajax({
 		 		dataType : 'json',
 			    type: "POST",
-			    url: '/file',
+			    url: '/studentkard/file',
 			    data: fd,			    
 			     enctype: 'multipart/form-data',
 			     processData: false, 

@@ -7,7 +7,7 @@ app.controller('ViewCtrl', function($scope, $http){
 	});
 	
 	$scope.loadCourses = function(){
-		$http.get('/course').success(function(data){
+		$http.get('/studentkard/course').success(function(data){
 			$scope.courses = data;
 		});
 	};
@@ -17,7 +17,7 @@ app.controller('ViewCtrl', function($scope, $http){
 	});
 	
 	$scope.loadTeachers = function(){
-		$http.get('/teacher').success(function(data){
+		$http.get('/studentkard/teacher').success(function(data){
 			$scope.teachers = data;
 		});
 	};
@@ -41,7 +41,7 @@ app.controller('ViewCtrl', function($scope, $http){
 	$scope.events = [];	
 	$scope.loadTimeTrackerEvents = function() {
 		$scope.events = [];
-		$http.get('/timetracker/events').success(function(data){
+		$http.get('/studentkard/timetracker/events').success(function(data){
 			for(var i=0;i<data.length;i++) {
 				$scope.events.push({
 					idx: data[i].idx,
@@ -97,7 +97,7 @@ app.controller('ViewCtrl', function($scope, $http){
 			e.stopPropagation();
 		}
 		
-		$http.post('/timetracker', $scope.timeTracker).success(function(){
+		$http.post('/studentkard/timetracker', $scope.timeTracker).success(function(){
 			$scope.$emit('loadCourses');
 			$scope.$emit('loadTeachers');
 			$scope.$emit('loadTimeTrackerEvents');
