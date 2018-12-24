@@ -6,7 +6,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadLoggerUserDetail = function(){
-		$http.get('/studentkard/user').success(function(data){
+		$http.get('/user').success(function(data){
 			$scope.loggerUser = data;
 			console.log(stringIt($scope.loggerUser));
 		});
@@ -17,7 +17,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadLoggerUser = function(){
-		$http.get('/studentkard/user/logged').success(function(data){
+		$http.get('/user/logged').success(function(data){
 			$scope.user = data;
 			console.log(stringIt($scope.user));
 		});
@@ -32,7 +32,7 @@ app.controller('EditCtrl', function($scope, $http) {
 		}
 		if (newPassword == retypePassword) {
 			$scope.user.password = newPassword;
-			$http.post('/studentkard/user/logged/save', $scope.user).success(function(){
+			$http.post('/user/logged/save', $scope.user).success(function(){
 				$scope.$emit('loadLoggerUserDetail');
 				$scope.$emit('loadLoggerUser');
 			});			

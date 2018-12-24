@@ -10,7 +10,7 @@ app.controller('ViewCtrl', function($scope, $http){
 	});
 	
 	$scope.loadBatches = function(){
-		$http.get('/studentkard/batch').success(function(data){
+		$http.get('/batch').success(function(data){
 			$scope.batches = data;
 		});
 	};
@@ -28,7 +28,7 @@ app.controller('ViewCtrl', function($scope, $http){
 	});
 	
 	$scope.loadLoggerUserDetail = function(){
-		$http.get('/studentkard/user').success(function(data){
+		$http.get('/user').success(function(data){
 			$scope.loggerUser = data;
 		});
 	};
@@ -38,7 +38,7 @@ app.controller('ViewCtrl', function($scope, $http){
 		var batchId = val.substring(0, val.length-1);
 		var val = stringIt($scope.gradetracker.course.courseId).replace('"', '');
 		var courseId = val.substring(0, val.length-1);
-		$http.get('/studentkard/student/batch/' + batchId + '/course/' + courseId).success(function(data){
+		$http.get('/student/batch/' + batchId + '/course/' + courseId).success(function(data){
 			$scope.students = data;
 		});
 	};

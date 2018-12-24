@@ -7,7 +7,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadParents = function(){
-		$http.get('/studentkard/parent').success(function(data){
+		$http.get('/parent').success(function(data){
 			$scope.parents = data;
 		});
 	};
@@ -19,7 +19,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.deleteParent = function(parent){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + parent.parentName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/studentkard/parent/' + parent.parentId).success(function() {
+				$http.delete('/parent/' + parent.parentId).success(function() {
 					$scope.$emit('loadParents');
 				});
 			} else {
@@ -43,7 +43,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadStates = function(){
-		$http.get('/studentkard/states').success(function(data){
+		$http.get('/states').success(function(data){
 			$scope.states = data;
 		});
 	};
@@ -53,7 +53,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadMainParents = function(){
-		$http.get('/studentkard/parent/main').success(function(data){
+		$http.get('/parent/main').success(function(data){
 			$scope.mainparents = data;
 		});
 	};
@@ -113,7 +113,7 @@ app.controller('EditCtrl', function($scope, $http) {
 			bootbox.alert('Please select the valid location!!');
 			e.stopPropagation();
 		}
-		$http.post('/studentkard/parent', $scope.parent).success(function(){
+		$http.post('/parent', $scope.parent).success(function(){
 			window.location.href = '/student';
 		});
 	};
@@ -121,7 +121,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadParentDetailByMainParentId = function() {
 		var val = stringIt($scope.parent.mainParentId).replace('"', '');
 		var mainParentId = val.substring(0, val.length-1);
-		$http.get('/studentkard/parent/' + mainParentId).success(function(data){
+		$http.get('/parent/' + mainParentId).success(function(data){
 			$scope.parent = data;
 			$scope.parent.mainParentId = $scope.parent.parentId;
 			$scope.loadCitiesByState();
@@ -137,7 +137,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadCitiesByState = function() {
 		var val = stringIt($scope.parent.location.stateName).replace('"', '');
 		var stateName = val.substring(0, val.length-1);
-		$http.get('/studentkard/cities/' + stateName).success(function(data){
+		$http.get('/cities/' + stateName).success(function(data){
 			$scope.cities = data;
 		});
 	};
@@ -145,7 +145,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadLocationsByCity = function() {
 		var val = stringIt($scope.parent.location.cityName).replace('"', '');
 		var cityName = val.substring(0, val.length-1);
-		$http.get('/studentkard/locations/' + cityName).success(function(data){
+		$http.get('/locations/' + cityName).success(function(data){
 			$scope.locations = data;
 		});
 	};
@@ -153,7 +153,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadLocationById = function() {
 		var val = stringIt($scope.parent.location.locationId).replace('"', '');
 		var locationId = val.substring(0, val.length-1);
-		$http.get('/studentkard/location/' + locationId).success(function(data){
+		$http.get('/location/' + locationId).success(function(data){
 			$scope.location = data;
 			$('#pinCode').val($scope.location.pinCode);
 		});
@@ -163,14 +163,14 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadLoggerUserDetail = function(){
-		$http.get('/studentkard/user').success(function(data){
+		$http.get('/user').success(function(data){
 			$scope.loggerUser = data;
 		});
 	};
 	
 	$scope.loadParent = function(){
 		if (param != 0) {
-			$http.get('/studentkard/parent/' + param).success(function(data){
+			$http.get('/parent/' + param).success(function(data){
 				$scope.parent = data;
 				if ($scope.parent.mainParentId == null) $scope.parent.mainParentId = '';
 				$scope.loadCitiesByState();

@@ -11,7 +11,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadTeachers = function(){
-		$http.get('/studentkard/teacher').success(function(data){
+		$http.get('/teacher').success(function(data){
 			$scope.teachers = data;
 		});
 	};
@@ -32,7 +32,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.deleteTeacher = function(subject){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + teacher.teacherName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/studentkard/teacher/' + teacher.teacherId).success(function() {
+				$http.delete('/teacher/' + teacher.teacherId).success(function() {
 					$scope.$emit('loadTeachers');
 				});
 			} else {
@@ -56,7 +56,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadStates = function(){
-		$http.get('/studentkard/states').success(function(data){
+		$http.get('/states').success(function(data){
 			$scope.states = data;
 		});
 	};
@@ -71,7 +71,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	
 	$scope.loadTeacher = function(){
 		if (param != 0) {
-			$http.get('/studentkard/teacher/' + param).success(function(data){
+			$http.get('/teacher/' + param).success(function(data){
 				$scope.teacher = data;
 				$scope.teacher.dob = new Date($scope.teacher.dob);
 				$scope.teacher.doj = new Date($scope.teacher.doj);
@@ -96,7 +96,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadSubjects = function(){
-		$http.get('/studentkard/subject').success(function(data){
+		$http.get('/subject').success(function(data){
 			$scope.subjects = data;
 		});
 	};
@@ -106,7 +106,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadDepartments = function(){
-		$http.get('/studentkard/department').success(function(data){
+		$http.get('/department').success(function(data){
 			$scope.departments = data;
 		});
 	};
@@ -116,7 +116,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadCourses = function(){
-		$http.get('/studentkard/course').success(function(data){
+		$http.get('/course').success(function(data){
 			$scope.courses = data;
 		});
 	};
@@ -183,7 +183,7 @@ app.controller('EditCtrl', function($scope, $http) {
 			e.stopPropagation();
 		}
 		
-		$http.post('/studentkard/teacher', $scope.teacher).success(function(){
+		$http.post('/teacher', $scope.teacher).success(function(){
 			window.location.href = '/teacher';
 		});
 	};
@@ -191,7 +191,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadCitiesByState = function() {
 		var val = stringIt($scope.teacher.location.stateName).replace('"', '');
 		var stateName = val.substring(0, val.length-1);
-		$http.get('/studentkard/cities/' + stateName).success(function(data){
+		$http.get('/cities/' + stateName).success(function(data){
 			$scope.cities = data;
 		});
 	};
@@ -199,7 +199,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadLocationsByCity = function() {
 		var val = stringIt($scope.teacher.location.cityName).replace('"', '');
 		var cityName = val.substring(0, val.length-1);
-		$http.get('/studentkard/locations/' + cityName).success(function(data){
+		$http.get('/locations/' + cityName).success(function(data){
 			$scope.locations = data;
 		});
 	};
@@ -207,7 +207,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadLocationById = function() {
 		var val = stringIt($scope.teacher.location.locationId).replace('"', '');
 		var locationId = val.substring(0, val.length-1);
-		$http.get('/studentkard/location/' + locationId).success(function(data){
+		$http.get('/location/' + locationId).success(function(data){
 			$scope.location = data;
 		});
 	};
@@ -216,7 +216,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadLoggerUserDetail = function(){
-		$http.get('/studentkard/user').success(function(data){
+		$http.get('/user').success(function(data){
 			$scope.loggerUser = data;
 		});
 	};
@@ -282,7 +282,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadCitiesByStateName = function() {
 		var stateName = $scope.teacher.location.stateName;
 		if (stateName != '') {
-			$http.get('/studentkard/cities/' + stateName).success(function(data){
+			$http.get('/cities/' + stateName).success(function(data){
 				$scope.cities = data;
 			});
 		}
@@ -295,7 +295,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadLocationsByCityName = function() {
 		var cityName = $scope.teacher.location.cityName;
 		if (cityName != '') {
-			$http.get('/studentkard/locations/' + cityName).success(function(data){
+			$http.get('/locations/' + cityName).success(function(data){
 				$scope.locations = data;
 			});
 		}

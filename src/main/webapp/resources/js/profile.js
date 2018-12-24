@@ -6,7 +6,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadLoggerUserDetail = function(){
-		$http.get('/studentkard/user').success(function(data){
+		$http.get('/user').success(function(data){
 			$scope.loggerUser = data;
 		});
 	};

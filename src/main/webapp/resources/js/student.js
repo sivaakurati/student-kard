@@ -7,7 +7,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadStudents = function(){
-		$http.get('/studentkard/student').success(function(data){
+		$http.get('/student').success(function(data){
 			$scope.students = data;
 		});
 	};
@@ -36,7 +36,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.deleteStudent = function(student){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + student.studentName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/studentkard/student/' + student.studentId).success(function() {
+				$http.delete('/student/' + student.studentId).success(function() {
 					$scope.$emit('loadStudents');
 				});
 			} else {
@@ -56,7 +56,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadStates = function(){
-		$http.get('/studentkard/states').success(function(data){
+		$http.get('/states').success(function(data){
 			$scope.states = data;
 		});
 	};
@@ -70,7 +70,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadBatchs = function(){
-		$http.get('/studentkard/batch').success(function(data){
+		$http.get('/batch').success(function(data){
 			$scope.batches = data;
 		});
 	};
@@ -80,7 +80,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadMainParents = function(){
-		$http.get('/studentkard/parent/main').success(function(data){
+		$http.get('/parent/main').success(function(data){
 			$scope.mainparents = data;
 		});
 	};
@@ -88,7 +88,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadParentDetailByMainParentId = function() {
 		var val = stringIt($scope.student.parent.parentId).replace('"', '');
 		var mainParentId = val.substring(0, val.length-1);
-		$http.get('/studentkard/parent/' + mainParentId).success(function(data){
+		$http.get('/parent/' + mainParentId).success(function(data){
 			$scope.parent = data;
 			$scope.student = [];
 			$scope.student.location = [];
@@ -174,7 +174,7 @@ app.controller('EditCtrl', function($scope, $http) {
 			bootbox.alert('Please enter the valid pincode!!');
 			e.stopPropagation();
 		}
-		$http.post('/studentkard/student', $scope.student).success(function(){
+		$http.post('/student', $scope.student).success(function(){
 			window.location.href = '/student';
 		});
 	};
@@ -182,7 +182,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadCitiesByState = function() {
 		var val = stringIt($scope.student.location.stateName).replace('"', '');
 		var stateName = val.substring(0, val.length-1);
-		$http.get('/studentkard/cities/' + stateName).success(function(data){
+		$http.get('/cities/' + stateName).success(function(data){
 			$scope.cities = data;
 		});
 	};
@@ -190,7 +190,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadLocationsByCity = function() {
 		var val = stringIt($scope.student.location.cityName).replace('"', '');
 		var cityName = val.substring(0, val.length-1);
-		$http.get('/studentkard/locations/' + cityName).success(function(data){
+		$http.get('/locations/' + cityName).success(function(data){
 			$scope.locations = data;
 		});
 	};
@@ -198,7 +198,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	$scope.loadLocationById = function() {
 		var val = stringIt($scope.student.location.locationId).replace('"', '');
 		var locationId = val.substring(0, val.length-1);
-		$http.get('/studentkard/location/' + locationId).success(function(data){
+		$http.get('/location/' + locationId).success(function(data){
 			$scope.location = data;
 		});
 	};
@@ -207,7 +207,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadLoggerUserDetail = function(){
-		$http.get('/studentkard/user').success(function(data){
+		$http.get('/user').success(function(data){
 			$scope.loggerUser = data;
 		});
 	};
@@ -218,7 +218,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	
 	$scope.loadStudent = function(){
 		if (param != 0) {
-			$http.get('/studentkard/student/' + param).success(function(data){
+			$http.get('/student/' + param).success(function(data){
 				$scope.student = data;
 				$scope.student.dob = new Date($scope.student.dob);
 				$scope.student.doj = new Date($scope.student.doj);

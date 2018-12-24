@@ -6,7 +6,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadSubjects = function(){
-		$http.get('/studentkard/subject').success(function(data){
+		$http.get('/subject').success(function(data){
 			$scope.subjects = data;
 		});
 	};
@@ -29,7 +29,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.deleteSubject = function(subject){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + subject.subjectName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/studentkard/subject/' + subject.subjectId).success(function() {
+				$http.delete('/subject/' + subject.subjectId).success(function() {
 					$scope.$emit('loadSubjects');
 				});
 			} else {
@@ -65,7 +65,7 @@ app.controller('EditCtrl', function($scope, $http) {
 				}
 			}
 		}		
-		$http.post('/studentkard/subject', $scope.subject).success(function(){
+		$http.post('/subject', $scope.subject).success(function(){
 			$('#subjectmodal').hide();
 			bootbox.alert('Subject name '+$scope.subject.subjectName+' saved successfully');
 			$scope.$emit('loadSubjects');

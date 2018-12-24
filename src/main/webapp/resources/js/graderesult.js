@@ -6,9 +6,9 @@ app.controller('ViewCtrl', function($scope, $http){
 	});
 	
 	$scope.loadGrades = function(){
-		$http.get('/studentkard/user').success(function(data){
+		$http.get('/user').success(function(data){
 			$scope.student = data;
-			$http.get('/studentkard/grade/student/' + $scope.student.studentId).success(function(data){
+			$http.get('/grade/student/' + $scope.student.studentId).success(function(data){
 				$scope.grades = data;
 			});
 		});

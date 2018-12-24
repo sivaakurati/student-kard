@@ -11,7 +11,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Student KARD</name>
 	<description>Student KARD Framework</description>
-	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>

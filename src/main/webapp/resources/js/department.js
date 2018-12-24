@@ -6,7 +6,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	});
 	
 	$scope.loadDepartments = function(){
-		$http.get('/studentkard/department').success(function(data){
+		$http.get('/department').success(function(data){
 			$scope.departments = data;
 		});
 	};
@@ -24,7 +24,7 @@ app.controller('ViewCtrl', function($scope, $http) {
 	$scope.deleteDepartment = function(department){
 		bootbox.confirm('Are you sure you want to delete <span style=\"font-style:italic\">' + department.departmentName + '</span>', function(result) {
 			if(result == true) {
-				$http.delete('/studentkard/department/' + department.subjectId).success(function() {
+				$http.delete('/department/' + department.subjectId).success(function() {
 					$scope.$emit('loadDepartments');
 				});
 			} else {
@@ -46,7 +46,7 @@ app.controller('EditCtrl', function($scope, $http) {
 	};
 	
 	$scope.saveDepartment = function(){
-		$http.post('/studentkard/department', $scope.department).success(function(){
+		$http.post('/department', $scope.department).success(function(){
 			$('#departmentmodal').hide();
 			$scope.$emit('loadDepartments');
 		});
